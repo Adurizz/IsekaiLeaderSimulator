@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7e7955a43ef024052bf53f4a918113e5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116535
+  packageName: J Tween
+  packageVersion: 2.0.0
+  assetPath: Assets/Jun_Tools/Jun_TweenTools/Resources/TweenSkin.guiskin
+  uploadId: 487919

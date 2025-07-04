@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 7cd51dabf0e884cfeb39230815840134
+timeCreated: 1521452698
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 116535
+  packageName: J Tween
+  packageVersion: 2.0.0
+  assetPath: Assets/Jun_Tools/Jun_TweenTools/Scripts/BezierCurve/BezierTest.cs
+  uploadId: 487919
