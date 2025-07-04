@@ -5,4 +5,5 @@ public static class GlobalValueHolder
     public readonly static int lobbySceneIndex = 1;
     public readonly static int ingameSceneIndex = 2;
     #endregion
+    public readonly static int maxStageNum = 5;
 }
