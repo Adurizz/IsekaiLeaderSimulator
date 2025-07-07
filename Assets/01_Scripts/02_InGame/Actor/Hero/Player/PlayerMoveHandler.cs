@@ -1,23 +1,44 @@
+using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class PlayerMoveTest : MonoBehaviour
+public class PlayerMoveHandler : MonoBehaviour
 {
-    public FloatingJoystick joy;
-    public float speed;
+    [SerializeField] private FloatingJoystick joy;
+    [SerializeField] private float speed;
 
-    Rigidbody rigid;
-    Animator anim;
-    Vector3 moveVec;
+    private Rigidbody rigid;
+    private Animator anim;
+    private Vector3 moveVec;
+    private Player playerScript;
+
+    [SerializeField] private bool isStatInitiated = false;
 
     void Awake()
     {
+        playerScript = GetComponent<Player>();
+
+        playerScript.onStatInitiated.RemoveListener(CheckPlayerStatInitiated);
+        playerScript.onStatInitiated.AddListener(CheckPlayerStatInitiated);
         rigid = GetComponent<Rigidbody>();
         //anim = GetComponent<Animator>();
     }
 
+    private void CheckPlayerStatInitiated()
+    {
+        isStatInitiated = true;
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitUntil(() => isStatInitiated);
+    }
+
     void FixedUpdate()
     {
+        if (!isStatInitiated)
+            return;
+
         // 1. Input Value
         float x = joy.Horizontal;
         float z = joy.Vertical;
