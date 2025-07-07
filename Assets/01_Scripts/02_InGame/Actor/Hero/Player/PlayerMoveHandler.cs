@@ -13,6 +13,8 @@ public class PlayerMoveHandler : MonoBehaviour
     private Player playerScript;
 
     [SerializeField] private bool isStatInitiated = false;
+    private PlayerAttackHandler attackHandler;
+    private GameObject target;
 
     void Awake()
     {
@@ -21,6 +23,7 @@ public class PlayerMoveHandler : MonoBehaviour
         playerScript.onStatInitiated.RemoveListener(CheckPlayerStatInitiated);
         playerScript.onStatInitiated.AddListener(CheckPlayerStatInitiated);
         rigid = GetComponent<Rigidbody>();
+        attackHandler = GetComponent<PlayerAttackHandler>();
         //anim = GetComponent<Animator>();
     }
 
@@ -39,21 +42,40 @@ public class PlayerMoveHandler : MonoBehaviour
         if (!isStatInitiated)
             return;
 
-        // 1. Input Value
+        Move();
+        Rotate();
+    }
+
+    private void Move()
+    {
+        // 조이스틱에서 input 받아옴
         float x = joy.Horizontal;
         float z = joy.Vertical;
 
-        // 2. Move Position 
+        // 이동
         moveVec = new Vector3(x, 0, z) * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + moveVec);
+    }
 
+    private void Rotate()
+    {
+        // 입력이 없을 때 회전 X
         if (moveVec.sqrMagnitude == 0)
-            return; // #. No input = No Rotation
+            return;
 
-        // 3. Move Rotation
-        Quaternion dirQuat = Quaternion.LookRotation(moveVec);
-        Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.3f);
-        rigid.MoveRotation(moveQuat);
+        if (target == null)
+        {
+            // 회전
+            Quaternion dirQuat = Quaternion.LookRotation(moveVec);
+            Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.3f);
+            rigid.MoveRotation(moveQuat);
+        }
+        else
+        {
+            Quaternion dirQuat = Quaternion.LookRotation(target.transform.position - transform.position);
+            Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.3f);
+            rigid.MoveRotation(moveQuat);
+        }
     }
 
     void LateUpdate()
@@ -61,4 +83,8 @@ public class PlayerMoveHandler : MonoBehaviour
         //anim.SetFloat("Move", moveVec.sqrMagnitude);
     }
 
+    public void SetTarget(GameObject obj)
+    {
+        target = obj;
+    }
 }
