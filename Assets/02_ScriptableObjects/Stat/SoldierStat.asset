@@ -17,4 +17,4 @@ MonoBehaviour:
   attackSpeed: 0
   attackDistance: 0
   attackRange: 0
-  moveSpeed: 0.5
+  moveSpeed: 3

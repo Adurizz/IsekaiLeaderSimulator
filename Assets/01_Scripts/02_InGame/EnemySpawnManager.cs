@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -29,6 +30,7 @@ public struct SpawnAttribute
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+    [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] private List<GameObject> curStageEnemies;
     [SerializeField] private List<int> curStageEnemySpawnProbability;
     [SerializeField] private int phase = 0;
@@ -49,6 +51,7 @@ public class EnemySpawnManager : MonoBehaviour
     private const float limitZ = 250f;
     private const int enemyPoolNum = 1000;
     private Queue<GameObject> enemyPoolQueue = new();
+    private ExpeditionTimeChecker timeChecker;
 
     #region 스폰 관련 데이터
     [Header("스폰 관련 데이터")]
@@ -56,6 +59,17 @@ public class EnemySpawnManager : MonoBehaviour
     private Dictionary<int, List<SpawnEnemyInfo>> stageSpawnEnemyDict = new();
     private Dictionary<int, List<SpawnAttribute>> stageSpawnAttributeDict = new();
     #endregion
+
+    private void Awake()
+    {
+        timeChecker = FindAnyObjectByType<ExpeditionTimeChecker>();
+    }
+
+    private void Start()
+    {
+        timeChecker.informNewPhase.RemoveListener(AdjustPhase);
+        timeChecker.informNewPhase.AddListener(AdjustPhase);
+    }
 
     #region 스폰 관련 데이터 세팅
     public void InitStageSpawnInfoDict()
@@ -110,6 +124,12 @@ public class EnemySpawnManager : MonoBehaviour
     {
         spawnNumAtOnce = curStageSpawnAttribute[phaseNum].spawnNumAtOnce;
         spawnInterval = curStageSpawnAttribute[phaseNum].spawnInterval;
+        phaseText.text = "Phase: " + (Phase + 1);
+    }
+
+    private void AdjustPhase(int phaseNum)
+    {
+        Phase = phaseNum - 1;
     }
     #endregion
 
