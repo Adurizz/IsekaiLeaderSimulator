@@ -18,7 +18,7 @@ MonoBehaviour:
   attackDistance: 0
   attackRange: 0
   moveSpeed: 0
-  gold: 0
+  gold: 23
   maxHealthUpgradeLevel: 0
   attackUpgradeLevel: 0
   attackSpeedUpgradeLevel: 0

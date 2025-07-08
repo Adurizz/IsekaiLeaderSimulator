@@ -15,7 +15,7 @@ public class StageInfo : ScriptableObject
     public void MinusCurStageNum()
     {
         if (curStageNum > 1)
-        curStageNum -= 1;
+            curStageNum -= 1;
     }
 
     public int GetCurStage()
@@ -23,11 +23,20 @@ public class StageInfo : ScriptableObject
         return curStageNum;
     }
 
+    public int GetMaxOpenedStageNum()
+    {
+        return maxOpenedStageNum;
+    }
+
     public void AddMaxOpenedStageNum()
     {
         if (maxOpenedStageNum >= GlobalValueHolder.maxStageNum)
             return;
 
-        maxOpenedStageNum++;
+        if (curStageNum == maxOpenedStageNum)
+        {
+            curStageNum++;
+            maxOpenedStageNum++;
+        }
     }
 }

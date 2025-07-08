@@ -8,15 +8,16 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] private ELobbyType lobbyType;
 
     [SerializeField] private StageInfo stageInfo;
-
+    [Header("UI 그룹")]
     [SerializeField] private GameObject expeditionUIGroup;
     [SerializeField] private GameObject trainingUIGroup;
     [SerializeField] private GameObject shopUIGroup;
     [SerializeField] private GameObject missionUIGroup;
-
+    [Header("탐사 지역 선택 관련 버튼")]
     [SerializeField] private GameObject formerRegionButton;
     [SerializeField] private GameObject nextRegionButton;
-
+    [SerializeField] private Button selectRegionButton;
+    [Space(10)]
     [SerializeField] private Scrollbar regionSelectionScrollbar;
 
     private Coroutine regionSelectionUIRefreshCor;
@@ -97,6 +98,13 @@ public class LobbyManager : MonoBehaviour
             formerRegionButton.SetActive(true);
             nextRegionButton.SetActive(true);
         }
+        #endregion
+
+        #region 닫힌 지역 탐사 비활성 로직
+        if (stageInfo.GetCurStage() > stageInfo.GetMaxOpenedStageNum())
+            selectRegionButton.interactable = false;
+        else
+            selectRegionButton.interactable = true;
         #endregion
     }
 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f902ed90026254da7f21d9ecc0f042, type: 3}
   m_Name: StageInfo
   m_EditorClassIdentifier: 
-  curStageNum: 1
-  maxOpenedStageNum: 1
+  curStageNum: 2
+  maxOpenedStageNum: 2
