@@ -4,38 +4,75 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ProjectileController : MonoBehaviour
 {
-    [SerializeField] private Transform ownerTransform;
-    private Rigidbody rb;
-    [SerializeField] private float projectileSpeed;
-    [SerializeField] private Vector3 fireOffset;
+    [SerializeField] protected Transform ownerTransform;
+    protected Rigidbody rb;
+    [SerializeField] protected float projectileSpeed;
+    [SerializeField] protected Vector3 fireOffset;
+    [SerializeField] protected float damage;
+    [SerializeField] protected bool isTargeted;
+    [SerializeField] protected Transform targetTransform;
+    private Vector3 moveVec;
 
-    private void Awake()
+
+    protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    private IEnumerator Start()
+    protected IEnumerator Start()
     {
         yield return new WaitUntil(() => ownerTransform != null);
 
         SetInitPosition();
-        SetMoveDirection();
+        SetDamage();
+
+        if (!isTargeted)
+            SetMoveDirection();
     }
 
-    private void SetInitPosition()
+    private void FixedUpdate()
+    {
+        if (isTargeted)
+            MakeTargetedMove();
+    }
+
+    protected void SetInitPosition()
     {
         transform.localRotation = ownerTransform.rotation;
 
         transform.localPosition = ownerTransform.position;
     }
 
-    private void SetMoveDirection()
+    protected void SetMoveDirection()
     {
         rb.linearVelocity = ownerTransform.forward * projectileSpeed;
+    }
+
+    protected void MakeTargetedMove()
+    {
+        if (targetTransform == null)
+            return;
+
+        moveVec = Vector3.Normalize(targetTransform.position - transform.position) * projectileSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(rb.position + moveVec);
+
+        Quaternion dirQuat = Quaternion.LookRotation(moveVec);
+        Quaternion moveQuat = Quaternion.Slerp(rb.rotation, dirQuat, 0.3f);
+        rb.MoveRotation(moveQuat);
+    }
+
+    protected void SetDamage()
+    {
+        damage = ownerTransform.GetComponent<Actor>().GetAttackStat();
     }
 
     public void SetOwnerTransform(Transform newOwnerTransform)
     {
         ownerTransform = newOwnerTransform;
+    }
+
+    public void SetTargetTransform(Transform newTargetTransform)
+    {
+        targetTransform = newTargetTransform;
     }
 }

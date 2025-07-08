@@ -1,0 +1,216 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+[Serializable]
+public struct StageSpawnInfo
+{
+    public int stageNum;
+    public List<SpawnEnemyInfo> stageEnemies;
+    public List<SpawnAttribute> spawnAttributes;
+}
+
+[Serializable]
+public struct SpawnEnemyInfo
+{
+    public GameObject enemyPrefab;
+    public int probability;
+}
+
+[Serializable]
+public struct SpawnAttribute
+{
+    public int spawnNumAtOnce;
+    public float spawnInterval;
+}
+
+public class EnemySpawnManager : MonoBehaviour
+{
+    [SerializeField] private GameObject player;
+    [SerializeField] private List<GameObject> curStageEnemies;
+    [SerializeField] private List<int> curStageEnemySpawnProbability;
+    [SerializeField] private int phase = 0;
+    public int Phase
+    {
+        get { return phase; }
+        set
+        {
+            phase = value;
+            SetStageSpawnInfo(phase);
+        }
+    }
+    [SerializeField] private List<SpawnAttribute> curStageSpawnAttribute;
+    [SerializeField] private int spawnNumAtOnce;
+    [SerializeField] private float spawnInterval;
+
+    private const float limitX = 250f;
+    private const float limitZ = 250f;
+    private const int enemyPoolNum = 1000;
+    private Queue<GameObject> enemyPoolQueue = new();
+
+    #region 스폰 관련 데이터
+    [Header("스폰 관련 데이터")]
+    [SerializeField] private List<StageSpawnInfo> stageEnemyInfoList;
+    private Dictionary<int, List<SpawnEnemyInfo>> stageSpawnEnemyDict = new();
+    private Dictionary<int, List<SpawnAttribute>> stageSpawnAttributeDict = new();
+    #endregion
+
+    #region 스폰 관련 데이터 세팅
+    public void InitStageSpawnInfoDict()
+    {
+        foreach (StageSpawnInfo info in stageEnemyInfoList)
+        {
+            stageSpawnEnemyDict[info.stageNum] = info.stageEnemies;
+            stageSpawnAttributeDict[info.stageNum] = info.spawnAttributes;
+        }
+    }
+
+    private List<SpawnEnemyInfo> GetStageSpawnInfo(int stageNum)
+    {
+        return stageSpawnEnemyDict[stageNum];
+    }
+
+    private List<SpawnAttribute> GetStageSpawnAttribute(int stageNum)
+    {
+        return stageSpawnAttributeDict[stageNum];
+    }
+
+    /// <summary>
+    /// 이번 스테이지에 스폰될 적들과 출현 확률 세팅
+    /// </summary>
+    /// <param name="curStageNum"></param>
+    public void SetStageSpawnEnemy(int curStageNum)
+    {
+        List<SpawnEnemyInfo> curStageEnemyInfo = GetStageSpawnInfo(curStageNum);
+
+        foreach (var enemyInfo in curStageEnemyInfo)
+        {
+            curStageEnemies.Add(enemyInfo.enemyPrefab);
+            curStageEnemySpawnProbability.Add(enemyInfo.probability);
+        }
+    }
+
+    /// <summary>
+    /// 이번 스테이지 스폰 정보(간격, 수) 세팅
+    /// </summary>
+    /// <param name="curStageNum"></param>
+    public void InitStageSpawnInfo(int curStageNum)
+    {
+        curStageSpawnAttribute = GetStageSpawnAttribute(curStageNum);
+        SetStageSpawnInfo(phase);
+    }
+
+    /// <summary>
+    /// 이번 스테이지에서 페이지 변화에 따른 스폰 정보 변화 반영 로직
+    /// </summary>
+    /// <param name="phaseNum"></param>
+    public void SetStageSpawnInfo(int phaseNum)
+    {
+        spawnNumAtOnce = curStageSpawnAttribute[phaseNum].spawnNumAtOnce;
+        spawnInterval = curStageSpawnAttribute[phaseNum].spawnInterval;
+    }
+    #endregion
+
+    private GameObject PickRandomEnemy()
+    {
+        int totalWeight = 0;
+
+        foreach (int weight in curStageEnemySpawnProbability)
+        {
+            totalWeight += weight;
+        }
+
+        int randomVal = UnityEngine.Random.Range(0, totalWeight);
+
+        int criteria = 0;
+
+        for (int i = 0; i < curStageEnemySpawnProbability.Count; ++i)
+        {
+            criteria += curStageEnemySpawnProbability[i];
+            if (randomVal < criteria)
+            {
+                return curStageEnemies[i];
+
+            }
+        }
+
+        return null;
+    }
+
+    public void CreateEnemyPool()
+    {
+        GameObject enemyPoolGO = new GameObject("EnemyPool");
+        enemyPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPool).transform);
+        
+        for (int i = 0; i < enemyPoolNum; ++i)
+        {
+            GameObject temp = Instantiate(PickRandomEnemy(), enemyPoolGO.transform);
+            temp.SetActive(false);
+            enemyPoolQueue.Enqueue(temp);
+        }
+        Debug.Log(enemyPoolQueue.Count);
+    }
+    
+    public IEnumerator SpawnEnemyWithInterval()
+    {
+        float time = 0;
+        while (true)
+        {
+            time += Time.deltaTime;
+            if (time > spawnInterval)
+            {
+                SpawnMultipleEnemyAtOnce();
+                time = 0;
+            }
+            yield return null;
+        }
+    }
+
+    private void SpawnMultipleEnemyAtOnce()
+    {
+        for (int i = 0; i < spawnNumAtOnce; ++i)
+        {
+            if (enemyPoolQueue.Count <= 0)
+                return;
+            GameObject temp = enemyPoolQueue.Dequeue();
+            temp.transform.position = SetSpawnPosition();
+            temp.SetActive(true);
+        }
+    }
+
+    public void EnqueueEnemyOnDead(GameObject enemy)
+    {
+        enemyPoolQueue.Enqueue(enemy);
+    }
+
+    private Vector3 SetSpawnPosition()
+    {
+        Vector3 playerPos = player.transform.position;
+        Vector3 spawnPos = Vector3.zero;
+        int maxTry = 10;
+
+        for (int i = 0; i < maxTry; ++i)
+        {
+            // 360도 랜덤 방향
+            float angle = UnityEngine.Random.Range(0f, 360f);
+            Vector3 dir = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad));
+            float spawnDistance = UnityEngine.Random.Range(80f, 90f);
+
+            // 후보 위치 계산
+            spawnPos = playerPos + dir * spawnDistance + new Vector3(0, 1, 0);
+            spawnPos.y = 1f; // y값 고정
+
+            // x, z 범위 체크
+            if (spawnPos.x >= -limitX && spawnPos.x <= limitX &&
+                spawnPos.z >= -limitZ && spawnPos.z <= limitZ)
+            {
+                return spawnPos;
+            }
+        }
+
+        // 100번 시도해도 못 찾으면 기본 위치 반환
+        return new Vector3(0, 1, -10);
+    }
+}

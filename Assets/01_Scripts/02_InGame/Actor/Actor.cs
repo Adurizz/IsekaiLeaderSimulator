@@ -27,7 +27,12 @@ public abstract class Actor : MonoBehaviour
         isDead = false;
     }
 
-    protected virtual void GetDamage(float damage)
+    public float GetAttackStat()
+    {
+        return attack;
+    }
+
+    public virtual void GetDamage(float damage)
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
@@ -38,7 +43,7 @@ public abstract class Actor : MonoBehaviour
         }
     }
 
-    protected virtual void GetHealed(float healAmount)
+    public virtual void GetHealed(float healAmount)
     {
         if (isDead)
             return;
@@ -46,7 +51,7 @@ public abstract class Actor : MonoBehaviour
         curHealth = Mathf.Clamp(curHealth + healAmount, 0, maxHealth);
     }
 
-    protected virtual void OnDead()
+    public virtual void OnDead()
     {
 
     }

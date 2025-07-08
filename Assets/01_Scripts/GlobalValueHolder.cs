@@ -7,4 +7,5 @@ public static class GlobalValueHolder
     #endregion
     public readonly static int maxStageNum = 5;
     public readonly static int maxCompanionLevel = 5;
+    public readonly static string objectPool = "ObjectPool";
 }

@@ -133,6 +133,7 @@ public class PlayerAttackHandler : MonoBehaviour
         GameObject arrow = Instantiate(arrowPrefab);
         // Debug.Log(transform.position);
         arrow.GetComponent<ProjectileController>().SetOwnerTransform(transform);
+        arrow.GetComponent<ProjectileController>().SetTargetTransform(target.transform);
     }
     #endregion
 }

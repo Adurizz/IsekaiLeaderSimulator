@@ -3,12 +3,14 @@ using UnityEngine;
 public abstract class Enemy : Actor
 {
     [SerializeField] private Transform target;
+    private EnemySpawnManager spawnManager;
     private Rigidbody rb;
     private Vector3 moveVec;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        spawnManager = FindAnyObjectByType<EnemySpawnManager>();
         SetTarget();
     }
 
@@ -36,6 +38,12 @@ public abstract class Enemy : Actor
     }
 
     protected abstract void Attack();
+
+    public override void OnDead()
+    {
+        spawnManager.EnqueueEnemyOnDead(gameObject);
+        gameObject.SetActive(false);
+    }
 
     protected virtual void DropItem()
     {
