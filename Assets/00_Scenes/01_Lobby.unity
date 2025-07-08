@@ -1503,6 +1503,7 @@ MonoBehaviour:
   missionUIGroup: {fileID: 1430171108}
   formerRegionButton: {fileID: 2094569245}
   nextRegionButton: {fileID: 1251417905}
+  selectRegionButton: {fileID: 366458916}
   regionSelectionScrollbar: {fileID: 370083023}
 --- !u!4 &526049180
 Transform:
