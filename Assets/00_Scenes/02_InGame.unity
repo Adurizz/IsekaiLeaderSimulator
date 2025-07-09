@@ -737,6 +737,8 @@ Transform:
   - {fileID: 924679921}
   - {fileID: 630310806}
   - {fileID: 1723175030}
+  - {fileID: 1814873422}
+  - {fileID: 1378861853}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &470735904
@@ -1344,6 +1346,7 @@ MonoBehaviour:
   stageInfo: {fileID: 11400000, guid: ee8ed9ae431cc05499d9b48b449d1a5e, type: 2}
   stageManager: {fileID: 1162287458}
   enemySpawnManager: {fileID: 924679922}
+  campSpawnManager: {fileID: 1814873423}
 --- !u!1 &924679920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,6 +2144,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+--- !u!1 &1378861852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1378861853}
+  - component: {fileID: 1378861854}
+  m_Layer: 0
+  m_Name: SpawnObjPlacementManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1378861853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378861852}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 390480959}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1378861854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378861852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f93563da655dfc4586908cbce971c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1443273175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,6 +2531,52 @@ MonoBehaviour:
   curReward: 0
   expeditionResultText: {fileID: 1040950605}
   earnedGoldText: {fileID: 628106273}
+--- !u!1 &1814873421
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1814873422}
+  - component: {fileID: 1814873423}
+  m_Layer: 0
+  m_Name: CampSpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1814873422
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814873421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 390480959}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1814873423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814873421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77abc9e2bddbcd49aa82d107305602f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseCampPrefab: {fileID: 7732773163647949981, guid: 2aa86cab5af3d844a9aa9ce03a4ad953, type: 3}
+  trainingCampPrefab: {fileID: 459204610450136974, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
 --- !u!1 &1835607559
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,6 +2809,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 980062191606762701, guid: 269e4cd3e743ab34c88ba13ecbbea27d, type: 3}
+      propertyPath: m_Name
+      value: PlayerDetector
+      objectReference: {fileID: 0}
     - target: {fileID: 4431699152088648558, guid: 269e4cd3e743ab34c88ba13ecbbea27d, type: 3}
       propertyPath: m_Name
       value: Map 1

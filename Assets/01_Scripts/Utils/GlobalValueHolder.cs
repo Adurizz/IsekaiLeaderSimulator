@@ -8,4 +8,18 @@ public static class GlobalValueHolder
     public readonly static int maxStageNum = 5;
     public readonly static int maxCompanionLevel = 5;
     public readonly static string objectPool = "ObjectPool";
+    #region MapMakingValues
+    /// <summary>
+    /// -245
+    /// </summary>
+    public readonly static int minMapIdx = -245;
+    /// <summary>
+    /// 245
+    /// </summary>
+    public readonly static int maxMapIdx = 245;
+    /// <summary>
+    /// 291
+    /// </summary>
+    public readonly static int mapSize = minMapIdx + maxMapIdx + 1;
+    #endregion
 }

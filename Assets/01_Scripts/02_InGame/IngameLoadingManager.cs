@@ -5,6 +5,7 @@ public class IngameLoadingManager : MonoBehaviour
     [SerializeField] private StageInfo stageInfo;
     [SerializeField] private StageManager stageManager;
     [SerializeField] private EnemySpawnManager enemySpawnManager;
+    [SerializeField] private CampSpawnManager campSpawnManager;
 
     private void Start()
     {
