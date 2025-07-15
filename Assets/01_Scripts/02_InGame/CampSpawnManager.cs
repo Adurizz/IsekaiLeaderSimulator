@@ -3,19 +3,20 @@ using UnityEngine;
 
 public class CampSpawnManager : MonoBehaviour
 {
+    [SerializeField] private SpawnObjPlacementManager objectPlacementManager;
     [SerializeField] private GameObject baseCampPrefab;
+    private const int baseCampSize = 10;
     [SerializeField] private GameObject trainingCampPrefab;
+    private const int trainingCampSize = 8;
+
 
     public void SpawnTrainingCamp()
     {
-
+        objectPlacementManager.SpawnObject(trainingCampPrefab, trainingCampSize);
     }
 
-    Tuple<int, int> GetRandomSpawnPoint()
+    public void SpawnBaseCamp()
     {
-        int x = UnityEngine.Random.Range(GlobalValueHolder.minMapIdx, GlobalValueHolder.maxMapIdx);
-        int z = UnityEngine.Random.Range(GlobalValueHolder.minMapIdx, GlobalValueHolder.maxMapIdx);
-
-        return new Tuple<int, int>(x, z);
+        objectPlacementManager.SpawnObject(baseCampPrefab, 0, 8, baseCampSize);
     }
 }

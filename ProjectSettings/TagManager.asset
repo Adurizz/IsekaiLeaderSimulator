@@ -8,6 +8,8 @@ TagManager:
   - Company
   - HeroBullet
   - EnemyBullet
+  - MapPrefab
+  - Ground
   layers:
   - Default
   - TransparentFX

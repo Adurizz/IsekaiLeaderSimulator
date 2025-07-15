@@ -18,8 +18,8 @@ public static class GlobalValueHolder
     /// </summary>
     public readonly static int maxMapIdx = 245;
     /// <summary>
-    /// 291
+    /// 491
     /// </summary>
-    public readonly static int mapSize = minMapIdx + maxMapIdx + 1;
+    public readonly static int mapSize = maxMapIdx * 2 + 1;
     #endregion
 }
