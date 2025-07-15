@@ -161,7 +161,7 @@ public class EnemySpawnManager : MonoBehaviour
     public void CreateEnemyPool()
     {
         GameObject enemyPoolGO = new GameObject("EnemyPool");
-        enemyPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPool).transform);
+        enemyPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
         
         for (int i = 0; i < enemyPoolNum; ++i)
         {

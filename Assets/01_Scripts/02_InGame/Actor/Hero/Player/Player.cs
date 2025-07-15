@@ -38,4 +38,18 @@ public class Player : Hero
     {
         playerStat.EarnGold(amount);
     }
+
+    public bool ConsumeGold(int amount)
+    {
+        return playerStat.ConsumeGold(amount);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            collision.gameObject.GetComponent<Item>().OnAcquired();
+            collision.gameObject.SetActive(false);
+        }
+    }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class IngameLoadingManager : MonoBehaviour
 {
+    public bool Test;
     [SerializeField] private StageInfo stageInfo;
     [SerializeField] private StageManager stageManager;
     [SerializeField] private EnemySpawnManager enemySpawnManager;
@@ -16,8 +17,12 @@ public class IngameLoadingManager : MonoBehaviour
 
     private void LoadStageElementsSequencially()
     {
-        LoadMap();
-        LoadCamps();
+        if (!Test)
+        {
+            LoadMap();
+            LoadCamps();
+        }
+        
         BakeNavMeshSurface();
         LoadPlayer();
         LoadEnemies();
@@ -43,6 +48,7 @@ public class IngameLoadingManager : MonoBehaviour
     private void LoadPlayer()
     {
         player.SetActive(true);
+        player.GetComponent<PlayerAttackHandler>().CreateArrowPool();
     }
 
     private void LoadEnemies()

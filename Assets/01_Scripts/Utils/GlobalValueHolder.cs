@@ -7,7 +7,7 @@ public static class GlobalValueHolder
     #endregion
     public readonly static int maxStageNum = 5;
     public readonly static int maxCompanionLevel = 5;
-    public readonly static string objectPool = "ObjectPool";
+    public readonly static string objectPoolName = "ObjectPool";
     #region MapMakingValues
     /// <summary>
     /// -245
@@ -22,4 +22,5 @@ public static class GlobalValueHolder
     /// </summary>
     public readonly static int mapSize = maxMapIdx * 2 + 1;
     #endregion
+    public readonly static int companionCost = 500;
 }

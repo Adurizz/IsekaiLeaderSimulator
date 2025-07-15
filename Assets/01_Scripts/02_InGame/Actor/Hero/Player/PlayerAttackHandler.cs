@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttackHandler : MonoBehaviour
@@ -29,6 +30,8 @@ public class PlayerAttackHandler : MonoBehaviour
     [SerializeField] private float curDetectionCool;
     [SerializeField] private float enemyDetectionCool;
     private PlayerMoveHandler moveHandler;
+    private const int arrowPoolNum = 20;
+    private Queue<GameObject> arrowPoolQueue = new();
 
     private void Awake()
     {
@@ -63,6 +66,24 @@ public class PlayerAttackHandler : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, searchRadius);
     }
     #endif
+
+    public void CreateArrowPool()
+    {
+        GameObject arrowPoolGO = new GameObject("ArrowPool");
+        arrowPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
+
+        for (int i = 0; i < arrowPoolNum; ++i)
+        {
+            GameObject temp = Instantiate(arrowPrefab, arrowPoolGO.transform);
+            temp.SetActive(false);
+            arrowPoolQueue.Enqueue(temp);
+        }
+    }
+
+    public void EnqueueArrowOnDisable(GameObject arrow)
+    {
+        arrowPoolQueue.Enqueue(arrow);
+    }
 
     #region Àû Å½Áö ÆÄÆ®
     private void FindNearestEnemyWithCoolTime()
@@ -130,7 +151,11 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void FireArrow()
     {
-        GameObject arrow = Instantiate(arrowPrefab);
+        if (arrowPoolQueue.Count <= 0)
+            return;
+
+        GameObject arrow = arrowPoolQueue.Dequeue();
+        arrow.SetActive(true);
         // Debug.Log(transform.position);
         arrow.GetComponent<ProjectileController>().SetOwnerTransform(transform);
         arrow.GetComponent<ProjectileController>().SetTargetTransform(target.transform);

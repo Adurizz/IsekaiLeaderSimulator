@@ -10,6 +10,7 @@ TagManager:
   - EnemyBullet
   - MapPrefab
   - Ground
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - HeroBullet
   - Enemy
   - EnemyBullet
-  - 
+  - Item
   - 
   - 
   - 

@@ -19,7 +19,7 @@ public class SpawnObjPlacementManager : MonoBehaviour
 
         GameObject spawnedObj = Instantiate(objectPrefab);
         spawnedObj.transform.SetParent(GameObject.FindWithTag("MapPrefab").transform);
-        spawnedObj.transform.localPosition = new Vector3(xPos, 0, zPos);
+        spawnedObj.transform.localPosition = new Vector3(xPos, spawnedObj.transform.position.y, zPos);
         RegisterItem(xPos, zPos, size);
     }
 
@@ -53,8 +53,6 @@ public class SpawnObjPlacementManager : MonoBehaviour
     {
         int xIndex = x - GlobalValueHolder.minMapIdx;
         int zIndex = z - GlobalValueHolder.minMapIdx;
-        Debug.Log(xIndex);
-        Debug.Log(zIndex);
 
         for (int i = 0; i < size; ++i)
         {
@@ -91,6 +89,22 @@ public class SpawnObjPlacementManager : MonoBehaviour
                 int nx = xIndex + i;
                 int nz = zIndex + j;
                 occupied[nx, nz] = true;
+            }
+        }
+    }
+
+    private void UnregisterItem(int x, int z, int size)
+    {
+        int xIndex = x - GlobalValueHolder.minMapIdx;
+        int zIndex = z - GlobalValueHolder.minMapIdx;
+
+        for (int i = 0; i < size; ++i)
+        {
+            for (int j = 0; j < size; ++j)
+            {
+                int nx = xIndex + i;
+                int nz = zIndex + j;
+                occupied[nx, nz] = false;
             }
         }
     }

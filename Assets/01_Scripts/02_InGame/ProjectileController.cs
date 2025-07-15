@@ -14,9 +14,15 @@ public class ProjectileController : MonoBehaviour
     private Vector3 moveVec;
 
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
+        if (ownerTransform != null)
+            SetInitPosition();
     }
 
     protected IEnumerator Start()
