@@ -93,7 +93,7 @@ public class SpawnObjPlacementManager : MonoBehaviour
         }
     }
 
-    private void UnregisterItem(int x, int z, int size)
+    public void UnregisterItem(int x, int z, int size)
     {
         int xIndex = x - GlobalValueHolder.minMapIdx;
         int zIndex = z - GlobalValueHolder.minMapIdx;

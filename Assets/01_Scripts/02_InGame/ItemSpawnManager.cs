@@ -9,7 +9,7 @@ public class ItemSpawnManager : MonoBehaviour
     [SerializeField] private SpawnObjPlacementManager objectPlacementManager;
 
     private float curCompanionSpawnCool = 0f;
-    private float maxCompanionSpawnCool = 100f;
+    private float maxCompanionSpawnCool = 1f;
 
     private void Update()
     {
@@ -22,7 +22,7 @@ public class ItemSpawnManager : MonoBehaviour
         if (curCompanionSpawnCool >= maxCompanionSpawnCool)
         {
             GameObject temp = companionSpawnItemPrefabs[Random.Range(0, companionSpawnItemPrefabs.Count)];
-            objectPlacementManager.SpawnObject(temp, 1);
+            objectPlacementManager.SpawnObject(temp, temp.GetComponent<Item>().GetSize());
         }
     }
 }

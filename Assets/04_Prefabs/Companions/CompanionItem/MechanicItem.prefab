@@ -260,4 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db6accd218109340b22b57bce77cea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPlacementManager: {fileID: 0}
+  size: 1
   companionClass: 5
