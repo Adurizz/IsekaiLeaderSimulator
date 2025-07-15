@@ -1527,7 +1527,7 @@ MonoBehaviour:
       probability: 20
     spawnAttributes:
     - spawnNumAtOnce: 1
-      spawnInterval: 3
+      spawnInterval: 300
     - spawnNumAtOnce: 2
       spawnInterval: 3
     - spawnNumAtOnce: 3
