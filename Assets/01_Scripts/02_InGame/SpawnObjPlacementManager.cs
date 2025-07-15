@@ -9,18 +9,32 @@ public class SpawnObjPlacementManager : MonoBehaviour
     {
         int xPos;
         int zPos;
+        int attempts = 0;
+        int maxAttempt = 50;
+
         do
         {
             Tuple<int, int> temp = GetRandomSpawnPoint();
             xPos = temp.Item1;
             zPos = temp.Item2;
+            ++attempts;
+            if (attempts >= maxAttempt)
+                break;
         }
         while (!CheckCanPlaceObject(xPos, zPos, size));
 
-        GameObject spawnedObj = Instantiate(objectPrefab);
-        spawnedObj.transform.SetParent(GameObject.FindWithTag("MapPrefab").transform);
-        spawnedObj.transform.localPosition = new Vector3(xPos, spawnedObj.transform.position.y, zPos);
-        RegisterItem(xPos, zPos, size);
+        if (CheckCanPlaceObject(xPos, zPos, size))
+        {
+            GameObject spawnedObj = Instantiate(objectPrefab);
+            spawnedObj.transform.SetParent(GameObject.FindWithTag("MapPrefab").transform);
+            spawnedObj.transform.localPosition = new Vector3(xPos, spawnedObj.transform.position.y, zPos);
+            RegisterItem(xPos, zPos, size);
+        }
+        else
+        {
+            // TODO: 아이템이 많아 생성할 수 없을 때 처리
+            Debug.Log("Cannot find valid place");
+        }
     }
 
     public bool SpawnObject(GameObject objectPrefab, int xPos, int zPos, int size)
