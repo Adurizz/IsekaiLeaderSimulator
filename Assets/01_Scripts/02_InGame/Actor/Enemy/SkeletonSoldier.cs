@@ -9,8 +9,9 @@ public class SkeletonSoldier : Enemy
         InitStat();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         if (distanceFromTarget < attackDistance)
         {
             Attack();
@@ -35,6 +36,6 @@ public class SkeletonSoldier : Enemy
 
     protected override void Attack()
     {
-        
+        animator.SetTrigger("Attack");
     }
 }

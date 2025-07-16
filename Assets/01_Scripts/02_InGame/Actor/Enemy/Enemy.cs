@@ -3,11 +3,24 @@ using UnityEngine.AI;
 
 public abstract class Enemy : Actor
 {
+    [SerializeField] protected float distanceFromTarget;
     [SerializeField] protected Transform target;
+    public Transform Target
+    {
+        get
+        {
+            return target;
+        }
+        set
+        {
+            target = value;
+            if (target == null)
+                distanceFromTarget = Mathf.Infinity;
+        }
+    }
     protected EnemySpawnManager spawnManager;
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
-    protected float distanceFromTarget;
     private LayerMask heroLayer;
     private float curDetectionCool = 0;
     private const float maxDetectionCool = 1f;
@@ -21,6 +34,7 @@ public abstract class Enemy : Actor
         set
         {
             moveSpeed = value;
+            navMeshAgent.speed = moveSpeed;
             if (moveSpeed != 0)
                 animator.SetBool("isMoving", true);
             else
@@ -41,7 +55,6 @@ public abstract class Enemy : Actor
     {
         base.InitStat();
         MoveSpeed = moveSpeed;
-        navMeshAgent.speed = MoveSpeed;
     }
 
     protected virtual void Update()
@@ -69,7 +82,7 @@ public abstract class Enemy : Actor
         Collider[] colliders = Physics.OverlapSphere(transform.position, 400, heroLayer);
         if (colliders.Length == 0)
         {
-            target = null;
+            Target = null;
             return;
         }
 
@@ -88,7 +101,7 @@ public abstract class Enemy : Actor
 
         if (nearest != null)
         {
-            target = nearest;
+            Target = nearest;
             distanceFromTarget = Vector3.Distance(transform.position, target.position);
         }
     }
@@ -100,10 +113,16 @@ public abstract class Enemy : Actor
 
     protected virtual void Move()
     {
-        if (target == null)
+        if (Target == null)
             return;
 
+        if (distanceFromTarget < attackDistance)
+        {
+            MoveSpeed = 0;
+        }
+
         navMeshAgent.SetDestination(target.position);
+        
     }
 
     protected abstract void Attack();
