@@ -100,14 +100,11 @@ public class PlayerAttackHandler : MonoBehaviour
     #region 적 탐지 파트
     private void FindNearestEnemyWithCoolTime()
     {
-        if (curDetectionCool < enemyDetectionCool)
+        curDetectionCool += Time.deltaTime;
+        if (curDetectionCool >= enemyDetectionCool)
         {
-            curDetectionCool += Time.deltaTime;
-            if (curDetectionCool >= enemyDetectionCool)
-            {
-                curDetectionCool = 0;
-                FindNearestEnemy();
-            }
+            curDetectionCool = 0;
+            FindNearestEnemy();
         }
     }
 

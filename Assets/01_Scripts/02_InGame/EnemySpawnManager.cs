@@ -9,6 +9,7 @@ public struct StageSpawnInfo
 {
     public int stageNum;
     public List<SpawnEnemyInfo> stageEnemies;
+    public GameObject bossPrefab;
     public List<SpawnAttribute> spawnAttributes;
 }
 
@@ -48,7 +49,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private const float limitX = 250f;
     private const float limitZ = 250f;
-    private const int enemyPoolNum = 1000;
+    private const int enemyPoolNum = 250;
     private Queue<GameObject> enemyPoolQueue = new();
     private ExpeditionTimeChecker timeChecker;
 

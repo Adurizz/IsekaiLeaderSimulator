@@ -3,32 +3,97 @@ using UnityEngine.AI;
 
 public abstract class Enemy : Actor
 {
-    [SerializeField] private Transform target;
-    private EnemySpawnManager spawnManager;
-    private NavMeshAgent navMeshAgent;
-    private Rigidbody rb;
-    private Vector3 moveVec;
+    [SerializeField] protected Transform target;
+    protected EnemySpawnManager spawnManager;
+    protected NavMeshAgent navMeshAgent;
+    protected Animator animator;
+    protected float distanceFromTarget;
+    private LayerMask heroLayer;
+    private float curDetectionCool = 0;
+    private const float maxDetectionCool = 1f;
+
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+            if (moveSpeed != 0)
+                animator.SetBool("isMoving", true);
+            else
+                animator.SetBool("isMoving", false);
+        }
+    }
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
         spawnManager = FindAnyObjectByType<EnemySpawnManager>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        heroLayer = LayerMask.GetMask("Hero");
         SetTarget();
     }
 
-    private void Start()
+    public override void InitStat()
     {
-        navMeshAgent.speed = moveSpeed;
+        base.InitStat();
+        MoveSpeed = moveSpeed;
+        navMeshAgent.speed = MoveSpeed;
     }
 
+    protected virtual void Update()
+    {
+        SetTargetWithCoolTime();
+    }
+
+    protected virtual void SetTargetWithCoolTime()
+    {
+        curDetectionCool += Time.deltaTime;
+        if (curDetectionCool > maxDetectionCool)
+        {
+            SetTarget();
+            curDetectionCool = 0;
+        }
+    }
+
+    /// <summary>
+    /// 가장 가까운 Hero(Player 포함) 탐색
+    /// </summary>
     protected virtual void SetTarget()
     {
-        target = FindAnyObjectByType<Player>().transform;
+        // target = FindAnyObjectByType<Player>().transform;
         // Debug.Log(navMeshAgent.ta)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 400, heroLayer);
+        if (colliders.Length == 0)
+        {
+            target = null;
+            return;
+        }
+
+        Transform nearest = null;
+        float minSqrDistance = Mathf.Infinity;
+
+        foreach (Collider col in colliders)
+        {
+            float sqrDist = (col.transform.position - transform.position).sqrMagnitude;
+            if (sqrDist < minSqrDistance)
+            {
+                minSqrDistance = sqrDist;
+                nearest = col.transform;
+            }
+        }
+
+        if (nearest != null)
+        {
+            target = nearest;
+            distanceFromTarget = Vector3.Distance(transform.position, target.position);
+        }
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         Move();
     }
@@ -39,14 +104,6 @@ public abstract class Enemy : Actor
             return;
 
         navMeshAgent.SetDestination(target.position);
-        /*
-        moveVec = Vector3.Normalize(target.transform.position - transform.position) * moveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + moveVec);
-
-        Quaternion dirQuat = Quaternion.LookRotation(moveVec);
-        Quaternion moveQuat = Quaternion.Slerp(rb.rotation, dirQuat, 0.3f);
-        rb.MoveRotation(moveQuat);
-        */
     }
 
     protected abstract void Attack();
