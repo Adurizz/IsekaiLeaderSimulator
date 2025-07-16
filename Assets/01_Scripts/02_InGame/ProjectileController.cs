@@ -45,8 +45,8 @@ public class ProjectileController : MonoBehaviour
     protected void SetInitPosition()
     {
         transform.localRotation = ownerTransform.rotation;
-
-        transform.localPosition = ownerTransform.position;
+        Vector3 forwardOffset = ownerTransform.rotation * fireOffset;
+        transform.localPosition = Utils.GetCenter(ownerTransform) + forwardOffset;
     }
 
     protected void SetMoveDirection()
@@ -59,7 +59,9 @@ public class ProjectileController : MonoBehaviour
         if (targetTransform == null)
             return;
 
-        moveVec = Vector3.Normalize(targetTransform.position - transform.position) * projectileSpeed * Time.fixedDeltaTime;
+        Vector3 dirVec = Utils.GetCenter(targetTransform) - transform.localPosition;
+
+        moveVec = Vector3.Normalize(dirVec) * projectileSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + moveVec);
 
         Quaternion dirQuat = Quaternion.LookRotation(moveVec);

@@ -17069,7 +17069,7 @@ MonoBehaviour:
       probability: 20
     spawnAttributes:
     - spawnNumAtOnce: 1
-      spawnInterval: 300
+      spawnInterval: 1
     - spawnNumAtOnce: 2
       spawnInterval: 3
     - spawnNumAtOnce: 3
@@ -19071,9 +19071,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3606650129264159978, guid: 749fa939014c4c745881ea13bdc01f71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -695009955411471175, guid: 749fa939014c4c745881ea13bdc01f71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 782705683434683602, guid: 749fa939014c4c745881ea13bdc01f71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 749fa939014c4c745881ea13bdc01f71, type: 3}
       propertyPath: m_Name
       value: Rogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 1168437713928847705, guid: 749fa939014c4c745881ea13bdc01f71, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
