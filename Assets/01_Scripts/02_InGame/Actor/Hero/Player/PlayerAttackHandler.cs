@@ -32,6 +32,7 @@ public class PlayerAttackHandler : MonoBehaviour
     private PlayerMoveHandler moveHandler;
     private const int arrowPoolNum = 20;
     private Queue<GameObject> arrowPoolQueue = new();
+    private Animator animator;
 
     private void Awake()
     {
@@ -42,6 +43,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
         enemyLayer = LayerMask.GetMask("Enemy");
         moveHandler = GetComponent<PlayerMoveHandler>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void CheckPlayerStatInitiated()
@@ -159,6 +161,7 @@ public class PlayerAttackHandler : MonoBehaviour
         // Debug.Log(transform.position);
         arrow.GetComponent<ProjectileController>().SetOwnerTransform(transform);
         arrow.GetComponent<ProjectileController>().SetTargetTransform(target.transform);
+        animator.SetTrigger("Shot");
     }
     #endregion
 }

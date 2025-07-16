@@ -68,22 +68,24 @@ public class PlayerMoveHandler : MonoBehaviour
 
     private void Rotate()
     {
-        // 입력이 없을 때 회전 X
-        if (moveVec.sqrMagnitude == 0)
-            return;
-
         if (target == null)
         {
+            // 입력이 없을 때 회전 X
+            if (moveVec.sqrMagnitude == 0)
+                return;
             // 회전
             Quaternion dirQuat = Quaternion.LookRotation(moveVec);
             Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.3f);
             rigid.MoveRotation(moveQuat);
+            animator.SetLayerWeight(1, 0);
         }
         else
         {
-            Quaternion dirQuat = Quaternion.LookRotation(target.transform.position - transform.position);
+            Vector3 dirVec = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+            Quaternion dirQuat = Quaternion.LookRotation(dirVec);
             Quaternion moveQuat = Quaternion.Slerp(rigid.rotation, dirQuat, 0.3f);
             rigid.MoveRotation(moveQuat);
+            animator.SetLayerWeight(1, 1);
         }
     }
 
