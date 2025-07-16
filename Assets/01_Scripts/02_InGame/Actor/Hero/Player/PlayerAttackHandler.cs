@@ -23,12 +23,12 @@ public class PlayerAttackHandler : MonoBehaviour
     }
 
     [SerializeField] private bool isStatInitiated = false;
-    [SerializeField] private float curFireCool;
+    private float curFireCool;
     [SerializeField] private float fireCool;
-    [SerializeField] private float searchRadius = 10f;
+    [SerializeField] private float attackDistance = 10f;
     private LayerMask enemyLayer;
-    [SerializeField] private float curDetectionCool;
-    [SerializeField] private float enemyDetectionCool;
+    private float curDetectionCool;
+    private float enemyDetectionCool = 0.1f;
     private PlayerMoveHandler moveHandler;
     private const int arrowPoolNum = 20;
     private Queue<GameObject> arrowPoolQueue = new();
@@ -44,6 +44,16 @@ public class PlayerAttackHandler : MonoBehaviour
         enemyLayer = LayerMask.GetMask("Enemy");
         moveHandler = GetComponent<PlayerMoveHandler>();
         animator = GetComponentInChildren<Animator>();
+    }
+
+    public void SetAttackDistance(float value)
+    {
+        attackDistance = value;
+    }
+
+    public void SetFireCool(float value)
+    {
+        fireCool = value;
     }
 
     private void CheckPlayerStatInitiated()
@@ -65,7 +75,7 @@ public class PlayerAttackHandler : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, searchRadius);
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
     #endif
 
@@ -103,7 +113,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
     private void FindNearestEnemy()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius, enemyLayer);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, attackDistance, enemyLayer);
         if (colliders.Length == 0)
         {
             Target = null;

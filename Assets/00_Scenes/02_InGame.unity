@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joy: {fileID: 1205224662}
-  speed: 10
+  speed: 0
   isStatInitiated: 0
 --- !u!54 &101255907
 Rigidbody:
@@ -2128,11 +2128,8 @@ MonoBehaviour:
   arrowPrefab: {fileID: 3442728921602429738, guid: 461edd20def7e044db36e0cc8f7f8895, type: 3}
   target: {fileID: 0}
   isStatInitiated: 0
-  curFireCool: 0
-  fireCool: 1
-  searchRadius: 10
-  curDetectionCool: 0
-  enemyDetectionCool: 0.1
+  fireCool: 0
+  attackDistance: 0
 --- !u!1001 &101707132
 PrefabInstance:
   m_ObjectHideFlags: 0

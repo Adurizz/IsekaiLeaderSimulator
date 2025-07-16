@@ -29,6 +29,11 @@ public class PlayerMoveHandler : MonoBehaviour
         //anim = GetComponent<Animator>();
     }
 
+    public void SetMoveSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
     private void CheckPlayerStatInitiated()
     {
         isStatInitiated = true;

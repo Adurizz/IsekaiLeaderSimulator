@@ -8,15 +8,18 @@ public class Player : Hero
     [SerializeField] private PlayerStat playerStat;
     [SerializeField] private int trainingStoneAmount;
     [SerializeField] private int rerollChance;
+    private PlayerMoveHandler moveHandler;
+    private PlayerAttackHandler attackHandler;
 
     [HideInInspector] public UnityEvent onStatInitiated = new();
 
-    private void Start()
+    private void Awake()
     {
-        InitStat();
+        moveHandler = GetComponent<PlayerMoveHandler>();
+        attackHandler = GetComponent<PlayerAttackHandler>();
     }
 
-    protected override void InitStat()
+    public override void InitStat()
     {
         base.InitStat();
         List<int> upgradeInfo = playerStat.GetUpgradeInfo();
@@ -30,6 +33,10 @@ public class Player : Hero
         rerollChance += upgradeInfo[6];
 
         trainingStoneAmount = 0;
+
+        moveHandler.SetMoveSpeed(moveSpeed);
+        attackHandler.SetAttackDistance(attackDistance);
+        attackHandler.SetFireCool(attackSpeed);
 
         onStatInitiated.Invoke();
     }

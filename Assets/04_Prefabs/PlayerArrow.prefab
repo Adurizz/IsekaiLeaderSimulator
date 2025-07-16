@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5269251277618007921}
   - component: {fileID: -7074911716146311525}
   m_Layer: 8
-  m_Name: TestArrow
+  m_Name: PlayerArrow
   m_TagString: HeroBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

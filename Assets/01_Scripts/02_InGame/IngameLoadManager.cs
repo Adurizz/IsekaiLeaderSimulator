@@ -1,7 +1,7 @@
 using Unity.AI.Navigation;
 using UnityEngine;
 
-public class IngameLoadingManager : MonoBehaviour
+public class IngameLoadManager : MonoBehaviour
 {
     public bool Test;
     [SerializeField] private StageInfo stageInfo;
@@ -48,6 +48,7 @@ public class IngameLoadingManager : MonoBehaviour
     private void LoadPlayer()
     {
         player.SetActive(true);
+        player.GetComponent<Player>().InitStat();
         player.GetComponent<PlayerAttackHandler>().CreateArrowPool();
     }
 

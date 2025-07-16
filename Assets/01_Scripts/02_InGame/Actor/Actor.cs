@@ -14,7 +14,7 @@ public abstract class Actor : MonoBehaviour
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected bool isDead;
 
-    protected virtual void InitStat()
+    public virtual void InitStat()
     {
         List<float> originStatList = actorStat.CopyStat();
         maxHealth = originStatList[0];
