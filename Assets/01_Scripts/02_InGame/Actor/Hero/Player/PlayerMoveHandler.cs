@@ -15,6 +15,7 @@ public class PlayerMoveHandler : MonoBehaviour
     [SerializeField] private bool isStatInitiated = false;
     private PlayerAttackHandler attackHandler;
     private GameObject target;
+    private Animator animator;
 
     void Awake()
     {
@@ -24,6 +25,7 @@ public class PlayerMoveHandler : MonoBehaviour
         playerScript.onStatInitiated.AddListener(CheckPlayerStatInitiated);
         rigid = GetComponent<Rigidbody>();
         attackHandler = GetComponent<PlayerAttackHandler>();
+        animator = GetComponentInChildren<Animator>();
         //anim = GetComponent<Animator>();
     }
 
@@ -55,6 +57,13 @@ public class PlayerMoveHandler : MonoBehaviour
         // ¿Ãµø
         moveVec = new Vector3(x, 0, z) * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + moveVec);
+        if (Mathf.Approximately(0, moveVec.sqrMagnitude))
+            animator.SetBool("isMoving", false);
+        else
+        {
+            if (!animator.GetBool("isMoving"))
+                animator.SetBool("isMoving", true);
+        }
     }
 
     private void Rotate()

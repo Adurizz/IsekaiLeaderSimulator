@@ -9,7 +9,7 @@ public class ItemSpawnManager : MonoBehaviour
     [SerializeField] private SpawnObjPlacementManager objectPlacementManager;
 
     private float curCompanionSpawnCool = 0f;
-    private float maxCompanionSpawnCool = 1f;
+    private float maxCompanionSpawnCool = 100f;
 
     private void Update()
     {
