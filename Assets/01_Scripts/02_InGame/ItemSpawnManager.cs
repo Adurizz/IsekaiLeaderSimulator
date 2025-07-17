@@ -23,6 +23,7 @@ public class ItemSpawnManager : MonoBehaviour
         {
             GameObject temp = companionSpawnItemPrefabs[Random.Range(0, companionSpawnItemPrefabs.Count)];
             objectPlacementManager.SpawnObject(temp, temp.GetComponent<Item>().GetSize());
+            curCompanionSpawnCool = 0;
         }
     }
 }

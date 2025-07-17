@@ -4862,7 +4862,6 @@ MonoBehaviour:
   - {fileID: 4826688622551029735, guid: 6c896035a729d94449b58eb2e6cb237c, type: 3}
   - {fileID: 7134984036025927714, guid: e3b66875a8f896a449e70415ac70caed, type: 3}
   - {fileID: 5014054566989662071, guid: 3aad7e4c2cb33ba45840e4f1462b15fb, type: 3}
-  - {fileID: 3121945675028534100, guid: 8ecc6c9002f81d244b25cbeb05483d28, type: 3}
   - {fileID: 2210985003962576422, guid: 7e970d5c9fc983a4184181f894798593, type: 3}
   - {fileID: 8557949728167251519, guid: c0b9eee59fa3cc54da7166ba21953335, type: 3}
   objectPlacementManager: {fileID: 1378861854}
@@ -17052,7 +17051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98189bbb9a6c7c14eb048f723b9eec13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 1
+  test: 0
   player: {fileID: 101255905}
   phaseText: {fileID: 470735906}
   curStageEnemies: []
