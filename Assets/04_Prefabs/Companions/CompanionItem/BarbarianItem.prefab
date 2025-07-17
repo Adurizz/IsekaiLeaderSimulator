@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5137690206925820947}
   - component: {fileID: 7940639595538554141}
   - component: {fileID: 6363929280339200294}
+  - component: {fileID: -5470249566904754177}
   m_Layer: 11
   m_Name: BarbarianItem
   m_TagString: Item
@@ -155,6 +156,28 @@ MonoBehaviour:
   objectPlacementManager: {fileID: 0}
   size: 1
   companionClass: 2
+--- !u!95 &-5470249566904754177
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4826688622551029735}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &8021484986090725711
 PrefabInstance:
   m_ObjectHideFlags: 0
