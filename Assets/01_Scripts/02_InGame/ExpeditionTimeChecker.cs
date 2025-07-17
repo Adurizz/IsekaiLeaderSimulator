@@ -13,6 +13,15 @@ public class ExpeditionTimeChecker : MonoBehaviour
     };
 
     [SerializeField] private float passedTime = 0;
+
+    private const float secondPhaseTime = 100f;
+    private const float thirdPhaseTime = 200f;
+    private const float fourthPhaseTime = 300f;
+    private const float fifthPhaseTime = 400f;
+
+
+
+
     public float PassedTime
     {
         private get
@@ -24,7 +33,7 @@ public class ExpeditionTimeChecker : MonoBehaviour
             string sec = ((int)passedTime % 60 < 10) ? "0" + ((int)passedTime % 60).ToString() : ((int)passedTime % 60).ToString();
             passedTimeText.text = min + ":" + sec;
 
-            if (passedTime >= 10f && passedTime < 20f)
+            if (passedTime >= secondPhaseTime && passedTime < thirdPhaseTime) // 2th Phase
             {
                 if (!informed[2])
                 {
@@ -32,7 +41,7 @@ public class ExpeditionTimeChecker : MonoBehaviour
                     informNewPhase.Invoke(2);
                 }
             }
-            else if (passedTime >= 20f && passedTime < 30f)
+            else if (passedTime >= thirdPhaseTime && passedTime < fourthPhaseTime) // 3th Phase
             {
                 if (!informed[3])
                 {
@@ -40,7 +49,7 @@ public class ExpeditionTimeChecker : MonoBehaviour
                     informNewPhase.Invoke(3);
                 }
             }
-            else if (passedTime >= 30f && passedTime < 40f)
+            else if (passedTime >= fourthPhaseTime && passedTime < fifthPhaseTime) // 4th Phase
             {
                 if (!informed[4])
                 {
@@ -48,7 +57,7 @@ public class ExpeditionTimeChecker : MonoBehaviour
                     informNewPhase.Invoke(4);
                 }
             }
-            else if (passedTime >= 40f)
+            else if (passedTime >= fifthPhaseTime) // 5th Phase
             {
                 if (!informed[5])
                 {

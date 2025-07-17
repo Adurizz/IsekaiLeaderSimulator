@@ -22,23 +22,46 @@ public abstract class Enemy : Actor
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
     private LayerMask heroLayer;
-    private float curDetectionCool = 0;
+    [SerializeField] private float curDetectionCool = 0;
     private const float maxDetectionCool = 1f;
+    private const float maxDetectionCoolWhileAttack = 0.1f;
+    [SerializeField] protected EEnemyState curState;
+    [SerializeField] protected float curAttackCool;
+    [SerializeField] private bool attackInit;
 
-    public float MoveSpeed
+    public EEnemyState CurState
     {
         get
         {
-            return moveSpeed;
+            return curState;
         }
         set
         {
-            moveSpeed = value;
-            navMeshAgent.speed = moveSpeed;
-            if (moveSpeed != 0)
+            curState = value;
+            animator.SetInteger("State", (int)curState);
+        }
+    }
+    /// <summary>
+    /// moveSpeed를 원본값으로 하는 curMoveSpeed -> 자유롭게 변형해서 사용, 원본 보존해서 복구하기 위함
+    /// </summary>
+    [SerializeField] protected float curMoveSpeed;
+
+    public float CurMoveSpeed
+    {
+        get
+        {
+            return curMoveSpeed;
+        }
+        set
+        {
+            curMoveSpeed = value;
+            navMeshAgent.speed = curMoveSpeed;
+            /*
+            if (curMoveSpeed != 0)
                 animator.SetBool("isMoving", true);
             else
                 animator.SetBool("isMoving", false);
+            */
         }
     }
 
@@ -48,22 +71,33 @@ public abstract class Enemy : Actor
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         heroLayer = LayerMask.GetMask("Hero");
-        SetTarget();
+    }
+
+    protected virtual void OnEnable()
+    {
+        InitStat();
     }
 
     public override void InitStat()
     {
         base.InitStat();
-        MoveSpeed = moveSpeed;
+        distanceFromTarget = Mathf.Infinity;
+        curState = EEnemyState.Idle;
+        CurMoveSpeed = moveSpeed;
+        navMeshAgent.stoppingDistance = attackDistance;
     }
 
     protected virtual void Update()
     {
         SetTargetWithCoolTime();
+        FSM();
     }
 
     protected virtual void SetTargetWithCoolTime()
     {
+        if (curState == EEnemyState.Attack)
+            return;
+
         curDetectionCool += Time.deltaTime;
         if (curDetectionCool > maxDetectionCool)
         {
@@ -102,7 +136,7 @@ public abstract class Enemy : Actor
         if (nearest != null)
         {
             Target = nearest;
-            distanceFromTarget = Vector3.Distance(transform.position, target.position);
+            distanceFromTarget = Vector3.Distance(transform.position, Target.position);
         }
     }
 
@@ -111,21 +145,105 @@ public abstract class Enemy : Actor
         Move();
     }
 
-    protected virtual void Move()
+    protected virtual void FSM()
     {
         if (Target == null)
+        {
+            CurState = EEnemyState.Idle;
+        }
+
+        switch (CurState)
+        {
+            case EEnemyState.Idle:
+                if (Target != null)
+                {
+                    CurState = EEnemyState.Chasing;
+                }
+                break;
+            case EEnemyState.Chasing:
+                if (distanceFromTarget <= attackDistance)
+                {
+                    curDetectionCool = 0;
+                    curAttackCool = 0;
+                    CurState = EEnemyState.Attack;
+                    attackInit = true;
+                }
+                break;
+            case EEnemyState.Attack:
+                
+                if (attackInit)
+                {
+                    Debug.Log("Init Attack");
+                    Attack();
+                    curAttackCool = 0;
+                    attackInit = false;
+                    return;
+                }
+                
+                // 적 탐지
+                curDetectionCool += Time.deltaTime;
+                if (curDetectionCool >= maxDetectionCoolWhileAttack)
+                {
+                    SetTarget();
+                    curDetectionCool = 0;
+                }
+
+                if (distanceFromTarget > attackDistance)
+                {
+                    CurState = EEnemyState.Chasing;
+                    return;
+                }
+
+                // 공격
+                curAttackCool += Time.deltaTime;
+                if (curAttackCool >= attackSpeed)
+                {
+                    Attack();
+                    curAttackCool = 0;
+                }
+                break;
+            case EEnemyState.Hit:
+                
+                break;
+            case EEnemyState.Dead:
+                
+                break;
+        }
+    }
+
+    protected virtual void Move()
+    {
+        if (Target == null || curState != EEnemyState.Chasing)
+        {
             return;
+        }
+        /*
+        else
+        {
+            if (CurMoveSpeed == 0)
+            {
+                CurMoveSpeed = moveSpeed;
+            }
+        }
 
         if (distanceFromTarget < attackDistance)
         {
-            MoveSpeed = 0;
+            CurMoveSpeed = 0;
         }
+        */
 
         navMeshAgent.SetDestination(target.position);
-        
     }
 
-    protected abstract void Attack();
+    protected virtual void Attack()
+    {
+        animator.SetTrigger("Attack");
+    }
+
+    public virtual void MeleeAttackHit()
+    {
+        Debug.Log("Hit!");
+    }
 
     public override void OnDead()
     {

@@ -175,6 +175,9 @@ public class EnemySpawnManager : MonoBehaviour
     
     public IEnumerator SpawnEnemyWithInterval()
     {
+        GameObject temp = enemyPoolQueue.Dequeue();
+        temp.transform.position = SetSpawnPosition();
+        temp.SetActive(true);
         float time = 0;
         while (true)
         {
