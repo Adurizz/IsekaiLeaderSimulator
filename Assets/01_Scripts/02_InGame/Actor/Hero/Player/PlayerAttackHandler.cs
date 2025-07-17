@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerAttackHandler : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
     [SerializeField] private GameObject arrowPrefab;
 
+    [HideInInspector] public UnityEvent<GameObject> targetChanged = new();
     [SerializeField] private GameObject target;
     public GameObject Target
     {
@@ -18,6 +20,7 @@ public class PlayerAttackHandler : MonoBehaviour
         set
         {
             target = value;
+            // targetChanged.Invoke(target);
             moveHandler.SetTarget(value);
         }
     }
@@ -33,6 +36,7 @@ public class PlayerAttackHandler : MonoBehaviour
     private const int arrowPoolNum = 20;
     private Queue<GameObject> arrowPoolQueue = new();
     private Animator animator;
+    
 
     private void Awake()
     {
@@ -174,7 +178,7 @@ public class PlayerAttackHandler : MonoBehaviour
         arrow.SetActive(true);
         // Debug.Log(transform.position);
         arrow.GetComponent<ProjectileController>().SetOwnerTransform(transform);
-        arrow.GetComponent<ProjectileController>().SetTargetTransform(target.transform);
+        arrow.GetComponent<ProjectileController>().SetTargetTransform(Target.transform);
         animator.SetTrigger("Shot");
     }
     #endregion

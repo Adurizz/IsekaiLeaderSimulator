@@ -51,6 +51,11 @@ public class Player : Hero
         return playerStat.ConsumeGold(amount);
     }
 
+    public override void GetDamage(float damage)
+    {
+        Debug.Log("Player Attacked");
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Item"))

@@ -176,6 +176,7 @@ public abstract class Enemy : Actor
                 }
                 break;
             case EEnemyState.Attack:
+                RotateTowardsTarget();
                 if (attackInit)
                 {
                     Debug.Log("Init Attack");
@@ -245,7 +246,19 @@ public abstract class Enemy : Actor
 
     public virtual void MeleeAttackHit()
     {
-        Debug.Log("Hit!");
+        Debug.Log("Hit: " + Target.name);
+        target.GetComponent<Actor>().GetDamage(attack);
+    }
+
+    private void RotateTowardsTarget()
+    {
+        if (Target == null) return;
+        Vector3 direction = (Target.transform.position - transform.position).normalized;
+        direction.y = 0; // 바닥에서만 회전
+        if (direction == Vector3.zero) return;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        // 서서히 회전하고 싶으면 Lerp/RotateTowards, 즉시 회전이면 그냥 대입
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
     public override void GetDamage(float damage)

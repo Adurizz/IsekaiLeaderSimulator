@@ -1,0 +1,233 @@
+using UnityEngine;
+
+public enum ESoldierState
+{
+    Idle, Chasing, Attack, Hit, Dead
+}
+
+public class Soldier : Companion
+{
+    private Player player;
+    private PlayerAttackHandler playerAttackHandler;
+    [SerializeField] private GameObject protectTarget;
+    [SerializeField] private ESoldierState curState;
+    public ESoldierState CurState
+    {
+        get { return curState; }
+        set
+        {
+            curState = value;
+            animator.SetInteger("State", (int)curState);
+        }
+    }
+    private const float protectDistance = 10f;
+    [SerializeField] private bool isStopped;
+    public bool IsStopped
+    {
+        get { return isStopped; }
+        set
+        {
+            isStopped = value;
+            navMeshAgent.isStopped = isStopped;
+            animator.SetBool("isStopped", isStopped);
+        }
+    }
+    private float stoppingDistance;
+    [SerializeField] private GameObject attackTarget;
+    private float distanceFromAttackTarget;
+    private float curDetectionCool;
+    private const float detectionCool = 0.5f;
+    private float curAttackCool;
+    private bool attackInit;
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+        player = FindAnyObjectByType<Player>();
+        playerAttackHandler = player.gameObject.GetComponent<PlayerAttackHandler>();
+    }
+
+    private void OnEnable()
+    {
+        InitStat();
+    }
+
+    public override void InitStat()
+    {
+        base.InitStat();
+        navMeshAgent.speed = moveSpeed;
+        stoppingDistance = navMeshAgent.stoppingDistance;
+    }
+
+    private void Start()
+    {
+        protectTarget = player.gameObject;
+    }
+
+    public void SetProtectTarget(GameObject newTarget)
+    {
+        protectTarget = newTarget;
+    }
+
+    private void Update()
+    {
+        FindNearestEnemyWithCoolTime();
+        FSM();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void FSM()
+    {
+        if (attackTarget == null && CurState != ESoldierState.Idle)
+            CurState = ESoldierState.Idle;
+
+        switch (CurState)
+        {
+            case ESoldierState.Idle:
+                if (attackTarget != null)
+                {
+                    CurState = ESoldierState.Chasing;
+                }
+                break;
+            case ESoldierState.Chasing:
+                if (distanceFromAttackTarget < attackDistance)
+                {
+                    curDetectionCool = 0;
+                    curAttackCool = 0;
+                    CurState = ESoldierState.Attack;
+                    attackInit = true;
+                }
+                break;
+            case ESoldierState.Attack:
+                RotateTowardsTarget();
+                if (attackInit)
+                {
+                    Debug.Log("Init Attack");
+                    Attack();
+                    curAttackCool = 0;
+                    attackInit = false;
+                    IsStopped = true;
+                    return;
+                }
+
+                if (distanceFromAttackTarget > attackDistance)
+                {
+                    IsStopped = false;
+                    CurState = ESoldierState.Chasing;
+                    return;
+                }
+
+                // 공격
+                curAttackCool += Time.deltaTime;
+                if (curAttackCool >= attackSpeed)
+                {
+                    Attack();
+                    curAttackCool = 0;
+                }
+                break;
+                break;
+            case ESoldierState.Hit:
+                break;
+            case ESoldierState.Dead:
+                break;
+            
+        }
+    }
+
+    private void FindNearestEnemyWithCoolTime()
+    {
+        curDetectionCool += Time.deltaTime;
+        if (curDetectionCool >= detectionCool)
+        {
+            FindNearestEnemy();
+            curDetectionCool = 0;
+        }
+    }
+
+    private void FindNearestEnemy()
+    {
+        Collider[] colliders = Physics.OverlapSphere(protectTarget.transform.position, protectDistance, enemyLayer);
+        if (colliders.Length == 0)
+        {
+            attackTarget = null;
+            return;
+        }
+
+        Transform nearest = null;
+        float minSqrDistance = Mathf.Infinity;
+
+        foreach (Collider col in colliders)
+        {
+            if (col.gameObject.GetComponent<Enemy>().CheckDead())
+                continue;
+
+            float sqrDist = (col.transform.position - transform.position).sqrMagnitude;
+            if (sqrDist < minSqrDistance)
+            {
+                minSqrDistance = sqrDist;
+                nearest = col.transform;
+            }
+        }
+
+        if (nearest != null)
+        {
+            attackTarget = nearest.gameObject;
+            distanceFromAttackTarget = Vector3.Distance(attackTarget.transform.position, transform.position);
+        }
+        else
+        {
+            attackTarget = null;
+        }
+    }
+
+    protected override void Move()
+    {
+        if (CurState == ESoldierState.Idle)
+        {
+            if (Vector3.Distance(protectTarget.transform.position, transform.position) > stoppingDistance)
+            {
+                if (IsStopped)
+                    IsStopped = false;
+
+                navMeshAgent.SetDestination(player.transform.position);
+            }
+            else
+            {
+                IsStopped = true;
+            }
+        }
+        else if (CurState == ESoldierState.Chasing)
+        {
+            navMeshAgent.SetDestination(attackTarget.transform.position);
+        }
+    }
+
+    protected override void Attack()
+    {
+        animator.SetTrigger("Attack");
+    }
+
+    private void RotateTowardsTarget()
+    {
+        if (attackTarget == null) 
+            return;
+        Vector3 direction = (attackTarget.transform.position - transform.position).normalized;
+        direction.y = 0; // 바닥에서만 회전
+        if (direction == Vector3.zero) 
+            return;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+    }
+
+
+    public override void OnDead()
+    {
+
+    }
+}

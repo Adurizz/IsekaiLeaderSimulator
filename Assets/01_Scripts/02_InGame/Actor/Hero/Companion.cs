@@ -1,8 +1,19 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class Companion : Hero
 {
     [SerializeField] protected int level;
+    protected NavMeshAgent navMeshAgent;
+    protected Animator animator;
+    protected LayerMask enemyLayer;
+
+    protected virtual void Awake()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        enemyLayer = LayerMask.GetMask("Enemy");
+    }
 
     public void LevelUp()
     {
@@ -20,4 +31,9 @@ public abstract class Companion : Hero
 
     protected abstract void Move();
     protected abstract void Attack();
+
+    public override void GetDamage(float damage)
+    {
+        Debug.Log("Companion Attacked");
+    }
 }
