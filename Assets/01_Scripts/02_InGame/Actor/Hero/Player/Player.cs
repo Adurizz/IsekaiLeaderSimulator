@@ -59,4 +59,9 @@ public class Player : Hero
             collision.gameObject.SetActive(false);
         }
     }
+
+    public override void OnDead()
+    {
+        
+    }
 }

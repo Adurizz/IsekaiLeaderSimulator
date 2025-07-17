@@ -21,13 +21,18 @@ public abstract class Enemy : Actor
     protected EnemySpawnManager spawnManager;
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
+    // 利 沤瘤 贸府
     private LayerMask heroLayer;
     [SerializeField] private float curDetectionCool = 0;
     private const float maxDetectionCool = 1f;
     private const float maxDetectionCoolWhileAttack = 0.1f;
     [SerializeField] protected EEnemyState curState;
-    [SerializeField] protected float curAttackCool;
-    [SerializeField] private bool attackInit;
+    protected float curAttackCool;
+    protected bool attackInit;
+
+    // Hit 贸府
+    protected float curDelay;
+    protected const float hitDelay = 1f;
 
     public EEnemyState CurState
     {
@@ -157,6 +162,7 @@ public abstract class Enemy : Actor
             case EEnemyState.Idle:
                 if (Target != null)
                 {
+                    navMeshAgent.isStopped = false;
                     CurState = EEnemyState.Chasing;
                 }
                 break;
@@ -170,13 +176,13 @@ public abstract class Enemy : Actor
                 }
                 break;
             case EEnemyState.Attack:
-                
                 if (attackInit)
                 {
                     Debug.Log("Init Attack");
                     Attack();
                     curAttackCool = 0;
                     attackInit = false;
+                    navMeshAgent.isStopped = true;
                     return;
                 }
                 
@@ -190,6 +196,7 @@ public abstract class Enemy : Actor
 
                 if (distanceFromTarget > attackDistance)
                 {
+                    navMeshAgent.isStopped = false;
                     CurState = EEnemyState.Chasing;
                     return;
                 }
@@ -203,10 +210,21 @@ public abstract class Enemy : Actor
                 }
                 break;
             case EEnemyState.Hit:
-                
+                Debug.Log("Hit State");
+                curDelay += Time.deltaTime;
+                if (curDelay >= hitDelay)
+                {
+                    if (Target != null)
+                    {
+                        navMeshAgent.isStopped = false;
+                        CurState = EEnemyState.Chasing;
+                    }
+                    else
+                        CurState = EEnemyState.Idle;
+                }
                 break;
             case EEnemyState.Dead:
-                
+                // Debug.Log("Dead State");
                 break;
         }
     }
@@ -217,21 +235,6 @@ public abstract class Enemy : Actor
         {
             return;
         }
-        /*
-        else
-        {
-            if (CurMoveSpeed == 0)
-            {
-                CurMoveSpeed = moveSpeed;
-            }
-        }
-
-        if (distanceFromTarget < attackDistance)
-        {
-            CurMoveSpeed = 0;
-        }
-        */
-
         navMeshAgent.SetDestination(target.position);
     }
 
@@ -245,7 +248,36 @@ public abstract class Enemy : Actor
         Debug.Log("Hit!");
     }
 
+    public override void GetDamage(float damage)
+    {
+        Debug.Log("Enemy Hit");
+        curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
+        if (curHealth <= 0f)
+        {
+            // TODO: 荤噶 包访 贸府
+            OnDead();
+            CurState = EEnemyState.Dead;
+        }
+        else
+        {
+            navMeshAgent.isStopped = true;
+            animator.SetTrigger("Hit");
+            curDelay = 0;
+            if (CurState != EEnemyState.Hit)
+            {
+                CurState = EEnemyState.Hit;
+            }
+        }
+    }
+
     public override void OnDead()
+    {
+        isDead = true;
+        navMeshAgent.isStopped = true;
+        Invoke(nameof(VanishBody), 3f);
+    }
+
+    private void VanishBody()
     {
         spawnManager.EnqueueEnemyOnDead(gameObject);
         gameObject.SetActive(false);

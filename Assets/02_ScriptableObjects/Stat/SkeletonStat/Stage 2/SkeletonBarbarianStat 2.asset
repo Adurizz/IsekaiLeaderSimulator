@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7e71938d83f3842bfa18c664730eaf, type: 3}
   m_Name: SkeletonBarbarianStat 2
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  attack: 0
-  attackSpeed: 0
-  attackDistance: 0
+  maxHealth: 500
+  attack: 9
+  attackSpeed: 0.9
+  attackDistance: 2.5
   attackRange: 0
-  moveSpeed: 0
+  moveSpeed: 4

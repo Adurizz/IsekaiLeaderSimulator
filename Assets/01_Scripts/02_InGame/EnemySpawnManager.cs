@@ -29,6 +29,7 @@ public struct SpawnAttribute
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    public bool test;
     [SerializeField] private GameObject player;
     [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] private List<GameObject> curStageEnemies;
@@ -175,9 +176,13 @@ public class EnemySpawnManager : MonoBehaviour
     
     public IEnumerator SpawnEnemyWithInterval()
     {
-        GameObject temp = enemyPoolQueue.Dequeue();
-        temp.transform.position = SetSpawnPosition();
-        temp.SetActive(true);
+        if (test)
+        {
+            GameObject temp = enemyPoolQueue.Dequeue();
+            temp.transform.position = SetSpawnPosition();
+            temp.SetActive(true);
+        }
+        
         float time = 0;
         while (true)
         {

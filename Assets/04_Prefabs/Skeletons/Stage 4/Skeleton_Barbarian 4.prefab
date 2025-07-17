@@ -114,7 +114,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &5956912978544462708
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -186,7 +186,11 @@ MonoBehaviour:
   attackRange: 0
   moveSpeed: 0
   isDead: 0
+  distanceFromTarget: 0
   target: {fileID: 0}
+  curDetectionCool: 0
+  curState: 0
+  curMoveSpeed: 0
 --- !u!95 &6524583780810883507
 Animator:
   serializedVersion: 7
@@ -197,7 +201,7 @@ Animator:
   m_GameObject: {fileID: 6225991802835969733}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d8e078159116c094bace3ca12864930b, type: 3}
-  m_Controller: {fileID: 9100000, guid: fc3b9cc478529b34fb60503abe198d67, type: 2}
+  m_Controller: {fileID: 9100000, guid: 50040a961b978ec4f849a919a231f478, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

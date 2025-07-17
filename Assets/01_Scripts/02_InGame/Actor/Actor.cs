@@ -51,8 +51,10 @@ public abstract class Actor : MonoBehaviour
         curHealth = Mathf.Clamp(curHealth + healAmount, 0, maxHealth);
     }
 
-    public virtual void OnDead()
-    {
+    public abstract void OnDead();
 
+    public bool CheckDead()
+    {
+        return isDead;
     }
 }

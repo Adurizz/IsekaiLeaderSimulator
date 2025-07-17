@@ -122,6 +122,9 @@ public class PlayerAttackHandler : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
+            if (col.gameObject.GetComponent<Enemy>().CheckDead())
+                continue;
+
             float sqrDist = (col.transform.position - transform.position).sqrMagnitude;
             if (sqrDist < minSqrDistance)
             {
@@ -133,6 +136,10 @@ public class PlayerAttackHandler : MonoBehaviour
         if (nearest != null)
         {
             Target = nearest.gameObject;
+        }
+        else
+        {
+            Target = null;
         }
     }
     #endregion
