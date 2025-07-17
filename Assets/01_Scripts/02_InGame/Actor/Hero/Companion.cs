@@ -1,4 +1,3 @@
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,6 +27,11 @@ public abstract class Companion : Hero
     protected void UpdateStat()
     {
         // TODO: 레벨업에 따른 스탯 업데이트
+    }
+
+    public string GetName()
+    {
+        return actorName;
     }
 
     protected abstract void Move();
