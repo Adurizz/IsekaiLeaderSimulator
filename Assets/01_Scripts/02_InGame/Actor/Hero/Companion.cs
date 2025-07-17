@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,9 +32,4 @@ public abstract class Companion : Hero
 
     protected abstract void Move();
     protected abstract void Attack();
-
-    public override void GetDamage(float damage)
-    {
-        Debug.Log("Companion Attacked");
-    }
 }

@@ -49,6 +49,9 @@ public class PlayerMoveHandler : MonoBehaviour
         if (!isStatInitiated)
             return;
 
+        if (playerScript.CheckDead())
+            return;
+
         Move();
         Rotate();
     }

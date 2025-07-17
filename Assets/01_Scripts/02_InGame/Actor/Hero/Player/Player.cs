@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,6 +11,7 @@ public class Player : Hero
     [SerializeField] private int rerollChance;
     private PlayerMoveHandler moveHandler;
     private PlayerAttackHandler attackHandler;
+    private Animator animator;
 
     [HideInInspector] public UnityEvent onStatInitiated = new();
 
@@ -17,6 +19,7 @@ public class Player : Hero
     {
         moveHandler = GetComponent<PlayerMoveHandler>();
         attackHandler = GetComponent<PlayerAttackHandler>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public override void InitStat()
@@ -54,6 +57,13 @@ public class Player : Hero
     public override void GetDamage(float damage)
     {
         Debug.Log("Player Attacked");
+        curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
+        if (curHealth <= 0f)
+        {
+            // TODO: 사망 관련 처리
+            OnDead();
+            animator.SetTrigger("Dead");
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,6 +77,6 @@ public class Player : Hero
 
     public override void OnDead()
     {
-        
+        isDead = true;
     }
 }

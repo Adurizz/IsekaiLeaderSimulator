@@ -130,6 +130,9 @@ public abstract class Enemy : Actor
 
         foreach (Collider col in colliders)
         {
+            if (col.gameObject.GetComponent<Actor>().CheckDead())
+                continue;
+
             float sqrDist = (col.transform.position - transform.position).sqrMagnitude;
             if (sqrDist < minSqrDistance)
             {
@@ -142,6 +145,10 @@ public abstract class Enemy : Actor
         {
             Target = nearest;
             distanceFromTarget = Vector3.Distance(transform.position, Target.position);
+        }
+        else
+        {
+            Target = null;
         }
     }
 

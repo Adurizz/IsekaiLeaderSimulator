@@ -20,7 +20,7 @@ public class Soldier : Companion
             animator.SetInteger("State", (int)curState);
         }
     }
-    private const float protectDistance = 10f;
+    private const float protectDistance = 15f;
     [SerializeField] private bool isStopped;
     public bool IsStopped
     {
@@ -225,9 +225,27 @@ public class Soldier : Companion
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
+    public override void GetDamage(float damage)
+    {
+        Debug.Log("Soldier Hit");
+        curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
+        if (curHealth <= 0f)
+        {
+            // TODO: 사망 관련 처리
+            OnDead();
+            CurState = ESoldierState.Dead;
+        }
+    }
 
     public override void OnDead()
     {
+        isDead = true;
+        IsStopped = true;
+        Invoke(nameof(VanishBody), 3f);
+    }
 
+    private void VanishBody()
+    {
+        gameObject.SetActive(false);
     }
 }

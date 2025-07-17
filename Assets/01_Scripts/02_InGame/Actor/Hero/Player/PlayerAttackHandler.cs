@@ -69,6 +69,8 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         if (!isStatInitiated)
             return;
+        if (playerScript.CheckDead())
+            return;
 
         FindNearestEnemyWithCoolTime();
 
