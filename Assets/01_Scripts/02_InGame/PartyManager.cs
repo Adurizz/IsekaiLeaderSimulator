@@ -1,15 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PartyManager : MonoBehaviour
 {
-    [SerializeField] List<Companion> partyMemberList = new();
+    [SerializeField] private List<Companion> partyMemberList = new();
     Dictionary<string, Companion> companionDictionary = new();
+    private TrainingCamp trainingCamp = null;
 
     public void RegisterPartyMember(Companion newCompanion)
     {
         partyMemberList.Add(newCompanion);
         companionDictionary[newCompanion.GetName()] = newCompanion;
+        if (trainingCamp == null)
+            trainingCamp = FindAnyObjectByType<TrainingCamp>();
+        trainingCamp.RegisterCompanionToTrainingCamp(newCompanion);
+    }
+
+    public void UnRegisterPartyMember(Companion deadCompanion)
+    {
+        partyMemberList.Remove(deadCompanion);
     }
 
     public int GetPartySize()
@@ -20,6 +30,11 @@ public class PartyManager : MonoBehaviour
     public Companion GetPartyMember(string name)
     {
         return companionDictionary[name];
+    }
+
+    public List<Companion> GetWholePartyMember()
+    {
+        return partyMemberList;
     }
 
     public Player GetPlayer()

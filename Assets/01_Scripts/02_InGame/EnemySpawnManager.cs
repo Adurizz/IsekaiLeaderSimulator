@@ -171,7 +171,6 @@ public class EnemySpawnManager : MonoBehaviour
             temp.SetActive(false);
             enemyPoolQueue.Enqueue(temp);
         }
-        Debug.Log(enemyPoolQueue.Count);
     }
     
     public IEnumerator SpawnEnemyWithInterval()

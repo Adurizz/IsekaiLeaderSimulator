@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8995922790897134168}
   - component: {fileID: 7002333513202779184}
   - component: {fileID: 3915762902596974693}
+  - component: {fileID: 1718046414639237931}
   m_Layer: 0
   m_Name: PlayerDetector
   m_TagString: Untagged
@@ -102,12 +103,24 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1718046414639237931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638605895033964376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39b2a645e6e55345b11580baf18d6c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &765055553185981151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -170,7 +183,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
       propertyPath: m_Name
-      value: building_barracks_blue
+      value: TrainingCamp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -178,8 +191,28 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4575265217899977556}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3624869983061495924}
   m_SourcePrefab: {fileID: 100100000, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
+--- !u!1 &459204610450136974 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
+  m_PrefabInstance: {fileID: 765055553185981151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3624869983061495924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459204610450136974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332e6f60f8ef1d34d8dd4c9d156773cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &942585504122684724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
