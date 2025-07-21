@@ -10557,7 +10557,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 554311629}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1936329216}
+        m_TargetAssemblyTypeName: CompanionSpawnManager, Assembly-CSharp
+        m_MethodName: TryToHireCompanion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 289179753}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1723175031}
+        m_TargetAssemblyTypeName: ExpeditionManager, Assembly-CSharp
+        m_MethodName: ResumeExpedition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &554311629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14798,10 +14834,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3431063160277947618, guid: 269e4cd3e743ab34c88ba13ecbbea27d, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8790638465656282710, guid: 269e4cd3e743ab34c88ba13ecbbea27d, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 1236622049}
     - targetCorrespondingSourceObject: {fileID: 8790638465656282710, guid: 269e4cd3e743ab34c88ba13ecbbea27d, type: 3}
       insertIndex: -1
@@ -26423,7 +26460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ebd5bbc06058e62488348088061b4b35, type: 3}
       propertyPath: m_Name
-      value: Hill_Top_E_Center_Color1
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ebd5bbc06058e62488348088061b4b35, type: 3}
       propertyPath: m_TagString
@@ -38793,7 +38830,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1987397276}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 289179753}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1987397276
 MonoBehaviour:
   m_ObjectHideFlags: 0
