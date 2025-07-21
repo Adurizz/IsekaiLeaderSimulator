@@ -5040,11 +5040,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Test: 1
+  goldPrefab: {fileID: 5722872572823669518, guid: 364b7250cc19a2a48ab0a9ed27655758, type: 3}
+  upgradeStonePrefab: {fileID: 5722872572823669518, guid: 8dc8e987d40d0a741a10bbb06ed895c2, type: 3}
   treasureBoxPrefab: {fileID: 0}
   healPotionPrefab: {fileID: 0}
   companionSpawnItemPrefabs:
   - {fileID: 2210985003962576422, guid: 7e970d5c9fc983a4184181f894798593, type: 3}
   objectPlacementManager: {fileID: 1378861854}
+  goldSpawnOffset: {x: -1, y: 0, z: 0}
+  stoneSpawnOffset: {x: 1, y: 0, z: 0}
 --- !u!4 &242624224 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9899e7ff70c825f48b4b2fa46ec84261, type: 3}
@@ -5802,7 +5806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &289179754
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7908,6 +7912,7 @@ Transform:
   - {fileID: 1936329215}
   - {fileID: 242102175}
   - {fileID: 16261353}
+  - {fileID: 1947803633}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &391514887
@@ -17620,7 +17625,7 @@ MonoBehaviour:
   stageEnemyInfoList:
   - stageNum: 1
     stageEnemies:
-    - enemyPrefab: {fileID: 6225991802835969733, guid: 7f1d7970d0126984cab42a2e504a4748, type: 3}
+    - enemyPrefab: {fileID: 6225991802835969733, guid: d041a7926a4ef16489110628cff9ec5e, type: 3}
       probability: 1
     bossPrefab: {fileID: 1953785076684098995, guid: 2503318a32adfb342a36d38fc4b33570, type: 3}
     spawnAttributes:
@@ -37863,6 +37868,7 @@ MonoBehaviour:
   - companionClass: 7
     companionPrefab: {fileID: 3121945675028534100, guid: a47b03f6cccb69b40af64e885b8c2e6f, type: 3}
   player: {fileID: 101255912}
+  curSpawnTarget: 0
 --- !u!1001 &1937229860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38160,6 +38166,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9899e7ff70c825f48b4b2fa46ec84261, type: 3}
+--- !u!1 &1947803632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1947803633}
+  - component: {fileID: 1947803634}
+  m_Layer: 0
+  m_Name: IngameUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1947803633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947803632}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 390480959}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1947803634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947803632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb03ab1cad76d82468e94389273df91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  companionHirePanel: {fileID: 289179753}
 --- !u!1001 &1948631985
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public abstract class Enemy : Actor
         }
     }
     protected EnemySpawnManager spawnManager;
+    protected ItemSpawnManager itemSpawnManager;
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
     // Àû Å½Áö Ã³¸®
@@ -73,6 +74,7 @@ public abstract class Enemy : Actor
     private void Awake()
     {
         spawnManager = FindAnyObjectByType<EnemySpawnManager>();
+        itemSpawnManager = FindAnyObjectByType<ItemSpawnManager>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         heroLayer = LayerMask.GetMask("Hero");
@@ -294,6 +296,7 @@ public abstract class Enemy : Actor
     {
         isDead = true;
         navMeshAgent.isStopped = true;
+        DropItem();
         Invoke(nameof(VanishBody), 3f);
     }
 
@@ -305,6 +308,9 @@ public abstract class Enemy : Actor
 
     protected virtual void DropItem()
     {
-
+        EnemyStat enemyStat = actorStat as EnemyStat;
+        int[] rewardInfo = enemyStat.GetRewardInfo();
+        itemSpawnManager.SpawnGoldItem(rewardInfo[0], transform);
+        itemSpawnManager.SpawnUpgradeStoneItem(rewardInfo[1], transform);
     }
 }

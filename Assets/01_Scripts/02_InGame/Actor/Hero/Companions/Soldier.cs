@@ -130,7 +130,6 @@ public class Soldier : Companion
                     curAttackCool = 0;
                 }
                 break;
-                break;
             case ESoldierState.Hit:
                 break;
             case ESoldierState.Dead:

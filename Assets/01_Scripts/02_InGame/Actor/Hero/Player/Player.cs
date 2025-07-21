@@ -54,6 +54,16 @@ public class Player : Hero
         return playerStat.ConsumeGold(amount);
     }
 
+    public void EarnUpgradeStone(int amount)
+    {
+        playerStat.EarnStone(amount);
+    }
+
+    public bool ConsumeUpgradeStone(int amount)
+    {
+        return playerStat.ConsumeStone(amount);
+    }
+
     public override void GetDamage(float damage)
     {
         Debug.Log("Player Attacked");
@@ -71,7 +81,7 @@ public class Player : Hero
         if (collision.gameObject.CompareTag("Item"))
         {
             collision.gameObject.GetComponent<Item>().OnAcquired();
-            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
         }
     }
 

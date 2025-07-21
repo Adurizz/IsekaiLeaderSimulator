@@ -4,7 +4,6 @@ using UnityEngine;
 public class CompanionSpawnItem : Item
 {
     [SerializeField] private EHeroClass companionClass;
-    [SerializeField] private GameObject companionHirePanel;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI classText;
     [SerializeField] private TextMeshProUGUI costText;
@@ -22,7 +21,8 @@ public class CompanionSpawnItem : Item
 
     public override void OnAcquired()
     {
-        companionSpawnManager.SpawnCompanion(companionClass);
+        companionSpawnManager.SetSpawnTarget(companionClass);
+        IngameUIManager.Instance.ActivateCompanionHireUI();
         base.OnAcquired();
     }
 

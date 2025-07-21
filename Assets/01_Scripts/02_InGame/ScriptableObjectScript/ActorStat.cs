@@ -2,8 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ActorStat", menuName = "ActorStat/ActorStat")]
-public class ActorStat : ScriptableObject
+public abstract class ActorStat : ScriptableObject
 {
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float attack;

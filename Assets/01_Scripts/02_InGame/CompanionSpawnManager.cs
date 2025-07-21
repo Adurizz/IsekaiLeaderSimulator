@@ -15,6 +15,7 @@ public class CompanionSpawnManager : MonoBehaviour
     private Dictionary<EHeroClass, GameObject> companionPrefabDict = null;
     private Vector3 spawnOffset = new(0, 0, -8);
     [SerializeField] private Player player;
+    [SerializeField] private EHeroClass curSpawnTarget;
 
     private void InitHeroPrefabDict()
     {
@@ -32,6 +33,17 @@ public class CompanionSpawnManager : MonoBehaviour
             InitHeroPrefabDict();
 
         return companionPrefabDict[companionClass];
+    }
+
+    public void SetSpawnTarget(EHeroClass spawnTargetClass)
+    {
+        curSpawnTarget = spawnTargetClass;
+    }
+
+    public void SpawnCompanion()
+    {
+        GameObject spawnedCompanion = Instantiate(GetHeroPrefab(curSpawnTarget));
+        spawnedCompanion.transform.localPosition = player.transform.localPosition + spawnOffset;
     }
 
     public void SpawnCompanion(EHeroClass companionClass)
