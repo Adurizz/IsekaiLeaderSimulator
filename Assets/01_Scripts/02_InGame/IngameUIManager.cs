@@ -9,6 +9,9 @@ public class IngameUIManager : Singleton<IngameUIManager>
     [SerializeField] private GameObject trainingCampPanel;
     private ExpeditionManager expeditionManager;
     [SerializeField] private List<GameObject> trainingOptions;
+    [SerializeField] private SkillInfo[] curSelectedSkillInfos = new SkillInfo[3];
+    private TrainingCamp trainingCamp;
+    
 
     protected override void Awake()
     {
@@ -40,5 +43,13 @@ public class IngameUIManager : Singleton<IngameUIManager>
         trainingIcon.sprite = skillInfo.skillImg;
         trainingTarget.text = "´ë»ó: " + name + "(" + skillInfo.ownerClass + ")";
         trainingDescription.text = skillInfo.skillDescription;
+    }
+
+    public void OnClickTrainingButton(int index)
+    {
+        if (trainingCamp == null)
+            trainingCamp = FindAnyObjectByType<TrainingCamp>();
+
+        trainingCamp.UpgradeTarget(index);
     }
 }

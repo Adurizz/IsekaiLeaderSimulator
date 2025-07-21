@@ -14,6 +14,7 @@ public class PlayerDetectorForTrainingCamp : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             trainingCamp.OnReachTrainingCamp();
+            trainingCamp.InitWholeSkillInfoOccupiedState();
         }
     }
 }

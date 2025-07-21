@@ -23,8 +23,11 @@ public abstract class Companion : Hero
         return level;
     }
 
-    public void LevelUp()
+    public void LevelUp(int skillIndex)
     {
+        if (skillLevels[skillIndex] < 3)
+            skillLevels[skillIndex]++;
+
         if (level < GlobalValueHolder.maxCompanionLevel)
         {
             level++;

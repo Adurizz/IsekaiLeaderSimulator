@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0868d03864f804ca5d44252656aa99, type: 3}
   m_Name: HolyKnight3
   m_EditorClassIdentifier: 
-  ownerClass: 0
-  skillID: 0
-  skillLevel: 0
-  skillName: 
-  skillDescription: 
+  ownerClass: 1
+  skillImg: {fileID: 0}
+  skillID: 2
+  skillLevel: 3
+  skillName: "\uC131\uAE30\uC0AC 3"
+  skillDescription: "\uC8FC\uBCC0 \uC544\uAD70\uC744 \uB354\uC6B1 \uD06C\uAC8C \uCE58\uC720\uD569\uB2C8\uB2E4.
+    \uC544\uAD70\uC758 \uD53C\uD574 \uC77C\uC815\uB7C9\uC744 \uB300\uC2E0 \uBC1B\uC2B5\uB2C8\uB2E4."

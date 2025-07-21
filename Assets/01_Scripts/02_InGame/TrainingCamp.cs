@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -20,6 +21,9 @@ public class TrainingCamp : MonoBehaviour
     private Dictionary<string, List<List<SkillInfo>>> skillInfoDict;
     private Dictionary<string, List<bool>> skillInfoOccupiedDict;
     private ExpeditionManager expeditionManager;
+
+    [SerializeField] private Companion[] curSelectedCompanions = new Companion[3];
+    [SerializeField] private int[] curSelectedSkillIndexes = new int[3];
 
     private void Awake()
     {
@@ -45,6 +49,18 @@ public class TrainingCamp : MonoBehaviour
             };
 
             skillInfoDictData[skillInfoHolder.ownerClass] = temp;
+        }
+    }
+
+    public void InitWholeSkillInfoOccupiedState()
+    {
+        foreach (var partyMember in partyManager.GetWholePartyMember())
+        {
+            for (int i = 0; i < 3; ++i)
+            {
+                skillInfoOccupiedDict[partyMember.GetName()][i] = false;
+
+            }
         }
     }
 
@@ -94,23 +110,89 @@ public class TrainingCamp : MonoBehaviour
     {
         List<Companion> partyMemberList = partyManager.GetWholePartyMember();
 
+        int count1 = 0;
         // 레벨 5 이하인 파티 멤버중 하나 랜덤 픽
         int randomMemberIndex;
         do
         {
             randomMemberIndex = UnityEngine.Random.Range(0, partyMemberList.Count);
+            ++count1;
+            if (count1 >= 10)
+            {
+                SkillInfo defaultSkilInfo = GetRandomDefaultSkill();
+                switch (defaultSkilInfo.skillID)
+                {
+                    case 0:
+                        // HP 회복
+                        break;
+                    case 1:
+                        // HP 회복 2
+                        break;
+                    case 2:
+                        // HP 회복 3
+                        break;
+                }
+                IngameUIManager.Instance.SetTrainingOptionPanel(index, "플레이어", defaultSkilInfo);
+                curSelectedCompanions[index] = null;
+                return;
+            }
         } while (partyMemberList[randomMemberIndex].GetLevel() >= GlobalValueHolder.maxCompanionLevel);
         Companion trainingTarget = partyMemberList[randomMemberIndex];
         Debug.Log("강화 대상: " + trainingTarget.name);
 
+        int count2 = 0;
         int randomSkillIndex;
         do
         {
             randomSkillIndex = UnityEngine.Random.Range(0, 3);
-
+            ++count2;
+            if (count2 >= 10)
+            {
+                SkillInfo defaultSkilInfo = GetRandomDefaultSkill();
+                switch (defaultSkilInfo.skillID)
+                {
+                    case 0:
+                        // HP 회복
+                        break;
+                    case 1:
+                        // HP 회복 2
+                        break;
+                    case 2:
+                        // HP 회복 3
+                        break;
+                }
+                IngameUIManager.Instance.SetTrainingOptionPanel(index, "플레이어", defaultSkilInfo);
+                curSelectedCompanions[index] = null;
+                return;
+            }
         } while (CheckSkillInfoOccupied(trainingTarget.GetName(), randomSkillIndex) || trainingTarget.GetSkillLevels()[randomSkillIndex] >= 3);
+
+        skillInfoOccupiedDict[trainingTarget.GetName()][randomSkillIndex] = true;
 
         SkillInfo trainingTargetSkillInfo = GetSkillInfo(trainingTarget.GetName())[randomSkillIndex][trainingTarget.GetSkillLevels()[randomSkillIndex]];
         IngameUIManager.Instance.SetTrainingOptionPanel(index, trainingTarget.GetName(), trainingTargetSkillInfo);
+
+        curSelectedCompanions[index] = trainingTarget;
+        curSelectedSkillIndexes[index] = randomSkillIndex;
+    }
+
+    private SkillInfo GetRandomDefaultSkill()
+    {
+        int randomDefaultSkillIdx = UnityEngine.Random.Range(0, 3);
+        SkillInfo defaultSkillInfo = GetSkillInfoData(EHeroClass.Player)[randomDefaultSkillIdx][0];
+
+        return defaultSkillInfo;
+    }
+
+    public void UpgradeTarget(int index)
+    {
+        if (curSelectedCompanions[index] == null)
+        {
+            Debug.Log(index + "적용");
+            return;
+        }
+        Debug.Log(index);
+        Debug.Log(curSelectedSkillIndexes[index]);
+        curSelectedCompanions[index].LevelUp(curSelectedSkillIndexes[index]);
     }
 }

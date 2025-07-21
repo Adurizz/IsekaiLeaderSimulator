@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0868d03864f804ca5d44252656aa99, type: 3}
   m_Name: HolyKnight2
   m_EditorClassIdentifier: 
-  ownerClass: 0
-  skillID: 0
-  skillLevel: 0
-  skillName: 
-  skillDescription: 
+  ownerClass: 1
+  skillImg: {fileID: 0}
+  skillID: 2
+  skillLevel: 2
+  skillName: "\uC131\uAE30\uC0AC 2"
+  skillDescription: "\uC8FC\uBCC0 \uC544\uAD70\uC744 \uB354 \uD06C\uAC8C \uCE58\uC720\uD569\uB2C8\uB2E4."

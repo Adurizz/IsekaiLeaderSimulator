@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0868d03864f804ca5d44252656aa99, type: 3}
   m_Name: Protector3
   m_EditorClassIdentifier: 
-  ownerClass: 0
+  ownerClass: 1
+  skillImg: {fileID: 0}
   skillID: 0
   skillLevel: 3
   skillName: "\uC218\uD638\uC790 3"
