@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2b86b4ae9eada4abe13ce244728f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorStat: {fileID: 11400000, guid: 445e5a474a7c1bc4f9a175d530a1258e, type: 2}
+  actorStat: {fileID: 11400000, guid: 1240dd78f45229c49a3b58268765af1a, type: 2}
   actorName: actor
   maxHealth: 0
   curHealth: 0

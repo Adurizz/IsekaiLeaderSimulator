@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public struct HeroPrefabHolder
@@ -51,12 +52,15 @@ public class CompanionSpawnManager : MonoBehaviour
         GameObject spawnedCompanion = Instantiate(GetHeroPrefab(companionClass));
         spawnedCompanion.transform.localPosition = player.transform.localPosition + spawnOffset;
     }
-
-    public void TryToHireCompanion(EHeroClass companionClass)
+    
+    /// <summary>
+    /// CompanyHirePanel 예 버튼에 바인딩
+    /// </summary>
+    public void TryToHireCompanion()
     {
-        if (player.ConsumeGold(GlobalValueHolder.companionCost))
+        if (player.ConsumeGold(GlobalValueHolder.companionHireCost))
         {
-            SpawnCompanion(companionClass);
+            SpawnCompanion();
         }
         else
         {

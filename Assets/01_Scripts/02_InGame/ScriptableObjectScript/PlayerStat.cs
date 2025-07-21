@@ -39,7 +39,7 @@ public class PlayerStat : ActorStat
 
     public bool ConsumeGold(int amount)
     {
-        if (gold > amount)
+        if (gold >= amount)
         {
             AdjustGoldAmount(-amount);
             return true;
@@ -62,7 +62,7 @@ public class PlayerStat : ActorStat
 
     public bool ConsumeStone(int amount)
     {
-        if (upgradeStone > amount)
+        if (upgradeStone >= amount)
         {
             AdjustStoneAmount(-amount);
             return true;

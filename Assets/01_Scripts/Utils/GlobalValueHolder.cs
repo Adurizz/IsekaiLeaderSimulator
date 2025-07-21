@@ -22,5 +22,5 @@ public static class GlobalValueHolder
     /// </summary>
     public readonly static int mapSize = maxMapIdx * 2 + 1;
     #endregion
-    public readonly static int companionCost = 500;
+    public readonly static int companionHireCost = 500;
 }
