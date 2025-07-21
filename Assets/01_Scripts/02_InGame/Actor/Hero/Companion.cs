@@ -34,6 +34,12 @@ public abstract class Companion : Hero
         return actorName;
     }
 
+    public void SetName(string name)
+    {
+        actorName = name;
+        this.name = name;
+    }
+
     protected abstract void Move();
     protected abstract void Attack();
 }
