@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e4ccdb17b80e6499adbbd8653ee0e1, type: 3}
   m_Name: BarbarianStat 4
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  maxHealth: 500
   attack: 10
   attackSpeed: 1
   attackDistance: 2.5

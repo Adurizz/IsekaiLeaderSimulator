@@ -274,7 +274,7 @@ public abstract class Enemy : Actor
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
-    public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
+    public override bool GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
@@ -282,6 +282,7 @@ public abstract class Enemy : Actor
             // TODO: 사망 관련 처리
             OnDead();
             CurState = EEnemyState.Dead;
+            return true;
         }
         else
         {
@@ -296,6 +297,7 @@ public abstract class Enemy : Actor
                     CurState = EEnemyState.Hit;
                 }
             }
+            return false;
         }
     }
 

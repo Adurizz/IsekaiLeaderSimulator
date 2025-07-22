@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e4ccdb17b80e6499adbbd8653ee0e1, type: 3}
   m_Name: BarbarianStat 0
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  attack: 5
+  maxHealth: 500
+  attack: 500
   attackSpeed: 1
   attackDistance: 2.5
   attackRange: 10
-  moveSpeed: 3
+  moveSpeed: 5

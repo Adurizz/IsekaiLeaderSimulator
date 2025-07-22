@@ -1,19 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StrikerSkill : Skill
+public class Berserker : Skill
 {
-    private Soldier soldierScript;
+    private Barbarian barbarianScript;
+    public static float attackUpAmount = 1f;
 
     protected override void Awake()
     {
         base.Awake();
-        soldierScript = companionScript as Soldier;
+        barbarianScript = companionScript as Barbarian;
     }
 
     protected override void SetSkillID()
     {
-        skillID = (int)ESoldierSkill.Striker;
+        skillID = (int)EBarbarianSkill.Berserker;
     }
 
     protected override void AdjustSkillLevel(List<int> skillLevels)
@@ -31,7 +32,7 @@ public class StrikerSkill : Skill
         if (level >= 3)
         {
             companionScript.UpgradeAttack(30);
-            soldierScript.MakeAttackKnockBack();
+            barbarianScript.MakeBerserker();
         }
     }
 }

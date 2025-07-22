@@ -22,8 +22,11 @@ public class ItemSpawnManager : MonoBehaviour
     {
         if (Test)
         {
-            GameObject temp = companionSpawnItemPrefabs[Random.Range(0, companionSpawnItemPrefabs.Count)];
-            objectPlacementManager.SpawnObject(temp, temp.GetComponent<Item>().GetSize());
+            foreach (var cp in companionSpawnItemPrefabs)
+            {
+                objectPlacementManager.SpawnObject(cp, cp.GetComponent<Item>().GetSize());
+            }
+            
         }
     }
 

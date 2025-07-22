@@ -32,7 +32,7 @@ public abstract class Actor : MonoBehaviour
         isDead = false;
     }
 
-    public virtual void GetDamage(float damage, bool isKnockBack = false, Vector3 knockoutDir = new Vector3())
+    public virtual bool GetDamage(float damage, bool isKnockBack = false, Vector3 knockoutDir = new Vector3())
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
@@ -40,6 +40,7 @@ public abstract class Actor : MonoBehaviour
             isDead = true;
             // TODO: 사망 관련 처리
             OnDead();
+            return true;
         }
         else
         {
@@ -47,6 +48,7 @@ public abstract class Actor : MonoBehaviour
             {
                 GetKnockBack(knockoutDir, 10f, 3f);
             }
+            return false;
         }
     }
 

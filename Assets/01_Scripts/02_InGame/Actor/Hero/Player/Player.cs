@@ -64,7 +64,7 @@ public class Player : Hero
         return playerStat.ConsumeStone(amount);
     }
 
-    public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
+    public override bool GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
         Debug.Log("Player Attacked");
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
@@ -73,7 +73,9 @@ public class Player : Hero
             // TODO: 사망 관련 처리
             OnDead();
             animator.SetTrigger("Dead");
+            return true;
         }
+        return false;
     }
 
     private void OnCollisionEnter(Collision collision)

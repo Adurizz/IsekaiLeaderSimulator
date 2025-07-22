@@ -1,22 +1,21 @@
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 
-public enum ESoldierState
+public enum EBarbarianState
 {
     Idle, Chasing, Attack, Hit, Dead
 }
 
-public enum ESoldierSkill
+public enum EBarbarianSkill
 {
-    Guardian, Striker, Warden
+    Civilized, Berserker, BloodWarrior
 }
 
-public class Soldier : Companion
+public class Barbarian : Companion
 {
-    private Player player;
-    private PlayerAttackHandler playerAttackHandler;
-    [SerializeField] private GameObject protectTarget;
-    [SerializeField] private ESoldierState curState;
-    public ESoldierState CurState
+    [SerializeField] private GameObject attackTarget;
+    [SerializeField] private EBarbarianState curState;
+    public EBarbarianState CurState
     {
         get { return curState; }
         set
@@ -25,38 +24,25 @@ public class Soldier : Companion
             animator.SetInteger("State", (int)curState);
         }
     }
-    private const float protectDistance = 15f;
-    [SerializeField] private GameObject attackTarget;
+    private Player player;
     private float distanceFromAttackTarget;
+    private const float detectionDistance = 15f;
     private float curDetectionCool;
     private const float detectionCool = 0.5f;
     private float curAttackCool;
     private bool attackInit;
-    private GuardianSkill guardianSkill;
-    [SerializeField] private bool isAttackKnockBack;
-    [SerializeField] private bool canDodge;
+    [SerializeField] private bool isCivilized;
+    [SerializeField] private bool isBerserker;
 
     protected override void Awake()
     {
         base.Awake();
         player = FindAnyObjectByType<Player>();
-        playerAttackHandler = player.gameObject.GetComponent<PlayerAttackHandler>();
-        guardianSkill = GetComponent<GuardianSkill>();
     }
 
     private void OnEnable()
     {
         InitStat();
-    }
-
-    private void Start()
-    {
-        protectTarget = player.gameObject;
-    }
-
-    public void SetProtectTarget(GameObject newTarget)
-    {
-        protectTarget = newTarget;
     }
 
     private void Update()
@@ -72,27 +58,27 @@ public class Soldier : Companion
 
     private void FSM()
     {
-        if (attackTarget == null && CurState != ESoldierState.Idle)
-            CurState = ESoldierState.Idle;
+        if (attackTarget == null && CurState != EBarbarianState.Idle)
+            CurState = EBarbarianState.Idle;
 
         switch (CurState)
         {
-            case ESoldierState.Idle:
+            case EBarbarianState.Idle:
                 if (attackTarget != null)
                 {
-                    CurState = ESoldierState.Chasing;
+                    CurState = EBarbarianState.Chasing;
                 }
                 break;
-            case ESoldierState.Chasing:
+            case EBarbarianState.Chasing:
                 if (distanceFromAttackTarget < attackDistance)
                 {
                     curDetectionCool = 0;
                     curAttackCool = 0;
-                    CurState = ESoldierState.Attack;
+                    CurState = EBarbarianState.Attack;
                     attackInit = true;
                 }
                 break;
-            case ESoldierState.Attack:
+            case EBarbarianState.Attack:
                 RotateTowardsTarget();
                 if (attackInit)
                 {
@@ -107,7 +93,7 @@ public class Soldier : Companion
                 if (distanceFromAttackTarget > attackDistance)
                 {
                     IsStopped = false;
-                    CurState = ESoldierState.Chasing;
+                    CurState = EBarbarianState.Chasing;
                     return;
                 }
 
@@ -119,11 +105,11 @@ public class Soldier : Companion
                     curAttackCool = 0;
                 }
                 break;
-            case ESoldierState.Hit:
+            case EBarbarianState.Hit:
                 break;
-            case ESoldierState.Dead:
+            case EBarbarianState.Dead:
                 break;
-            
+
         }
     }
 
@@ -139,7 +125,13 @@ public class Soldier : Companion
 
     private void FindNearestEnemy()
     {
-        Collider[] colliders = Physics.OverlapSphere(protectTarget.transform.position, protectDistance, enemyLayer);
+        Collider[] colliders;
+
+        if (isCivilized)
+            colliders = Physics.OverlapSphere(player.transform.position, detectionDistance, enemyLayer);
+        else
+            colliders = Physics.OverlapSphere(transform.position, detectionDistance, enemyLayer);
+
         if (colliders.Length == 0)
         {
             attackTarget = null;
@@ -173,11 +165,24 @@ public class Soldier : Companion
         }
     }
 
+    private void RotateTowardsTarget()
+    {
+        if (attackTarget == null)
+            return;
+        Vector3 direction = (attackTarget.transform.position - transform.position).normalized;
+        direction.y = 0; // 바닥에서만 회전
+        if (direction == Vector3.zero)
+            return;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+    }
+
     protected override void Move()
     {
-        if (CurState == ESoldierState.Idle)
+        if (CurState == EBarbarianState.Idle)
         {
-            if (Vector3.Distance(protectTarget.transform.position, transform.position) > stoppingDistance)
+            if (Vector3.Distance(player.transform.position, transform.position) > stoppingDistance)
             {
                 if (IsStopped)
                     IsStopped = false;
@@ -189,7 +194,7 @@ public class Soldier : Companion
                 IsStopped = true;
             }
         }
-        else if (CurState == ESoldierState.Chasing)
+        else if (CurState == EBarbarianState.Chasing)
         {
             IsStopped = false;
             navMeshAgent.SetDestination(attackTarget.transform.position);
@@ -201,74 +206,37 @@ public class Soldier : Companion
         animator.SetTrigger("Attack");
     }
 
-    /// <summary>
-    /// 공격 적중시: animation에 바인딩
-    /// </summary>
     public void OnAttackHit()
     {
-        if (isAttackKnockBack)
+        if (attackTarget.GetComponent<Actor>().GetDamage(attack))
         {
-            Debug.Log("넉백 공격");
-            attackTarget.GetComponent<Actor>().GetDamage(attack, true, (attackTarget.transform.position - transform.position).normalized);
+            if (isBerserker)
+                UpgradeAttack(Berserker.attackUpAmount);
         }
-        else
-        {
-            attackTarget.GetComponent<Actor>().GetDamage(attack);
-        }
-    }
-
-    private void RotateTowardsTarget()
-    {
-        if (attackTarget == null) 
-            return;
-        Vector3 direction = (attackTarget.transform.position - transform.position).normalized;
-        direction.y = 0; // 바닥에서만 회전
-        if (direction == Vector3.zero) 
-            return;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
     public override bool GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
-        if (canDodge)
-        {
-            int rand = Random.Range(0, 10);
-            if (rand < 3)
-            {
-                Debug.Log("회피 성공!");
-                return false;
-            }
-        }
-
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
             // TODO: 사망 관련 처리
-            CurState = ESoldierState.Dead;
+            CurState = EBarbarianState.Dead;
             OnDead();
             return true;
         }
-
         return false;
     }
 
-    public void MakeAttackKnockBack()
+    public void MakeCivilized()
     {
-        if (!isAttackKnockBack)
-            isAttackKnockBack = true;
+        if (!isCivilized)
+            isCivilized = true;
     }
 
-    public void MakeDodgePossible()
+    public void MakeBerserker()
     {
-        if (!canDodge)
-            canDodge = true;
-    }
-
-    public override void OnDead()
-    {
-        guardianSkill.DeactivateAreaHealEffect();
-        base.OnDead();
+        if (!isBerserker)
+            isBerserker = true;
     }
 }

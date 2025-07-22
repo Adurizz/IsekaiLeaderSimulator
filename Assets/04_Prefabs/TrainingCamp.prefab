@@ -143,15 +143,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.9
+      value: 11.625231
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000038146973
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.1
+      value: -3.363699
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}
       propertyPath: m_LocalRotation.w
@@ -213,6 +213,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332e6f60f8ef1d34d8dd4c9d156773cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillInfoHolders:
+  - ownerClass: 0
+    firstSkillInfoList:
+    - {fileID: 11400000, guid: d017d7e480087f444b14f6f7bea41618, type: 2}
+    secondSkillInfoList:
+    - {fileID: 11400000, guid: d017d7e480087f444b14f6f7bea41618, type: 2}
+    thirdSkillInfoList:
+    - {fileID: 11400000, guid: d017d7e480087f444b14f6f7bea41618, type: 2}
+  - ownerClass: 1
+    firstSkillInfoList:
+    - {fileID: 11400000, guid: 1e2592db7f7881d40a845ce84f6b7733, type: 2}
+    - {fileID: 11400000, guid: 2c946c2dc72fc2d40a0a236fc57f169b, type: 2}
+    - {fileID: 11400000, guid: 5c047be8e39818041ab9ab05491bc346, type: 2}
+    secondSkillInfoList:
+    - {fileID: 11400000, guid: 368905390d178c040aea91375666c00b, type: 2}
+    - {fileID: 11400000, guid: 8444ba6c57a560344914c59abffa3f52, type: 2}
+    - {fileID: 11400000, guid: 40bddc0be8bf59e46b6f66dd87cddb2e, type: 2}
+    thirdSkillInfoList:
+    - {fileID: 11400000, guid: 8011e4d597da1bc4f9551a95501d61b7, type: 2}
+    - {fileID: 11400000, guid: f6c2fda344e63aa40b09608e09e0288d, type: 2}
+    - {fileID: 11400000, guid: 80f754e0261cf934684b52942c70f44f, type: 2}
+  - ownerClass: 2
+    firstSkillInfoList:
+    - {fileID: 11400000, guid: f955e0d64bbca464380ff3a73c1d5de7, type: 2}
+    - {fileID: 11400000, guid: ef49bf84e5fa3d94b9545e1b086e0634, type: 2}
+    - {fileID: 11400000, guid: 840115229bf491f4e8d74b04c0f38285, type: 2}
+    secondSkillInfoList:
+    - {fileID: 11400000, guid: e4c24715726c67443b9f8f47eb7b2d0f, type: 2}
+    - {fileID: 11400000, guid: edaf14ecfdd578e45bae258054bcf435, type: 2}
+    - {fileID: 11400000, guid: 98b0dd83143166a4db81a7960bb21ded, type: 2}
+    thirdSkillInfoList:
+    - {fileID: 11400000, guid: 79370643dfd77a14f8ca22726f7b0cfb, type: 2}
+    - {fileID: 11400000, guid: 64d2c96829bf08e40b663a7e0d7b41b5, type: 2}
+    - {fileID: 11400000, guid: 442e4db0a963c714eb002e499d94c00d, type: 2}
+  curSelectedCompanions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  curSelectedSkillIndexes: 000000000000000000000000
 --- !u!4 &942585504122684724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 498f2b2a230c15d429a8e75eb9c08298, type: 3}

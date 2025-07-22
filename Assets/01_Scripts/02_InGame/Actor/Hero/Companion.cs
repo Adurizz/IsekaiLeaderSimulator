@@ -46,6 +46,7 @@ public abstract class Companion : Hero
         actorStat = companionStatManager.GetCompanionStats(heroClass)[level];
         base.InitStat();
         navMeshAgent.speed = moveSpeed;
+        navMeshAgent.stoppingDistance = attackDistance;
         stoppingDistance = navMeshAgent.stoppingDistance;
     }
 
@@ -78,13 +79,15 @@ public abstract class Companion : Hero
     protected abstract void Move();
     protected abstract void PerformAttack();
 
-    public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
+    public override bool GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
             OnDead();
+            return true;
         }
+        return false;
     }
 
     public override void OnDead()
