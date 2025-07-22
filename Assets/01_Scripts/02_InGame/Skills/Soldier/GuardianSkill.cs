@@ -24,9 +24,9 @@ public class GuardianSkill : Skill
         skillID = (int)ESoldierSkill.Guardian;
     }
 
-    protected override void AdjsustSkillLevel(List<int> skillLevels)
+    protected override void AdjustSkillLevel(List<int> skillLevels)
     {
-        base.AdjsustSkillLevel(skillLevels);
+        base.AdjustSkillLevel(skillLevels);
 
         if (level >= 1)
         {

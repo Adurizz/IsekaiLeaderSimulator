@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class Actor : MonoBehaviour
 {
@@ -30,7 +32,7 @@ public abstract class Actor : MonoBehaviour
         isDead = false;
     }
 
-    public virtual void GetDamage(float damage)
+    public virtual void GetDamage(float damage, bool isKnockBack = false, Vector3 knockoutDir = new Vector3())
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
@@ -39,6 +41,44 @@ public abstract class Actor : MonoBehaviour
             // TODO: 사망 관련 처리
             OnDead();
         }
+        else
+        {
+            if (isKnockBack)
+            {
+                GetKnockBack(knockoutDir, 10f, 3f);
+            }
+        }
+    }
+
+    public virtual void GetKnockBack(Vector3 knockbackDir, float knockbackForce, float duration)
+    {
+        NavMeshAgent navMeshAgent = null;
+        bool navMeshPresents = TryGetComponent<NavMeshAgent>(out navMeshAgent);
+        if (navMeshPresents)
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.updatePosition = false;
+        }
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.AddForce(knockbackDir * knockbackForce, ForceMode.Impulse);
+
+        if (navMeshPresents)
+            StartCoroutine(KnockBackResetCor(duration, rb, navMeshAgent));
+    }
+
+    protected IEnumerator KnockBackResetCor(float duration, Rigidbody rb, NavMeshAgent navMeshAgent)
+    {
+        yield return new WaitForSeconds(duration);
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+
+        navMeshAgent.Warp(transform.position);
+        navMeshAgent.isStopped = false;
+        navMeshAgent.updatePosition = true;
     }
 
     public virtual void GetHeal(float healAmount)

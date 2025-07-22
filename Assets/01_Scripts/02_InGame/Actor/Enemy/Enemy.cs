@@ -176,6 +176,7 @@ public abstract class Enemy : Actor
                 }
                 break;
             case EEnemyState.Chasing:
+                #region 범위 내에 들어오면 공격으로 전환
                 if (distanceFromTarget <= attackDistance)
                 {
                     curDetectionCool = 0;
@@ -184,8 +185,10 @@ public abstract class Enemy : Actor
                     attackInit = true;
                 }
                 break;
+                #endregion
             case EEnemyState.Attack:
                 RotateTowardsTarget();
+                #region 첫 공격 하고 쿨타임 시작
                 if (attackInit)
                 {
                     Debug.Log("Init Attack");
@@ -195,7 +198,9 @@ public abstract class Enemy : Actor
                     navMeshAgent.isStopped = true;
                     return;
                 }
-                
+                #endregion
+
+                #region 공격중에는 더 짧은 빈도로 적 탐색, 범위 벗어나면 공격 캔슬
                 // 적 탐지
                 curDetectionCool += Time.deltaTime;
                 if (curDetectionCool >= maxDetectionCoolWhileAttack)
@@ -210,7 +215,7 @@ public abstract class Enemy : Actor
                     CurState = EEnemyState.Chasing;
                     return;
                 }
-
+                #endregion
                 // 공격
                 curAttackCool += Time.deltaTime;
                 if (curAttackCool >= attackSpeed)
@@ -220,7 +225,6 @@ public abstract class Enemy : Actor
                 }
                 break;
             case EEnemyState.Hit:
-                Debug.Log("Hit State");
                 curDelay += Time.deltaTime;
                 if (curDelay >= hitDelay)
                 {
@@ -270,9 +274,8 @@ public abstract class Enemy : Actor
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
-    public override void GetDamage(float damage)
+    public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
-        Debug.Log("Enemy Hit");
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
@@ -282,12 +285,16 @@ public abstract class Enemy : Actor
         }
         else
         {
-            navMeshAgent.isStopped = true;
-            animator.SetTrigger("Hit");
-            curDelay = 0;
-            if (CurState != EEnemyState.Hit)
+            if (isKnockBack)
             {
-                CurState = EEnemyState.Hit;
+                // navMeshAgent.isStopped = true;
+                GetKnockBack(knockoutDir, 10f, hitDelay);
+                animator.SetTrigger("Hit");
+                curDelay = 0;
+                if (CurState != EEnemyState.Hit)
+                {
+                    CurState = EEnemyState.Hit;
+                }
             }
         }
     }

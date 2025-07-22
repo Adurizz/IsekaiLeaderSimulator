@@ -21,15 +21,15 @@ public abstract class Skill : MonoBehaviour
 
     protected virtual void Start()
     {
-        companionScript.levelUpEvent.RemoveListener(AdjsustSkillLevel);
-        companionScript.levelUpEvent.AddListener(AdjsustSkillLevel);
+        companionScript.levelUpEvent.RemoveListener(AdjustSkillLevel);
+        companionScript.levelUpEvent.AddListener(AdjustSkillLevel);
     }
 
     /// <summary>
     /// levelEvent¸¦ ¹Þ¾Æ 
     /// </summary>
     /// <param name="skillLevels"></param>
-    protected virtual void AdjsustSkillLevel(List<int> skillLevels)
+    protected virtual void AdjustSkillLevel(List<int> skillLevels)
     {
         if (level != skillLevels[skillID])
         {

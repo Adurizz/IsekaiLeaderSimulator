@@ -64,7 +64,7 @@ public class Player : Hero
         return playerStat.ConsumeStone(amount);
     }
 
-    public override void GetDamage(float damage)
+    public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
         Debug.Log("Player Attacked");
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);

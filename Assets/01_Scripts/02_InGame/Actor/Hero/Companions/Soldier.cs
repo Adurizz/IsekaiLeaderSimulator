@@ -33,7 +33,7 @@ public class Soldier : Companion
     private float curAttackCool;
     private bool attackInit;
     private GuardianSkill guardianSkill;
-
+    [SerializeField] private bool isAttackKnockBack;
 
     protected override void Awake()
     {
@@ -204,7 +204,15 @@ public class Soldier : Companion
     /// </summary>
     public void OnAttackHit()
     {
-        attackTarget.GetComponent<Actor>().GetDamage(attack);
+        if (isAttackKnockBack)
+        {
+            Debug.Log("³Ë¹é °ø°Ý");
+            attackTarget.GetComponent<Actor>().GetDamage(attack, true, (attackTarget.transform.position - transform.position).normalized);
+        }
+        else
+        {
+            attackTarget.GetComponent<Actor>().GetDamage(attack);
+        }
     }
 
     private void RotateTowardsTarget()
@@ -220,9 +228,8 @@ public class Soldier : Companion
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
-    public override void GetDamage(float damage)
+    public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
-        Debug.Log("Soldier Hit");
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
@@ -230,6 +237,12 @@ public class Soldier : Companion
             CurState = ESoldierState.Dead;
             OnDead();
         }
+    }
+
+    public void MakeAttackKnockBack()
+    {
+        if (!isAttackKnockBack)
+            isAttackKnockBack = true;
     }
 
     public override void OnDead()

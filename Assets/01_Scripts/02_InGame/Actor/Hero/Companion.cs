@@ -78,7 +78,7 @@ public abstract class Companion : Hero
     protected abstract void Move();
     protected abstract void PerformAttack();
 
-    public override void GetDamage(float damage)
+    public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
