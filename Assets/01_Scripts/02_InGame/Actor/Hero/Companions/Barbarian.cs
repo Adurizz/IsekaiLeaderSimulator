@@ -125,6 +125,9 @@ public class Barbarian : Companion
 
     private void FindNearestEnemy()
     {
+        if (attackTarget != null)
+            return;
+
         Collider[] colliders;
 
         if (isCivilized)
@@ -210,6 +213,7 @@ public class Barbarian : Companion
     {
         if (attackTarget.GetComponent<Actor>().GetDamage(attack))
         {
+            attackTarget = null;
             if (isBerserker)
                 UpgradeAttack(Berserker.attackUpAmount);
         }

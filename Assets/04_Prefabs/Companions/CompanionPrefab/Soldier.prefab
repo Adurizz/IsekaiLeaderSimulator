@@ -202,6 +202,8 @@ MonoBehaviour:
   protectTarget: {fileID: 0}
   curState: 0
   attackTarget: {fileID: 0}
+  isAttackKnockBack: 0
+  canDodge: 0
 --- !u!95 &5992787645253710670
 Animator:
   serializedVersion: 7
@@ -238,8 +240,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   skillID: 0
-  companionScript: {fileID: 0}
-  skillAdjustAmount: 
+  skillAdjustAmount:
+  - 10
+  - 20
+  - 30
   guardRange: 8
   healAmount: 5
   mastered: 0
@@ -258,7 +262,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   skillID: 0
-  companionScript: {fileID: 0}
+  skillAdjustAmount:
+  - 10
+  - 20
+  - 30
 --- !u!114 &-9100887649839489305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   skillID: 0
-  companionScript: {fileID: 0}
+  skillAdjustAmount:
+  - 0.5
+  - 1.5
+  - 3
 --- !u!1001 &2127986984013826076
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,7 +5,8 @@ public abstract class Skill : MonoBehaviour
 {
     [SerializeField] protected int level;
     [SerializeField] protected int skillID;
-    [SerializeField] protected Companion companionScript;
+    [SerializeField] protected float[] skillAdjustAmount = new float[3];
+    protected Companion companionScript;
     protected LayerMask enemyLayer;
     protected LayerMask heroLayer;
 

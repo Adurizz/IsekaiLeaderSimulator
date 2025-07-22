@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class GuardianSkill : Skill
 {
-    [SerializeField] private List<int> skillAdjustAmount = new();
     private Soldier soldierScript;
     [SerializeField] private float guardRange = 8f;
     [SerializeField] private float healAmount = 5f;
@@ -30,15 +29,15 @@ public class GuardianSkill : Skill
 
         if (level >= 1)
         {
-            companionScript.UpgradeMaxHP(10);
+            companionScript.UpgradeMaxHP(skillAdjustAmount[0]);
         }
         if (level >= 2)
         {
-            companionScript.UpgradeMaxHP(20);
+            companionScript.UpgradeMaxHP(skillAdjustAmount[1]);
         }
         if (level >= 3)
         {
-            companionScript.UpgradeMaxHP(30);
+            companionScript.UpgradeMaxHP(skillAdjustAmount[2]);
             mastered = true;
             ActivateAreaHealEffect();
         }

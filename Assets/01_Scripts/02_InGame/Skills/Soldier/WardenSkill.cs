@@ -22,15 +22,15 @@ public class WardenSkill : Skill
 
         if (level >= 1)
         {
-            companionScript.UpgradeMoveSpeed(1);
+            companionScript.UpgradeMoveSpeed(skillAdjustAmount[0]);
         }
         if (level >= 2)
         {
-            companionScript.UpgradeMoveSpeed(1);
+            companionScript.UpgradeMoveSpeed(skillAdjustAmount[1]);
         }
         if (level >= 3)
         {
-            companionScript.UpgradeMoveSpeed(3);
+            companionScript.UpgradeMoveSpeed(skillAdjustAmount[2]);
             soldierScript.MakeDodgePossible();
         }
     }

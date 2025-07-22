@@ -23,15 +23,15 @@ public class Berserker : Skill
 
         if (level >= 1)
         {
-            companionScript.UpgradeAttack(10);
+            companionScript.UpgradeAttack(skillAdjustAmount[0]);
         }
         if (level >= 2)
         {
-            companionScript.UpgradeAttack(20);
+            companionScript.UpgradeAttack(skillAdjustAmount[1]);
         }
         if (level >= 3)
         {
-            companionScript.UpgradeAttack(30);
+            companionScript.UpgradeAttack(skillAdjustAmount[2]);
             barbarianScript.MakeBerserker();
         }
     }
