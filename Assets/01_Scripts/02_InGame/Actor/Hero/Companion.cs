@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public abstract class Companion : Hero
 {
     [SerializeField] protected int level;
     [SerializeField] protected List<int> skillLevels = new() { 0, 0, 0 };
+    [HideInInspector] public UnityEvent<List<int>> levelUpEvent = new();
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
     protected LayerMask enemyLayer;
@@ -25,13 +27,15 @@ public abstract class Companion : Hero
 
     public void LevelUp(int skillIndex)
     {
-        if (skillLevels[skillIndex] < 3)
-            skillLevels[skillIndex]++;
-
         if (level < GlobalValueHolder.maxCompanionLevel)
         {
+            if (skillLevels[skillIndex] < 3)
+                skillLevels[skillIndex]++;
+
             level++;
             UpdateStat();
+
+            levelUpEvent.Invoke(skillLevels);
         }
     }
 

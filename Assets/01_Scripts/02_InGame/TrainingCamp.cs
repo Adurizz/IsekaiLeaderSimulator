@@ -188,11 +188,10 @@ public class TrainingCamp : MonoBehaviour
     {
         if (curSelectedCompanions[index] == null)
         {
-            Debug.Log(index + "적용");
+            Debug.Log(index + "기본 스킬 적용");
             return;
         }
-        Debug.Log(index);
-        Debug.Log(curSelectedSkillIndexes[index]);
+
         curSelectedCompanions[index].LevelUp(curSelectedSkillIndexes[index]);
     }
 }

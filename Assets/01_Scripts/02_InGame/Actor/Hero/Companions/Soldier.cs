@@ -5,6 +5,11 @@ public enum ESoldierState
     Idle, Chasing, Attack, Hit, Dead
 }
 
+public enum ESoldierSkill
+{
+    Guardian, Striker, HolyKnight
+}
+
 public class Soldier : Companion
 {
     private Player player;
@@ -209,6 +214,14 @@ public class Soldier : Companion
     protected override void Attack()
     {
         animator.SetTrigger("Attack");
+    }
+
+    /// <summary>
+    /// 공격 적중시: animation에 바인딩
+    /// </summary>
+    public void OnAttackHit()
+    {
+        attackTarget.GetComponent<Actor>().GetDamage(attack);
     }
 
     private void RotateTowardsTarget()

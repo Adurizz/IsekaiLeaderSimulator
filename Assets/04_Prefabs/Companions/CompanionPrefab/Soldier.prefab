@@ -16,9 +16,12 @@ GameObject:
   - component: {fileID: -2389765252804482282}
   - component: {fileID: 7811977861112584363}
   - component: {fileID: 5992787645253710670}
+  - component: {fileID: 7101759701851850250}
+  - component: {fileID: -6068818154997855114}
+  - component: {fileID: -9100887649839489305}
   m_Layer: 6
   m_Name: Soldier
-  m_TagString: Player
+  m_TagString: Company
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,6 +191,10 @@ MonoBehaviour:
   isDead: 0
   heroClass: 1
   level: 0
+  skillLevels: 000000000000000000000000
+  levelUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
   protectTarget: {fileID: 0}
   curState: 0
   isStopped: 0
@@ -214,6 +221,51 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7101759701851850250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2210985003962576422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdccfa44bebe0a64d89d022ea1a345db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  companionScript: {fileID: 0}
+--- !u!114 &-6068818154997855114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2210985003962576422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a53b5ca3d579643ad6ae736050ac30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  companionScript: {fileID: 0}
+--- !u!114 &-9100887649839489305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2210985003962576422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304d670057607b24b8f103678ae55888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  companionScript: {fileID: 0}
 --- !u!1001 &6821662674905108375
 PrefabInstance:
   m_ObjectHideFlags: 0

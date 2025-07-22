@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
   maxHealth: 100
-  attack: 10
+  attack: 1
   attackSpeed: 1
   attackDistance: 10
   attackRange: 0
@@ -25,5 +25,5 @@ MonoBehaviour:
   attackRangeUpgradeLevel: 0
   moveSpeedUpgradeLevel: 0
   rerollUpgradeLevel: 0
-  gold: 98505
+  gold: 96005
   upgradeStone: 18

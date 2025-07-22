@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 431155630945486218}
   m_Layer: 6
   m_Name: Archor
-  m_TagString: Player
+  m_TagString: Company
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
