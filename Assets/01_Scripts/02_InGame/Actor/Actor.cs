@@ -5,14 +5,17 @@ public abstract class Actor : MonoBehaviour
 {
     [SerializeField] protected ActorStat actorStat;
     [SerializeField] protected string actorName = "actor";
+    public string ActorName { get { return actorName; } }
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float curHealth;
     [SerializeField] protected float attack;
+    public float Attack { get { return attack; } }
     [SerializeField] protected float attackSpeed;
     [SerializeField] protected float attackDistance;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected bool isDead;
+    public bool IsDead { get { return isDead; } }
 
     public virtual void InitStat()
     {
@@ -25,11 +28,6 @@ public abstract class Actor : MonoBehaviour
         attackRange = originStatList[4];
         moveSpeed = originStatList[5];
         isDead = false;
-    }
-
-    public float GetAttackStat()
-    {
-        return attack;
     }
 
     public virtual void GetDamage(float damage)
@@ -53,11 +51,7 @@ public abstract class Actor : MonoBehaviour
 
     public abstract void OnDead();
 
-    public bool CheckDead()
-    {
-        return isDead;
-    }
-
+    #region StatUpgrade -> Companion 스킬에서 사용
     public void UpgradeMaxHP(float amount)
     {
         maxHealth += amount;
@@ -87,4 +81,5 @@ public abstract class Actor : MonoBehaviour
     {
         moveSpeed += amount;
     }
+    #endregion
 }

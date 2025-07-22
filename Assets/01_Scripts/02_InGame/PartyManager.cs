@@ -11,7 +11,7 @@ public class PartyManager : MonoBehaviour
     public void RegisterPartyMember(Companion newCompanion)
     {
         partyMemberList.Add(newCompanion);
-        companionDictionary[newCompanion.GetName()] = newCompanion;
+        companionDictionary[newCompanion.ActorName] = newCompanion;
         if (trainingCamp == null)
             trainingCamp = FindAnyObjectByType<TrainingCamp>();
         trainingCamp.RegisterCompanionToTrainingCamp(newCompanion);
@@ -24,7 +24,7 @@ public class PartyManager : MonoBehaviour
     public void UnregisterPartyMember(Companion deadCompanion)
     {
         partyMemberList.Remove(deadCompanion);
-        companionDictionary.Remove(deadCompanion.GetName());
+        companionDictionary.Remove(deadCompanion.ActorName);
         trainingCamp.UnregisterCompanionFromTrainingCamp(deadCompanion);
     }
 

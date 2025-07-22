@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb0868d03864f804ca5d44252656aa99, type: 3}
-  m_Name: Striker1
+  m_Name: Striker 2
   m_EditorClassIdentifier: 
   ownerClass: 1
   skillImg: {fileID: 0}
   skillID: 1
-  skillLevel: 1
-  skillName: "\uAC15\uD0C0\uC790 1"
-  skillDescription: "\uACF5\uACA9\uB825\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  skillLevel: 2
+  skillName: "\uAC15\uD0C0\uC790 2"
+  skillDescription: "\uACF5\uACA9\uB825\uC774 \uD06C\uAC8C \uC99D\uAC00\uD569\uB2C8\uB2E4."

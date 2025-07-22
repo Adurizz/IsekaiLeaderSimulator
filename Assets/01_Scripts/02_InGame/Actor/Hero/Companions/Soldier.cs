@@ -7,7 +7,7 @@ public enum ESoldierState
 
 public enum ESoldierSkill
 {
-    Guardian, Striker, HolyKnight
+    Guardian, Striker, Warden
 }
 
 public class Soldier : Companion
@@ -32,6 +32,7 @@ public class Soldier : Companion
     private const float detectionCool = 0.5f;
     private float curAttackCool;
     private bool attackInit;
+    // [SerializeField] private bool 
 
 
     protected override void Awake()
@@ -94,7 +95,7 @@ public class Soldier : Companion
                 if (attackInit)
                 {
                     Debug.Log("Init Attack");
-                    Attack();
+                    PerformAttack();
                     curAttackCool = 0;
                     attackInit = false;
                     IsStopped = true;
@@ -112,7 +113,7 @@ public class Soldier : Companion
                 curAttackCool += Time.deltaTime;
                 if (curAttackCool >= attackSpeed)
                 {
-                    Attack();
+                    PerformAttack();
                     curAttackCool = 0;
                 }
                 break;
@@ -148,7 +149,7 @@ public class Soldier : Companion
 
         foreach (Collider col in colliders)
         {
-            if (col.gameObject.GetComponent<Enemy>().CheckDead())
+            if (col.gameObject.GetComponent<Enemy>().IsDead)
                 continue;
 
             float sqrDist = (col.transform.position - transform.position).sqrMagnitude;
@@ -192,7 +193,7 @@ public class Soldier : Companion
         }
     }
 
-    protected override void Attack()
+    protected override void PerformAttack()
     {
         animator.SetTrigger("Attack");
     }

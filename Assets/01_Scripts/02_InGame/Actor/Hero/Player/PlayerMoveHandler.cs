@@ -49,7 +49,7 @@ public class PlayerMoveHandler : MonoBehaviour
         if (!isStatInitiated)
             return;
 
-        if (playerScript.CheckDead())
+        if (playerScript.IsDead)
             return;
 
         Move();

@@ -132,7 +132,7 @@ public abstract class Enemy : Actor
 
         foreach (Collider col in colliders)
         {
-            if (col.gameObject.GetComponent<Actor>().CheckDead())
+            if (col.gameObject.GetComponent<Actor>().IsDead)
                 continue;
 
             float sqrDist = (col.transform.position - transform.position).sqrMagnitude;
@@ -189,7 +189,7 @@ public abstract class Enemy : Actor
                 if (attackInit)
                 {
                     Debug.Log("Init Attack");
-                    Attack();
+                    PerformAttack();
                     curAttackCool = 0;
                     attackInit = false;
                     navMeshAgent.isStopped = true;
@@ -215,7 +215,7 @@ public abstract class Enemy : Actor
                 curAttackCool += Time.deltaTime;
                 if (curAttackCool >= attackSpeed)
                 {
-                    Attack();
+                    PerformAttack();
                     curAttackCool = 0;
                 }
                 break;
@@ -248,7 +248,7 @@ public abstract class Enemy : Actor
         navMeshAgent.SetDestination(target.position);
     }
 
-    protected virtual void Attack()
+    protected virtual void PerformAttack()
     {
         animator.SetTrigger("Attack");
     }

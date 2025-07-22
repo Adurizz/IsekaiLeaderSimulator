@@ -71,7 +71,7 @@ public class ProjectileController : MonoBehaviour
 
     protected void SetDamage()
     {
-        damage = ownerTransform.GetComponent<Actor>().GetAttackStat();
+        damage = ownerTransform.GetComponent<Actor>().Attack;
     }
 
     public void SetOwnerTransform(Transform newOwnerTransform)

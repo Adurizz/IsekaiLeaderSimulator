@@ -58,7 +58,7 @@ public class TrainingCamp : MonoBehaviour
         {
             for (int i = 0; i < 3; ++i)
             {
-                skillInfoOccupiedDict[partyMember.GetName()][i] = false;
+                skillInfoOccupiedDict[partyMember.ActorName][i] = false;
 
             }
         }
@@ -77,11 +77,11 @@ public class TrainingCamp : MonoBehaviour
     public void RegisterCompanionToTrainingCamp(Companion newCompanion)
     {
         // 개인 SkillInfoDict
-        List<List<SkillInfo>> skillInfos = skillInfoDictData[newCompanion.GetClass()];
-        skillInfoDict[newCompanion.GetName()] = skillInfos;
+        List<List<SkillInfo>> skillInfos = skillInfoDictData[newCompanion.HeroClass];
+        skillInfoDict[newCompanion.ActorName] = skillInfos;
 
         List<bool> skillInfoOccupiedList = new List<bool>() { false, false, false };
-        skillInfoOccupiedDict[newCompanion.GetName()] = skillInfoOccupiedList;
+        skillInfoOccupiedDict[newCompanion.ActorName] = skillInfoOccupiedList;
 
         Debug.Log("새 skillinfoDict 크기: " + skillInfoDict.Count);
         Debug.Log("새 skillInfooccupiedDict 크기: " + skillInfoOccupiedDict.Count);
@@ -89,8 +89,8 @@ public class TrainingCamp : MonoBehaviour
 
     public void UnregisterCompanionFromTrainingCamp(Companion deadCompanion)
     {
-        skillInfoDict.Remove(deadCompanion.GetName());
-        skillInfoOccupiedDict.Remove(deadCompanion.GetName());
+        skillInfoDict.Remove(deadCompanion.ActorName);
+        skillInfoOccupiedDict.Remove(deadCompanion.ActorName);
     }
 
     private bool CheckSkillInfoOccupied(string owner, int skillIdx)
@@ -164,7 +164,7 @@ public class TrainingCamp : MonoBehaviour
                 return;
             }
             #endregion
-        } while (partyMemberList[randomMemberIndex].GetLevel() >= GlobalValueHolder.maxCompanionLevel);
+        } while (partyMemberList[randomMemberIndex].Level >= GlobalValueHolder.maxCompanionLevel);
         Companion trainingTarget = partyMemberList[randomMemberIndex];
         Debug.Log("강화 대상: " + trainingTarget.name);
 
@@ -196,13 +196,13 @@ public class TrainingCamp : MonoBehaviour
                 return;
             }
             #endregion
-        } while (CheckSkillInfoOccupied(trainingTarget.GetName(), randomSkillIndex) || trainingTarget.GetSkillLevels()[randomSkillIndex] >= 3);
+        } while (CheckSkillInfoOccupied(trainingTarget.ActorName, randomSkillIndex) || trainingTarget.SkillLevels[randomSkillIndex] >= 3);
 
         // 해당 스킬 점유 처리
-        skillInfoOccupiedDict[trainingTarget.GetName()][randomSkillIndex] = true;
+        skillInfoOccupiedDict[trainingTarget.ActorName][randomSkillIndex] = true;
 
-        SkillInfo trainingTargetSkillInfo = GetSkillInfo(trainingTarget.GetName())[randomSkillIndex][trainingTarget.GetSkillLevels()[randomSkillIndex]];
-        IngameUIManager.Instance.SetTrainingOptionPanel(index, trainingTarget.GetName(), trainingTargetSkillInfo);
+        SkillInfo trainingTargetSkillInfo = GetSkillInfo(trainingTarget.ActorName)[randomSkillIndex][trainingTarget.SkillLevels[randomSkillIndex]];
+        IngameUIManager.Instance.SetTrainingOptionPanel(index, trainingTarget.ActorName, trainingTargetSkillInfo);
 
         curSelectedCompanions[index] = trainingTarget;
         curSelectedSkillIndexes[index] = randomSkillIndex;

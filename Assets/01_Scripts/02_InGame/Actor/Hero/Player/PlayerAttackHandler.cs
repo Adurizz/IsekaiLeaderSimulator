@@ -69,7 +69,7 @@ public class PlayerAttackHandler : MonoBehaviour
     {
         if (!isStatInitiated)
             return;
-        if (playerScript.CheckDead())
+        if (playerScript.IsDead)
             return;
 
         FindNearestEnemyWithCoolTime();
@@ -128,7 +128,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            if (col.gameObject.GetComponent<Enemy>().CheckDead())
+            if (col.gameObject.GetComponent<Enemy>().IsDead)
                 continue;
 
             float sqrDist = (col.transform.position - transform.position).sqrMagnitude;

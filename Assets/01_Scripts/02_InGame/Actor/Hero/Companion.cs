@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,7 +7,11 @@ using UnityEngine.Events;
 public abstract class Companion : Hero
 {
     [SerializeField] protected int level;
+    public int Level { get { return level; } }
+
     [SerializeField] protected List<int> skillLevels = new() { 0, 0, 0 };
+    public List<int> SkillLevels { get { return skillLevels; } }
+
     [HideInInspector] public UnityEvent<List<int>> levelUpEvent = new();
     protected NavMeshAgent navMeshAgent;
     protected float stoppingDistance;
@@ -44,11 +49,6 @@ public abstract class Companion : Hero
         stoppingDistance = navMeshAgent.stoppingDistance;
     }
 
-    public int GetLevel()
-    {
-        return level;
-    }
-
     public void LevelUp(int skillIndex)
     {
         if (level < GlobalValueHolder.maxCompanionLevel)
@@ -69,21 +69,6 @@ public abstract class Companion : Hero
         InitStat();
     }
 
-    public EHeroClass GetClass()
-    {
-        return heroClass;
-    }
-
-    public List<int> GetSkillLevels()
-    {
-        return skillLevels;
-    }
-
-    public string GetName()
-    {
-        return actorName;
-    }
-
     public void SetName(string name)
     {
         actorName = name;
@@ -91,7 +76,16 @@ public abstract class Companion : Hero
     }
 
     protected abstract void Move();
-    protected abstract void Attack();
+    protected abstract void PerformAttack();
+
+    public override void GetDamage(float damage)
+    {
+        curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
+        if (curHealth <= 0f)
+        {
+            OnDead();
+        }
+    }
 
     public override void OnDead()
     {
