@@ -14,10 +14,12 @@ public class ExpeditionManager : MonoBehaviour
     [SerializeField] private int curReward;
     [SerializeField] private TextMeshProUGUI expeditionResultText;
     [SerializeField] private TextMeshProUGUI earnedGoldText;
+    private PartyManager partyManager;
 
     private void Awake()
     {
         timeChecker = FindAnyObjectByType<ExpeditionTimeChecker>();
+        partyManager = FindAnyObjectByType<PartyManager>();
         earnedGold = 10;
     }
     
@@ -68,7 +70,9 @@ public class ExpeditionManager : MonoBehaviour
             case EExpeditionResult.Failure:
                 break;
         }
-        // TODO: ÆÄÆ¼ ÀÎ¿ø ¸¸Å­ »½Æ¢±â
+
+        reward *= partyManager.GetPartySize() + 1;
+
         return reward;
     }
 

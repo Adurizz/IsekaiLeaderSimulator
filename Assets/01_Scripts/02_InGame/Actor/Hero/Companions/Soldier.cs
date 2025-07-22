@@ -26,18 +26,6 @@ public class Soldier : Companion
         }
     }
     private const float protectDistance = 15f;
-    [SerializeField] private bool isStopped;
-    public bool IsStopped
-    {
-        get { return isStopped; }
-        set
-        {
-            isStopped = value;
-            navMeshAgent.isStopped = isStopped;
-            animator.SetBool("isStopped", isStopped);
-        }
-    }
-    private float stoppingDistance;
     [SerializeField] private GameObject attackTarget;
     private float distanceFromAttackTarget;
     private float curDetectionCool;
@@ -56,13 +44,6 @@ public class Soldier : Companion
     private void OnEnable()
     {
         InitStat();
-    }
-
-    public override void InitStat()
-    {
-        base.InitStat();
-        navMeshAgent.speed = moveSpeed;
-        stoppingDistance = navMeshAgent.stoppingDistance;
     }
 
     private void Start()
@@ -244,20 +225,8 @@ public class Soldier : Companion
         if (curHealth <= 0f)
         {
             // TODO: 사망 관련 처리
-            OnDead();
             CurState = ESoldierState.Dead;
+            OnDead();
         }
-    }
-
-    public override void OnDead()
-    {
-        isDead = true;
-        IsStopped = true;
-        Invoke(nameof(VanishBody), 3f);
-    }
-
-    private void VanishBody()
-    {
-        gameObject.SetActive(false);
     }
 }

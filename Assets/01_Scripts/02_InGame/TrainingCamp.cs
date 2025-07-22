@@ -80,11 +80,17 @@ public class TrainingCamp : MonoBehaviour
         List<List<SkillInfo>> skillInfos = skillInfoDictData[newCompanion.GetClass()];
         skillInfoDict[newCompanion.GetName()] = skillInfos;
 
-        List<bool> skillInfoOccupiedDict = new List<bool>() { false, false, false };
-        this.skillInfoOccupiedDict[newCompanion.GetName()] = skillInfoOccupiedDict;
+        List<bool> skillInfoOccupiedList = new List<bool>() { false, false, false };
+        skillInfoOccupiedDict[newCompanion.GetName()] = skillInfoOccupiedList;
 
         Debug.Log("새 skillinfoDict 크기: " + skillInfoDict.Count);
-        Debug.Log("새 skillInfooccupiedDict 크기: " + this.skillInfoOccupiedDict.Count);
+        Debug.Log("새 skillInfooccupiedDict 크기: " + skillInfoOccupiedDict.Count);
+    }
+
+    public void UnregisterCompanionFromTrainingCamp(Companion deadCompanion)
+    {
+        skillInfoDict.Remove(deadCompanion.GetName());
+        skillInfoOccupiedDict.Remove(deadCompanion.GetName());
     }
 
     private bool CheckSkillInfoOccupied(string owner, int skillIdx)
@@ -110,12 +116,33 @@ public class TrainingCamp : MonoBehaviour
     {
         List<Companion> partyMemberList = partyManager.GetWholePartyMember();
 
+        if (partyMemberList.Count <= 0)
+        {
+            SkillInfo defaultSkilInfo = GetRandomDefaultSkill();
+            switch (defaultSkilInfo.skillID)
+            {
+                case 0:
+                    // HP 회복
+                    break;
+                case 1:
+                    // HP 회복 2
+                    break;
+                case 2:
+                    // HP 회복 3
+                    break;
+            }
+            IngameUIManager.Instance.SetTrainingOptionPanel(index, "플레이어", defaultSkilInfo);
+            curSelectedCompanions[index] = null;
+            return;
+        }
+
         int count1 = 0;
         // 레벨 5 이하인 파티 멤버중 하나 랜덤 픽
         int randomMemberIndex;
         do
         {
             randomMemberIndex = UnityEngine.Random.Range(0, partyMemberList.Count);
+            #region 10번동안 유효한 강화 대상 못찾으면 그냥 랜덤 기본스킬 노출
             ++count1;
             if (count1 >= 10)
             {
@@ -136,15 +163,18 @@ public class TrainingCamp : MonoBehaviour
                 curSelectedCompanions[index] = null;
                 return;
             }
+            #endregion
         } while (partyMemberList[randomMemberIndex].GetLevel() >= GlobalValueHolder.maxCompanionLevel);
         Companion trainingTarget = partyMemberList[randomMemberIndex];
         Debug.Log("강화 대상: " + trainingTarget.name);
 
+        // 해당 대상의 랜덤 스킬 픽
         int count2 = 0;
         int randomSkillIndex;
         do
         {
             randomSkillIndex = UnityEngine.Random.Range(0, 3);
+            #region 10번동안 유효한 강화 대상 못찾으면 그냥 랜덤 기본스킬 노출
             ++count2;
             if (count2 >= 10)
             {
@@ -165,8 +195,10 @@ public class TrainingCamp : MonoBehaviour
                 curSelectedCompanions[index] = null;
                 return;
             }
+            #endregion
         } while (CheckSkillInfoOccupied(trainingTarget.GetName(), randomSkillIndex) || trainingTarget.GetSkillLevels()[randomSkillIndex] >= 3);
 
+        // 해당 스킬 점유 처리
         skillInfoOccupiedDict[trainingTarget.GetName()][randomSkillIndex] = true;
 
         SkillInfo trainingTargetSkillInfo = GetSkillInfo(trainingTarget.GetName())[randomSkillIndex][trainingTarget.GetSkillLevels()[randomSkillIndex]];
@@ -184,6 +216,10 @@ public class TrainingCamp : MonoBehaviour
         return defaultSkillInfo;
     }
 
+    /// <summary>
+    /// 선택된 대상의 선택된 스킬 업그레이드
+    /// </summary>
+    /// <param name="index"></param>
     public void UpgradeTarget(int index)
     {
         if (curSelectedCompanions[index] == null)

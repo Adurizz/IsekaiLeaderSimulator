@@ -21,16 +21,17 @@ public class GuardianSkill : Skill
     {
         base.AdjsustSkillLevel(skillLevels);
 
-        switch (level)
+        if (level >= 1)
         {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
+            companionScript.UpgradeMaxHP(10);
+        }
+        if (level >= 2)
+        {
+            companionScript.UpgradeMaxHP(20);
+        }
+        if (level >= 3)
+        {
+            companionScript.UpgradeMaxHP(30);
         }
     }
 }

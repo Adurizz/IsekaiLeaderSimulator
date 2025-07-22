@@ -57,4 +57,34 @@ public abstract class Actor : MonoBehaviour
     {
         return isDead;
     }
+
+    public void UpgradeMaxHP(float amount)
+    {
+        maxHealth += amount;
+    }
+
+    public void UpgradeAttack(float amount)
+    {
+        attack += amount;
+    }
+
+    public void UpgradeAttackSpeed(float amount)
+    {
+        attackSpeed -= amount;
+    }
+
+    public void UpgradeAttackDistance(float amount)
+    {
+        attackDistance += amount;
+    }
+
+    public void UpgradeAttackRange(float amount)
+    {
+        attackRange += amount;
+    }
+
+    public virtual void UpgradeMoveSpeed(float amount)
+    {
+        moveSpeed += amount;
+    }
 }

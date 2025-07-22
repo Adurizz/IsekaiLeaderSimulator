@@ -17,9 +17,15 @@ public class PartyManager : MonoBehaviour
         trainingCamp.RegisterCompanionToTrainingCamp(newCompanion);
     }
 
-    public void UnRegisterPartyMember(Companion deadCompanion)
+    /// <summary>
+    /// 동료 사망에 바인딩하기
+    /// </summary>
+    /// <param name="deadCompanion"></param>
+    public void UnregisterPartyMember(Companion deadCompanion)
     {
         partyMemberList.Remove(deadCompanion);
+        companionDictionary.Remove(deadCompanion.GetName());
+        trainingCamp.UnregisterCompanionFromTrainingCamp(deadCompanion);
     }
 
     public int GetPartySize()

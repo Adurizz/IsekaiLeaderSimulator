@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa1e43a7e836764abafc678e617086c, type: 3}
-  m_Name: SkeletonBarbarian
+  m_Script: {fileID: 11500000, guid: 41e4ccdb17b80e6499adbbd8653ee0e1, type: 3}
+  m_Name: MechanicStat 2
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  attack: 0.1
-  attackSpeed: 0.9
+  maxHealth: 20
+  attack: 10
+  attackSpeed: 1
   attackDistance: 2.5
-  attackRange: 0
-  moveSpeed: 4
-  dropGold: 5
-  dropUpgradeStone: 6
+  attackRange: 10
+  moveSpeed: 3
