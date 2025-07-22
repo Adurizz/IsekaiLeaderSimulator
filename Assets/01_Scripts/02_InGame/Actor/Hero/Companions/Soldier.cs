@@ -34,6 +34,7 @@ public class Soldier : Companion
     private bool attackInit;
     private GuardianSkill guardianSkill;
     [SerializeField] private bool isAttackKnockBack;
+    [SerializeField] private bool canDodge;
 
     protected override void Awake()
     {
@@ -190,6 +191,7 @@ public class Soldier : Companion
         }
         else if (CurState == ESoldierState.Chasing)
         {
+            IsStopped = false;
             navMeshAgent.SetDestination(attackTarget.transform.position);
         }
     }
@@ -230,6 +232,16 @@ public class Soldier : Companion
 
     public override void GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
+        if (canDodge)
+        {
+            int rand = Random.Range(0, 10);
+            if (rand < 3)
+            {
+                Debug.Log("회피 성공!");
+                return;
+            }
+        }
+
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
@@ -243,6 +255,12 @@ public class Soldier : Companion
     {
         if (!isAttackKnockBack)
             isAttackKnockBack = true;
+    }
+
+    public void MakeDodgePossible()
+    {
+        if (!canDodge)
+            canDodge = true;
     }
 
     public override void OnDead()
