@@ -5,8 +5,12 @@ public class GuardianSkill : Skill
 {
     [SerializeField] private List<int> skillAdjustAmount = new();
     private Soldier soldierScript;
-    private float guardRange = 0.3f;
+    [SerializeField] private float guardRange = 8f;
+    [SerializeField] private float healAmount = 5f;
     [SerializeField] private bool mastered;
+    private float curTime;
+    private float healCoolTime = 1f;
+    [SerializeField] private ParticleSystem areaHealEffect;
 
     protected override void Awake()
     {
@@ -36,6 +40,7 @@ public class GuardianSkill : Skill
         {
             companionScript.UpgradeMaxHP(30);
             mastered = true;
+            ActivateAreaHealEffect();
         }
     }
 
@@ -43,9 +48,67 @@ public class GuardianSkill : Skill
     {
         if (!mastered)
             return;
-
+        GiveAreaHealWithInterval();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, guardRange);
+    }
+
+    private void ActivateAreaHealEffect()
+    {
+        areaHealEffect.gameObject.SetActive(true);
+        areaHealEffect.Play();
+    }
+
+    public void DeactivateAreaHealEffect()
+    {
+        areaHealEffect.gameObject.SetActive(false);
+    }
+
+    private void GiveAreaHealWithInterval()
+    {
+        curTime += Time.deltaTime;
+        if (curTime >= healCoolTime)
+        {
+            AreaHeal();
+            curTime = 0;
+        }
+    }
+
+    private void AreaHeal()
+    {
+        List<Hero> nearbyHeroList = FindAllNearbyHero();
+
+        foreach (Hero hero in nearbyHeroList)
+        {
+            hero.GetHeal(healAmount);
+            hero.GotHealedEffect.Play();
+        }
+    }
+
+    private List<Hero> FindAllNearbyHero()
+    {
+        List<Hero> temp = new();
+        Collider[] colliders = Physics.OverlapSphere(transform.position, guardRange, heroLayer);
+        if (colliders.Length == 0)
+        {
+            return null;
+        }
+
+        foreach (Collider col in colliders)
+        {
+            Hero nearbyHero = col.GetComponent<Hero>();
+            if (nearbyHero.IsDead)
+                continue;
+
+            temp.Add(nearbyHero);
+        }
+
+        return temp;
+    }
 
     /*
     private void ChooseGuardTarget()

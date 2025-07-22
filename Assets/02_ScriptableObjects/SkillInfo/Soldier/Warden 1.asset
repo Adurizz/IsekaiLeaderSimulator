@@ -16,5 +16,5 @@ MonoBehaviour:
   skillImg: {fileID: 0}
   skillID: 2
   skillLevel: 1
-  skillName: "\uC131\uAE30\uC0AC 1"
-  skillDescription: "\uC8FC\uBCC0 \uC544\uAD70\uC744 \uCE58\uC720\uD569\uB2C8\uB2E4."
+  skillName: "\uAC10\uC2DC\uC790 1"
+  skillDescription: "\uC774\uB3D9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4."

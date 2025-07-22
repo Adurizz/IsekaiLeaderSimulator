@@ -32,7 +32,7 @@ public class Soldier : Companion
     private const float detectionCool = 0.5f;
     private float curAttackCool;
     private bool attackInit;
-    // [SerializeField] private bool 
+    private GuardianSkill guardianSkill;
 
 
     protected override void Awake()
@@ -40,6 +40,7 @@ public class Soldier : Companion
         base.Awake();
         player = FindAnyObjectByType<Player>();
         playerAttackHandler = player.gameObject.GetComponent<PlayerAttackHandler>();
+        guardianSkill = GetComponent<GuardianSkill>();
     }
 
     private void OnEnable()
@@ -229,5 +230,11 @@ public class Soldier : Companion
             CurState = ESoldierState.Dead;
             OnDead();
         }
+    }
+
+    public override void OnDead()
+    {
+        guardianSkill.DeactivateAreaHealEffect();
+        base.OnDead();
     }
 }

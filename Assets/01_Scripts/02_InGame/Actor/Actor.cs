@@ -41,7 +41,7 @@ public abstract class Actor : MonoBehaviour
         }
     }
 
-    public virtual void GetHealed(float healAmount)
+    public virtual void GetHeal(float healAmount)
     {
         if (isDead)
             return;

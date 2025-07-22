@@ -6,11 +6,15 @@ public abstract class Skill : MonoBehaviour
     [SerializeField] protected int level;
     [SerializeField] protected int skillID;
     [SerializeField] protected Companion companionScript;
+    protected LayerMask enemyLayer;
+    protected LayerMask heroLayer;
 
     protected virtual void Awake()
     {
         companionScript = GetComponent<Companion>();
         SetSkillID();
+        enemyLayer = LayerMask.GetMask("Enemy");
+        heroLayer = LayerMask.GetMask("Hero");
     }
 
     protected abstract void SetSkillID();
