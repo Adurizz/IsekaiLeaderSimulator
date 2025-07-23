@@ -36,7 +36,7 @@ public class ArchorArrowController : ProjectileController
 
             if (isKnockBack)
             {
-                other.gameObject.GetComponent<Actor>().GetDamage(newDamage, true, (other.transform.position - transform.position).normalized);
+                other.gameObject.GetComponent<Actor>().GetDamage(newDamage, true, (other.transform.position - ownerTransform.position).normalized);
             }
             else
             {

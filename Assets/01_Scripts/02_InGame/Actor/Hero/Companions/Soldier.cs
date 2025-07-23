@@ -206,6 +206,9 @@ public class Soldier : Companion
     /// </summary>
     public void OnAttackHit()
     {
+        if (attackTarget == null)
+            return;
+
         if (isAttackKnockBack)
         {
             Debug.Log("³Ë¹é °ø°Ý");

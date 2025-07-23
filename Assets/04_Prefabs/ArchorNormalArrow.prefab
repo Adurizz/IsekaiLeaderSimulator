@@ -151,11 +151,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerTransform: {fileID: 0}
-  projectileSpeed: 5
+  projectileSpeed: 20
   fireOffset: {x: 0.25, y: 0, z: 2}
   damage: 0
   isTargeted: 1
   targetTransform: {fileID: 0}
+  isKnockBack: 0
+  isThirdAttack: 0
 --- !u!1001 &5277268288063512331
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,16 +33,19 @@ public class Archor : Companion
     private bool attackInit;
     [SerializeField] private bool isAttackKnockBack;
     [SerializeField] private bool isThirdAttackEnhanced;
-    private float distanceFromPlayer = 3f;
+    [SerializeField] private bool canEvade;
+    private float distanceFromPlayer = 6f;
     [SerializeField] private GameObject normalArrow;
     Queue<GameObject> normalArrowPool= new();
     private const int arrowPoolNum = 20;
     [SerializeField] private int fireCount;
+    private Runner runnerScript;
 
     protected override void Awake()
     {
         base.Awake();
         player = FindAnyObjectByType<Player>();
+        runnerScript = GetComponent<Runner>();
     }
 
     private void OnEnable()
@@ -166,7 +169,7 @@ public class Archor : Companion
     {
         if (CurState == EArchorState.Dead)
             return;
-
+        
         // 언제나 플레이어를 따라다님
         if (Vector3.Distance(player.transform.position, transform.position) > stoppingDistance)
         {
@@ -177,7 +180,22 @@ public class Archor : Companion
         }
         else
         {
-            IsStopped = true;
+            if (canEvade)
+            {
+                if (attackTarget != null && distanceFromAttackTarget < stoppingDistance)
+                {
+                    IsStopped = false;
+                    transform.localRotation = transform.rotation;
+                    Vector3 forwardOffset = transform.rotation * runnerScript.EvadeOffset;
+
+                    navMeshAgent.SetDestination(Utils.GetCenter(transform) + forwardOffset);
+                    return;
+                }
+                else
+                    IsStopped = true;
+            }
+            else
+                IsStopped = true;
         }
     }
 
@@ -285,5 +303,11 @@ public class Archor : Companion
     public void MakeThirdAttackEnhanced()
     {
         if (!isThirdAttackEnhanced) isThirdAttackEnhanced = true;
+    }
+
+    public void MakeEvasionPossible()
+    {
+        if (!canEvade)
+            canEvade = true;
     }
 }

@@ -220,6 +220,9 @@ public class Barbarian : Companion
 
     public void OnAttackHit()
     {
+        if (attackTarget == null)
+            return;
+
         if (attackTarget.GetComponent<Actor>().GetDamage(attack))
         {
             //attackTarget = null;

@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 6983338710728995090}
   - component: {fileID: 8634412569024123880}
   - component: {fileID: -4718412930138804313}
+  - component: {fileID: -4423143601578252887}
+  - component: {fileID: -7582843465920085855}
   m_Layer: 6
   m_Name: Archor
   m_TagString: Company
@@ -154,7 +156,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -221,7 +223,9 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   isAttackKnockBack: 0
   isThirdAttackEnhanced: 0
+  canEvade: 0
   normalArrow: {fileID: 3442728921602429738, guid: 06feadd39a195e44ea6c9e774c5de640, type: 3}
+  fireCount: 0
 --- !u!114 &-4718412930138804313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +244,43 @@ MonoBehaviour:
   - 10
   - 20
   - 30
+--- !u!114 &-4423143601578252887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184387111253782345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4eb8039ba80ec3408b2022b65e96c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  skillAdjustAmount:
+  - 0.05
+  - 0.1
+  - 0.25
+--- !u!114 &-7582843465920085855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184387111253782345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39b719d4acf3b842a5a9bf394d84774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  skillAdjustAmount:
+  - 0.5
+  - 1
+  - 1.5
+  evadeOffset: {x: 0, y: 0, z: -10}
 --- !u!1001 &773857466703652590
 PrefabInstance:
   m_ObjectHideFlags: 0
