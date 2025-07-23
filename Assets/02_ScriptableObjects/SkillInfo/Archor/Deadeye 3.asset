@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0868d03864f804ca5d44252656aa99, type: 3}
+  m_Name: Deadeye 3
+  m_EditorClassIdentifier: 
+  ownerClass: 3
+  skillImg: {fileID: 0}
+  skillID: 0
+  skillLevel: 3
+  skillName: "\uBA85\uC0AC\uC218 3"
+  skillDescription: "\uACF5\uACA9\uB825\uC774 \uB354\uC6B1 \uD06C\uAC8C \uC99D\uAC00\uD569\uB2C8\uB2E4.
+    \uC138 \uBC88\uC9F8 \uACF5\uACA9\uC774 2\uBC30\uC758 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."

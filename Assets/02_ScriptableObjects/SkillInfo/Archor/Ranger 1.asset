@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa1e43a7e836764abafc678e617086c, type: 3}
-  m_Name: SkeletonBarbarian
+  m_Script: {fileID: 11500000, guid: fb0868d03864f804ca5d44252656aa99, type: 3}
+  m_Name: Ranger 1
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  attack: 5
-  attackSpeed: 0.9
-  attackDistance: 2.5
-  attackRange: 0
-  moveSpeed: 4
-  dropGold: 5
-  dropUpgradeStone: 6
+  ownerClass: 3
+  skillImg: {fileID: 0}
+  skillID: 1
+  skillLevel: 1
+  skillName: "\uC21C\uCC30\uC790 1"
+  skillDescription: "\uACF5\uACA9 \uC18D\uB3C4\uAC00 \uC99D\uAC00\uD569\uB2C8\uB2E4."
