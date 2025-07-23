@@ -1,4 +1,3 @@
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 public enum EBarbarianState
@@ -32,12 +31,18 @@ public class Barbarian : Companion
     private float curAttackCool;
     private bool attackInit;
     [SerializeField] private bool isCivilized;
+    private Berserker berserkerScript;
     [SerializeField] private bool isBerserker;
+    private BloodWarrior bloodWarriorScript;
+    [SerializeField] private bool isBloodWarrior;
+    [SerializeField] private ParticleSystem bloodWarriorEffect;
 
     protected override void Awake()
     {
         base.Awake();
         player = FindAnyObjectByType<Player>();
+        berserkerScript = GetComponent<Berserker>();
+        bloodWarriorScript = GetComponent<BloodWarrior>();
     }
 
     private void OnEnable()
@@ -125,9 +130,13 @@ public class Barbarian : Companion
 
     private void FindNearestEnemy()
     {
+        /*
         if (attackTarget != null)
+        {
+            distanceFromAttackTarget = Vector3.Distance(attackTarget.transform.position, transform.position);
             return;
-
+        }
+        */
         Collider[] colliders;
 
         if (isCivilized)
@@ -213,9 +222,15 @@ public class Barbarian : Companion
     {
         if (attackTarget.GetComponent<Actor>().GetDamage(attack))
         {
-            attackTarget = null;
+            //attackTarget = null;
+            //FindNearestEnemy();
             if (isBerserker)
-                UpgradeAttack(Berserker.attackUpAmount);
+                UpgradeAttack(berserkerScript.AttackReinforceAmount);
+        }
+        if (isBloodWarrior)
+        {
+            GetHeal(attack * bloodWarriorScript.BloodDrainRate);
+            bloodWarriorEffect.Play();
         }
     }
 
@@ -242,5 +257,11 @@ public class Barbarian : Companion
     {
         if (!isBerserker)
             isBerserker = true;
+    }
+
+    public void MakeBloodWarrior()
+    {
+        if (!isBloodWarrior)
+            isBloodWarrior = true;
     }
 }

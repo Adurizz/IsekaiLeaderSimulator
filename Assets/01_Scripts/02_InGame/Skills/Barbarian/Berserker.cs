@@ -4,7 +4,8 @@ using UnityEngine;
 public class Berserker : Skill
 {
     private Barbarian barbarianScript;
-    public static float attackUpAmount = 1f;
+    [SerializeField] private float attackReinforceAmount = 1f;
+    public float AttackReinforceAmount { get { return attackReinforceAmount; } }
 
     protected override void Awake()
     {
