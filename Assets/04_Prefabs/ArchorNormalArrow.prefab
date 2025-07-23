@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerTransform: {fileID: 0}
-  projectileSpeed: 20
+  projectileSpeed: 5
   fireOffset: {x: 0.25, y: 0, z: 2}
   damage: 0
   isTargeted: 1

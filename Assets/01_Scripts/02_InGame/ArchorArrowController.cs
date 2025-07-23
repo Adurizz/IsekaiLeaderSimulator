@@ -2,8 +2,18 @@ using UnityEngine;
 
 public class ArchorArrowController : ProjectileController
 {
-    private bool isKnockBack;
-    private bool isThirdAttack;
+    [SerializeField] private bool isKnockBack;
+    public bool IsKnockBack
+    {
+        get { return isKnockBack; }
+        set { isKnockBack = value; }
+    }
+    [SerializeField] private bool isThirdAttack;
+    public bool IsThirdAttack
+    {
+        get { return isThirdAttack; }
+        set { isThirdAttack = value; }
+    }
     private Archor ownerArchor;
 
     protected override void Awake()
@@ -17,22 +27,12 @@ public class ArchorArrowController : ProjectileController
         ownerArchor = ownerTransform.GetComponent<Archor>();
     }
 
-    public void MakeKnockBackable()
-    {
-        if (!isKnockBack) isKnockBack = true;
-    }
-
-    public void InformThirdAttack()
-    {
-        if (!isThirdAttack) isThirdAttack = true;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             float newDamage = damage;
-            if (isThirdAttack) newDamage *= 2;
+            if (isThirdAttack) newDamage *= 3;
 
             if (isKnockBack)
             {

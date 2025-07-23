@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7829584973764292865}
   - component: {fileID: 6983338710728995090}
   - component: {fileID: 8634412569024123880}
+  - component: {fileID: -4718412930138804313}
   m_Layer: 6
   m_Name: Archor
   m_TagString: Company
@@ -219,7 +220,26 @@ MonoBehaviour:
   curState: 0
   attackTarget: {fileID: 0}
   isAttackKnockBack: 0
+  isThirdAttackEnhanced: 0
   normalArrow: {fileID: 3442728921602429738, guid: 06feadd39a195e44ea6c9e774c5de640, type: 3}
+--- !u!114 &-4718412930138804313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184387111253782345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9d5c154ff334743ba2bc94887dfb7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  skillAdjustAmount:
+  - 10
+  - 20
+  - 30
 --- !u!1001 &773857466703652590
 PrefabInstance:
   m_ObjectHideFlags: 0

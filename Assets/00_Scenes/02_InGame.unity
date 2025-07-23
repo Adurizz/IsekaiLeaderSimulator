@@ -18453,7 +18453,7 @@ MonoBehaviour:
     bossPrefab: {fileID: 1953785076684098995, guid: 2503318a32adfb342a36d38fc4b33570, type: 3}
     spawnAttributes:
     - spawnNumAtOnce: 1
-      spawnInterval: 1
+      spawnInterval: 100
     - spawnNumAtOnce: 2
       spawnInterval: 3
     - spawnNumAtOnce: 3

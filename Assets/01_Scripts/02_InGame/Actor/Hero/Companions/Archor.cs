@@ -6,6 +6,11 @@ public enum EArchorState
     Idle, Attack, Hit, Dead
 }
 
+public enum EArchorSkill
+{
+    Deadeye, Ranger, Runner
+}
+
 public class Archor : Companion
 {
     private Player player;
@@ -27,10 +32,12 @@ public class Archor : Companion
     private float curAttackCool;
     private bool attackInit;
     [SerializeField] private bool isAttackKnockBack;
+    [SerializeField] private bool isThirdAttackEnhanced;
     private float distanceFromPlayer = 3f;
     [SerializeField] private GameObject normalArrow;
     Queue<GameObject> normalArrowPool= new();
     private const int arrowPoolNum = 20;
+    [SerializeField] private int fireCount;
 
     protected override void Awake()
     {
@@ -41,6 +48,7 @@ public class Archor : Companion
     private void OnEnable()
     {
         InitStat();
+        CreateArrowPool();
     }
 
     public override void InitStat()
@@ -48,7 +56,7 @@ public class Archor : Companion
         base.InitStat();
         navMeshAgent.stoppingDistance = distanceFromPlayer;
         stoppingDistance = navMeshAgent.stoppingDistance;
-        CreateArrowPool();
+        fireCount = 0;
     }
 
     private void Update()
@@ -197,6 +205,7 @@ public class Archor : Companion
 
     public void CreateArrowPool()
     {
+        Debug.Log("±Ã¼ö Ç® »ý¼º");
         GameObject arrowPoolGO = new GameObject("ArchorArrowPool");
         arrowPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
 
@@ -215,8 +224,25 @@ public class Archor : Companion
 
         GameObject arrow = normalArrowPool.Dequeue();
         arrow.SetActive(true);
-        arrow.GetComponent<ProjectileController>().SetOwnerTransform(transform);
-        arrow.GetComponent<ProjectileController>().SetTargetTransform(attackTarget.transform);
+        ArchorArrowController arrowController = arrow.GetComponent<ArchorArrowController>();
+        arrowController.SetOwnerTransform(transform);
+        arrowController.SetTargetTransform(attackTarget.transform);
+        if (isAttackKnockBack)
+            arrowController.IsKnockBack = true;
+        else
+            arrowController.IsKnockBack= false;
+
+        if (isThirdAttackEnhanced)
+        {
+            ++fireCount;
+            if (fireCount >= 3)
+            {
+                arrowController.IsThirdAttack = true;
+                fireCount = 0;
+            }
+        }
+        else
+            arrowController.IsThirdAttack= false;
     }
 
     public void EnqueueArrowOnDisable(GameObject arrow)
@@ -249,5 +275,15 @@ public class Archor : Companion
         }
 
         return false;
+    }
+
+    public void MakeAttackKnockBackable()
+    {
+        if (!isAttackKnockBack) isAttackKnockBack = true;
+    }
+
+    public void MakeThirdAttackEnhanced()
+    {
+        if (!isThirdAttackEnhanced) isThirdAttackEnhanced = true;
     }
 }
