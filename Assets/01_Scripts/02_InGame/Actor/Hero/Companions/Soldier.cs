@@ -230,7 +230,7 @@ public class Soldier : Companion
             return;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+        transform.rotation = lookRotation;
     }
 
     public override bool GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)

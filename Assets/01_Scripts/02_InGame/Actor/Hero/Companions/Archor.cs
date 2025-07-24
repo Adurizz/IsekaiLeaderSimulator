@@ -212,7 +212,7 @@ public class Archor : Companion
             return;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+        transform.rotation = lookRotation;
     }
 
     protected override void PerformAttack()
@@ -266,19 +266,6 @@ public class Archor : Companion
     public void EnqueueArrowOnDisable(GameObject arrow)
     {
         normalArrowPool.Enqueue(arrow);
-    }
-
-    public void OnAttackHit()
-    {
-        if (isAttackKnockBack)
-        {
-            Debug.Log("³Ë¹é °ø°Ý");
-            attackTarget.GetComponent<Actor>().GetDamage(attack, true, (attackTarget.transform.position - transform.position).normalized);
-        }
-        else
-        {
-            attackTarget.GetComponent<Actor>().GetDamage(attack);
-        }
     }
 
     public override bool GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)

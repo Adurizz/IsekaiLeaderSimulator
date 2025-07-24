@@ -187,7 +187,7 @@ public class Barbarian : Companion
             return;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+        transform.rotation = lookRotation;
     }
 
     protected override void Move()

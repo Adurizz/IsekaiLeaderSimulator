@@ -247,6 +247,32 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 79370643dfd77a14f8ca22726f7b0cfb, type: 2}
     - {fileID: 11400000, guid: 64d2c96829bf08e40b663a7e0d7b41b5, type: 2}
     - {fileID: 11400000, guid: 442e4db0a963c714eb002e499d94c00d, type: 2}
+  - ownerClass: 3
+    firstSkillInfoList:
+    - {fileID: 11400000, guid: 57a3f710c04e11543bb90a84a8883e60, type: 2}
+    - {fileID: 11400000, guid: 71681f326c933cf4b8d739f184a18bd7, type: 2}
+    - {fileID: 11400000, guid: 2076d190fd5be76409fbc1a34697f768, type: 2}
+    secondSkillInfoList:
+    - {fileID: 11400000, guid: d5947bfa23b62ba4a8aade85cdeaa448, type: 2}
+    - {fileID: 11400000, guid: b9607142ed515264188f38f254440ce5, type: 2}
+    - {fileID: 11400000, guid: 3a428c5daeee48e4bac96dc40677343d, type: 2}
+    thirdSkillInfoList:
+    - {fileID: 11400000, guid: 507dd762d96cb0046a33a6f13aeaaa41, type: 2}
+    - {fileID: 11400000, guid: 014d9763488e83d42a831e97cd9752e2, type: 2}
+    - {fileID: 11400000, guid: 6614bd54ec3b7eb4b9d254b68a87a463, type: 2}
+  - ownerClass: 4
+    firstSkillInfoList:
+    - {fileID: 11400000, guid: a16dac3c24b88d0479fc49a4d67bf3a4, type: 2}
+    - {fileID: 11400000, guid: 28e3b4d4561327544b32c9ff16d02114, type: 2}
+    - {fileID: 11400000, guid: 6e61c4caef1a27149b0fe205fee0ebe2, type: 2}
+    secondSkillInfoList:
+    - {fileID: 11400000, guid: 09f95c3d05c333c4e912c0c31468b02a, type: 2}
+    - {fileID: 11400000, guid: 35c35aa237037dc45937efa74363ed6d, type: 2}
+    - {fileID: 11400000, guid: 0a4c73bfaefb16e468960d963b32b585, type: 2}
+    thirdSkillInfoList:
+    - {fileID: 11400000, guid: 378f1837b7fafd24fa6d8e34a50dde52, type: 2}
+    - {fileID: 11400000, guid: 709b29aa3d6208a40b8ebf4a38a1dedb, type: 2}
+    - {fileID: 11400000, guid: 601f6239d64f4a14d9160404ae72b7e7, type: 2}
   curSelectedCompanions:
   - {fileID: 0}
   - {fileID: 0}
