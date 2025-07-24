@@ -1,0 +1,1 @@
+C:\Users\Adurizz\Documents\GitHub\IsekaiLeaderSimulator\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\6i5a22i3\obj\arm64-v8a
