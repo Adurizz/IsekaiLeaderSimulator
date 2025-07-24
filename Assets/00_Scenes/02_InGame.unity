@@ -5050,6 +5050,7 @@ MonoBehaviour:
   - {fileID: 2210985003962576422, guid: 7e970d5c9fc983a4184181f894798593, type: 3}
   - {fileID: 4826688622551029735, guid: 6c896035a729d94449b58eb2e6cb237c, type: 3}
   - {fileID: 4184387111253782345, guid: d16768fa2ef67ce4fb2b5156379b1ffc, type: 3}
+  - {fileID: 8557949728167251519, guid: c0b9eee59fa3cc54da7166ba21953335, type: 3}
   objectPlacementManager: {fileID: 1378861854}
   goldSpawnOffset: {x: -1, y: 0, z: 0}
   stoneSpawnOffset: {x: 1, y: 0, z: 0}
@@ -28733,62 +28734,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: skillInfoHolders.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: skillInfoHolders.Array.data[3].ownerClass
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: skillInfoHolders.Array.data[3].firstSkillInfoList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: skillInfoHolders.Array.data[3].thirdSkillInfoList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: skillInfoHolders.Array.data[3].secondSkillInfoList.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].firstSkillInfoList.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 57a3f710c04e11543bb90a84a8883e60, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].firstSkillInfoList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 71681f326c933cf4b8d739f184a18bd7, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].firstSkillInfoList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 2076d190fd5be76409fbc1a34697f768, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].thirdSkillInfoList.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 507dd762d96cb0046a33a6f13aeaaa41, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].thirdSkillInfoList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 014d9763488e83d42a831e97cd9752e2, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].thirdSkillInfoList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 6614bd54ec3b7eb4b9d254b68a87a463, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].secondSkillInfoList.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: d5947bfa23b62ba4a8aade85cdeaa448, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].secondSkillInfoList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: b9607142ed515264188f38f254440ce5, type: 2}
-    - target: {fileID: 3624869983061495924, guid: 368edea9567a55642b642fdee95eeb79, type: 3}
-      propertyPath: 'skillInfoHolders.Array.data[3].secondSkillInfoList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 3a428c5daeee48e4bac96dc40677343d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

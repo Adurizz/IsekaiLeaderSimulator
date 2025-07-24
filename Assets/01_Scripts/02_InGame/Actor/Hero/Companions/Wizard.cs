@@ -1,10 +1,9 @@
-using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum EWizardState
 {
-    Idle, Attack, Hit, Dead
+    Idle, Attack, Hit, Dead, CastingSpell
 }
 
 public enum EWizardSkill
@@ -36,6 +35,10 @@ public class Wizard : Companion
     [SerializeField] private GameObject energyBall;
     Queue<GameObject> energyBallPool = new();
     private const int energyBallPoolNum = 20;
+    [SerializeField] private int shotCount;
+    [SerializeField] private int countForCastSpell = 5;
+    [SerializeField] private ParticleSystem[] spellParticle = new ParticleSystem[4];
+    [SerializeField] private float[] spellRange = new float[4];
 
     protected override void Awake()
     {
@@ -71,13 +74,13 @@ public class Wizard : Companion
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackDistance);
+        Gizmos.DrawWireSphere(transform.position, spellRange[skillLevels[(int)EWizardSkill.ManaCraft]]);
     }
 #endif
 
     private void FSM()
     {
-        if (attackTarget == null && CurState != EWizardState.Idle)
+        if (CurState != EWizardState.CastingSpell && attackTarget == null && CurState != EWizardState.Idle)
             CurState = EWizardState.Idle;
 
         switch (CurState)
@@ -117,7 +120,8 @@ public class Wizard : Companion
             case EWizardState.Dead:
                 animator.SetLayerWeight(1, 0);
                 break;
-
+            case EWizardState.CastingSpell:
+                break;
         }
     }
 
@@ -169,7 +173,7 @@ public class Wizard : Companion
 
     protected override void Move()
     {
-        if (CurState == EWizardState.Dead)
+        if (CurState == EWizardState.Dead || CurState == EWizardState.CastingSpell)
             return;
 
         // 언제나 플레이어를 따라다님
@@ -207,6 +211,13 @@ public class Wizard : Companion
     {
         ShotEnergyBall();
         animator.SetTrigger("Attack");
+        ++shotCount;
+        if (shotCount >= countForCastSpell)
+        {
+            CurState = EWizardState.CastingSpell;
+            CastSpell();
+            shotCount = 0;
+        }
     }
 
     public void CreateEnergyBallPool()
@@ -233,6 +244,33 @@ public class Wizard : Companion
         WizardEnergyBallController energyBallController = energyBall.GetComponent<WizardEnergyBallController>();
         energyBallController.SetOwnerTransform(transform);
         energyBallController.SetTargetTransform(attackTarget.transform);
+    }
+
+    private void CastSpell()
+    {
+        IsStopped = true;
+        animator.SetLayerWeight(1, 0);
+        animator.SetTrigger("CastSpell");
+        spellParticle[skillLevels[(int)EWizardSkill.ManaCraft]].Play();
+    }
+
+    public void OnEndCastSpell()
+    {
+        Debug.Log("Cast End");
+        CurState = EWizardState.Idle;
+    }
+
+    public void ApplyDamageToNearEnemies()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, spellRange[skillLevels[(int)EWizardSkill.ManaCraft]], enemyLayer);
+
+        foreach (Collider col in colliders)
+        {
+            if (col.gameObject.GetComponent<Enemy>().IsDead)
+                continue;
+
+            col.gameObject.GetComponent<Actor>().GetDamage(attack);
+        }
     }
 
     public void EnqueueEnergyBallOnDisable(GameObject energyBall)

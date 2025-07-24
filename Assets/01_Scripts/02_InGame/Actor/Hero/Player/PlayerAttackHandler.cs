@@ -76,7 +76,7 @@ public class PlayerAttackHandler : MonoBehaviour
 
         AttackWithCoolTime();
     }
-
+    /*
     #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -84,7 +84,7 @@ public class PlayerAttackHandler : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
     #endif
-
+    */
     public void CreateArrowPool()
     {
         GameObject arrowPoolGO = new GameObject("ArrowPool");
