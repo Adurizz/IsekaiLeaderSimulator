@@ -50,6 +50,9 @@ public class Wizard : Companion
     [SerializeField] private bool isManaCraftMastered;
     [SerializeField] private bool isElementCraftMastered;
 
+    [SerializeField] private float rangedNormalAttackRange;
+    public float RangedNormalAttackRange => rangedNormalAttackRange;
+
     protected override void Awake()
     {
         base.Awake();
@@ -85,7 +88,7 @@ public class Wizard : Companion
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, voidMagicRange);
+        Gizmos.DrawWireSphere(transform.position, spellRange[skillLevels[(int)EWizardSkill.ElementCraft]]);
     }
 #endif
 
@@ -255,6 +258,7 @@ public class Wizard : Companion
         WizardEnergyBallController energyBallController = energyBall.GetComponent<WizardEnergyBallController>();
         energyBallController.SetOwnerTransform(transform);
         energyBallController.SetTargetTransform(attackTarget.transform);
+        energyBallController.IsMasteredManaCraft = isManaCraftMastered;
     }
 
     private void CastSpell()
@@ -262,7 +266,7 @@ public class Wizard : Companion
         IsStopped = true;
         animator.SetLayerWeight(1, 0);
         animator.SetTrigger("CastSpell");
-        spellParticle[skillLevels[(int)EWizardSkill.ManaCraft]].Play();
+        spellParticle[skillLevels[(int)EWizardSkill.ElementCraft]].Play();
     }
 
     public void OnEndCastSpell()
@@ -273,7 +277,7 @@ public class Wizard : Companion
 
     public void ApplyDamageToNearEnemies()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, spellRange[skillLevels[(int)EWizardSkill.ManaCraft]], enemyLayer);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, spellRange[skillLevels[(int)EWizardSkill.ElementCraft]], enemyLayer);
 
         foreach (Collider col in colliders)
         {

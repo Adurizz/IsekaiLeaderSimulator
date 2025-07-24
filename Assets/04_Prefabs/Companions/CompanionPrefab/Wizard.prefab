@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5097236242003425018}
   - component: {fileID: 2954490361506052984}
   - component: {fileID: 4183395688734136794}
+  - component: {fileID: 1980340630380618677}
   m_Layer: 6
   m_Name: Wizard
   m_TagString: Company
@@ -234,16 +235,17 @@ MonoBehaviour:
   - {fileID: 6982277075371535125}
   - {fileID: 7555147479810884480}
   spellRange:
+  - 7
   - 10.5
-  - 17.3
-  - 24.4
-  - 52.1
+  - 14
+  - 27.8
   spellDamageMultiplier: 5
   isVoidCraftMastered: 0
   voidCraftParticle: {fileID: 2765544004518627099}
   voidMagicRange: 8
   isManaCraftMastered: 0
   isElementCraftMastered: 0
+  rangedNormalAttackRange: 3.5
 --- !u!114 &4183395688734136794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +264,24 @@ MonoBehaviour:
   - 0.5
   - 1
   - 2.5
+--- !u!114 &1980340630380618677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557949728167251519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb207b5a6c88d549aa480f65c5b72d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  skillAdjustAmount:
+  - 10
+  - 20
+  - 30
 --- !u!1001 &176944315195617049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -513,15 +533,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.x
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.z
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalPosition.x
@@ -736,15 +756,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.x
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.y
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.z
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1026,15 +1046,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1246,6 +1266,18 @@ PrefabInstance:
     - target: {fileID: 3501200655281988907, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4248378233001040003, guid: 25979ea88123eea4681ae26ecece8392, type: 3}
       propertyPath: m_LocalPosition.x
