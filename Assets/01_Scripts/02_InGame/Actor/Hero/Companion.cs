@@ -58,16 +58,10 @@ public abstract class Companion : Hero
                 skillLevels[skillIndex]++;
 
             level++;
-            UpdateStat();
+            InitStat();
 
             levelUpEvent.Invoke(skillLevels);
         }
-    }
-
-    protected void UpdateStat()
-    {
-        // 레벨업에 따른 스탯 업데이트
-        InitStat();
     }
 
     public void SetName(string name)

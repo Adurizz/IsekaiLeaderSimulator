@@ -39,6 +39,16 @@ public class Wizard : Companion
     [SerializeField] private int countForCastSpell = 5;
     [SerializeField] private ParticleSystem[] spellParticle = new ParticleSystem[4];
     [SerializeField] private float[] spellRange = new float[4];
+    [SerializeField] private float spellDamageMultiplier;
+
+    [SerializeField] private bool isVoidCraftMastered;
+    [SerializeField] private ParticleSystem voidCraftParticle;
+    [SerializeField] private float voidMagicRange;
+    private float curVoidMagicTime;
+    private const float voidMagicDamageCool = 0.1f;
+
+    [SerializeField] private bool isManaCraftMastered;
+    [SerializeField] private bool isElementCraftMastered;
 
     protected override void Awake()
     {
@@ -63,6 +73,7 @@ public class Wizard : Companion
     {
         FindNearestEnemyWithCoolTime();
         FSM();
+        CastVoidCraftMagic();
     }
 
     private void FixedUpdate()
@@ -74,7 +85,7 @@ public class Wizard : Companion
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, spellRange[skillLevels[(int)EWizardSkill.ManaCraft]]);
+        Gizmos.DrawWireSphere(transform.position, voidMagicRange);
     }
 #endif
 
@@ -269,7 +280,33 @@ public class Wizard : Companion
             if (col.gameObject.GetComponent<Enemy>().IsDead)
                 continue;
 
-            col.gameObject.GetComponent<Actor>().GetDamage(attack);
+            col.gameObject.GetComponent<Actor>().GetDamage(attack * spellDamageMultiplier);
+        }
+    }
+
+    public void CastVoidCraftMagic()
+    {
+        if (!isVoidCraftMastered || IsDead)
+            return;
+
+        curVoidMagicTime += Time.deltaTime;
+        if (curVoidMagicTime >= voidMagicDamageCool)
+        {
+            ApplyAreaDamage(transform.position, voidMagicRange, 0.1f);
+            curVoidMagicTime = 0;
+        }
+    }
+
+    public void ApplyAreaDamage(Vector3 position, float range, float damageMultiplier = 1f)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, range, enemyLayer);
+
+        foreach (Collider col in colliders)
+        {
+            if (col.gameObject.GetComponent<Enemy>().IsDead)
+                continue;
+
+            col.gameObject.GetComponent<Actor>().GetDamage(attack * damageMultiplier);
         }
     }
 
@@ -286,9 +323,35 @@ public class Wizard : Companion
             // TODO: 사망 관련 처리
             CurState = EWizardState.Dead;
             OnDead();
+            voidCraftParticle.Stop();
             return true;
         }
 
         return false;
     }
+
+    #region 스킬 마스터 처리
+    public void MasterVoidCraft()
+    {
+        if (!isVoidCraftMastered)
+        {
+            isVoidCraftMastered = true;
+            voidCraftParticle.Play();
+        }
+    }
+
+    public void MasterManaCraft()
+    {
+        if (!isManaCraftMastered)
+            isManaCraftMastered = true;
+    }
+
+    public void MasterElementCraft()
+    {
+        if (!isElementCraftMastered)
+        {
+            isElementCraftMastered = true;
+        }
+    }
+    #endregion
 }
