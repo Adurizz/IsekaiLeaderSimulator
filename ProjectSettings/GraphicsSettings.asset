@@ -60,7 +60,7 @@ GraphicsSettings:
       useDitherMaskForAlphaBlendedShadows: 0
     m_Automatic: 1
   m_LightmapStripping: 0
-  m_FogStripping: 0
+  m_FogStripping: 1
   m_InstancingStripping: 0
   m_BrgStripping: 0
   m_LightmapKeepPlain: 1
@@ -69,9 +69,9 @@ GraphicsSettings:
   m_LightmapKeepDynamicDirCombined: 1
   m_LightmapKeepShadowMask: 1
   m_LightmapKeepSubtractive: 1
-  m_FogKeepLinear: 1
-  m_FogKeepExp: 1
-  m_FogKeepExp2: 1
+  m_FogKeepLinear: 0
+  m_FogKeepExp: 0
+  m_FogKeepExp2: 0
   m_AlbedoSwatchInfos: []
   m_RenderPipelineGlobalSettingsMap: {}
   m_LightsUseLinearIntensity: 0

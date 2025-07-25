@@ -236,7 +236,7 @@ public class Wizard : Companion
 
     public void CreateEnergyBallPool()
     {
-        Debug.Log("궁수 풀 생성");
+        Debug.Log("마법사 풀 생성");
         GameObject energyBallPoolGO = new GameObject("WizardEnergyBallPool");
         energyBallPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
 
