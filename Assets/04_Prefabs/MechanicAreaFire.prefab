@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1352666741560832481}
   - component: {fileID: 4069020136598728377}
   - component: {fileID: 5657506270363658034}
+  - component: {fileID: 747894040788262189}
   m_Layer: 0
   m_Name: MechanicAreaFire
   m_TagString: Untagged
@@ -44,7 +45,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978948190561882335}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 1
@@ -4744,6 +4745,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &747894040788262189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978948190561882335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c290c47d3ba32345b010f347e342889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curLife: 0
+  maxLifeTime: 3
+  attackDistance: 4.5
 --- !u!1 &2274539474705934836
 GameObject:
   m_ObjectHideFlags: 0
@@ -9537,6 +9553,14 @@ PrefabInstance:
     - target: {fileID: 2902554985698055628, guid: c85375a1b092ebb4e907ffcb974027b4, type: 3}
       propertyPath: m_Name
       value: Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663266678477098458, guid: c85375a1b092ebb4e907ffcb974027b4, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663266678477098458, guid: c85375a1b092ebb4e907ffcb974027b4, type: 3}
+      propertyPath: lengthInSec
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8663266678477098458, guid: c85375a1b092ebb4e907ffcb974027b4, type: 3}
       propertyPath: playOnAwake

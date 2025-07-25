@@ -45,20 +45,24 @@ public class Mechanic : Companion
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private GameObject lightEffect;
     [SerializeField] private Vector3 attackPosOffset;
-    private Vector3 attackPos;
+    [SerializeField] private Vector3 attackPos;
     private float curDamageCool;
     private float maxDamageCool = 0.1f;
     [Header("무기들")]
     [SerializeField] private GameObject rench;
     [SerializeField] private GameObject shotGun;
     private float coolForInstall;
-    // private float maxInstallCool = 20f;
-    private float maxInstallCool = 5f;
+    private float maxInstallCool = 20f;
+    // private float maxInstallCool = 5f;
     private float installedTime;
     private float maxInstallTime = 3f;
     [SerializeField] private GameObject cannonPrefab;
     private int cannonPoolNum = 50;
     Queue<GameObject> cannonPool = new();
+    [SerializeField] private bool canAttack;
+    [SerializeField] private bool isFireStarter;
+    [SerializeField] private bool isSelfFix;
+    [SerializeField] private bool isOverheat;
 
     public bool IsFiring
     {
@@ -66,7 +70,7 @@ public class Mechanic : Companion
         set
         {
             isFiring = value;
-            animator.SetBool("isFiring", isFiring);
+            // animator.SetBool("isFiring", isFiring);
         }
     }
 
@@ -122,9 +126,23 @@ public class Mechanic : Companion
         for (int i = 0; i < areaFirePoolNum; ++i)
         {
             GameObject temp = Instantiate(areaFirePrefab, areaFirePoolGO.transform);
+            temp.GetComponent<MechanicAreaFire>().SetOwner(this);
             temp.SetActive(false);
             areaFirePool.Enqueue(temp);
         }
+    }
+
+    public void GenerateAreaFire()
+    {
+        GameObject areaFire = areaFirePool.Dequeue();
+        areaFire.transform.position = Utils.GetCenter(transform) + attackPos;
+        areaFire.SetActive(true);
+        areaFire.GetComponent<ParticleSystem>().Play();
+    }
+
+    public void EnqueueAreaFireOnDisable(GameObject areaFire)
+    {
+        areaFirePool.Enqueue(areaFire);
     }
 
     public void CreateEnergyCannonPool()
@@ -153,6 +171,7 @@ public class Mechanic : Companion
                 return;
             else
             {
+                RaiseWrench();
                 CurState = EMechanicState.InstallCannon;
                 animator.SetTrigger("InstallCannon");
                 coolForInstall = 0;
@@ -189,6 +208,7 @@ public class Mechanic : Companion
                 IsStopped = true;
             return;
         }
+
         // 언제나 플레이어를 따라다님
         if (Vector3.Distance(player.transform.position, transform.position) > stoppingDistance)
         {
@@ -201,6 +221,7 @@ public class Mechanic : Companion
         {
             IsStopped = true;
         }
+        attackPos = transform.rotation * attackPosOffset;
     }
 
     private void RotateTowardsTarget()
@@ -221,6 +242,7 @@ public class Mechanic : Companion
 
         // transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         transform.rotation = lookRotation;
+        attackPos = transform.rotation * attackPosOffset;
     }
 
     private void FSM()
@@ -231,6 +253,8 @@ public class Mechanic : Companion
         switch (CurState)
         {
             case EMechanicState.Idle:
+                if (canAttack)
+                    RaiseShotgun();
                 animator.SetLayerWeight(1, 0);
                 IsFiring = false;
                 if (attackTarget != null)
@@ -296,6 +320,9 @@ public class Mechanic : Companion
 
     private void FindNearestEnemyWithCoolTime()
     {
+        if (!canAttack)
+            return;
+
         curDetectionCool += Time.deltaTime;
         if (curDetectionCool >= detectionCool)
         {
@@ -342,6 +369,9 @@ public class Mechanic : Companion
 
     protected override void PerformAttack()
     {
+        if (!canAttack)
+            return;
+
         curDamageCool += Time.deltaTime;
         if (curDamageCool >= maxDamageCool)
         {
@@ -356,6 +386,8 @@ public class Mechanic : Companion
             IsStopped = false;
             lightEffect.SetActive(false);
             curAttackTime = 0;
+            if (isFireStarter)
+                GenerateAreaFire();
         }
     }
 
@@ -385,4 +417,44 @@ public class Mechanic : Companion
 
         return false;
     }
+
+    public void MakeAttackAvailable()
+    {
+        if (!canAttack)
+            canAttack = true;
+        RaiseShotgun();
+        Debug.Log("총들어");
+    }
+
+    public void RaiseWrench()
+    {
+        rench.SetActive(true);
+        shotGun.SetActive(false);
+    }
+
+    public void RaiseShotgun()
+    {
+        rench.SetActive(false);
+        shotGun.SetActive(true);
+    }
+
+    #region 스킬 마스터 처리
+    public void MakeFireStarter()
+    {
+        if (!isFireStarter)
+            isFireStarter = true;
+    }
+
+    public void MakeSelfFix()
+    {
+        if (!isSelfFix)
+            isSelfFix = true;
+    }
+
+    public void MakeOverheat()
+    {
+        if (!isOverheat)
+            isOverheat = true;
+    }
+    #endregion
 }

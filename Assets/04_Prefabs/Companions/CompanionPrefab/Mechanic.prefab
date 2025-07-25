@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6816841488776740219}
   - component: {fileID: 4047487068930954766}
   - component: {fileID: -1638088276777736828}
+  - component: {fileID: 3874002859084946134}
   m_Layer: 6
   m_Name: Mechanic
   m_TagString: Company
@@ -229,6 +230,28 @@ MonoBehaviour:
   rench: {fileID: 409640830032206711}
   shotGun: {fileID: 2935435045643121495}
   cannonPrefab: {fileID: 3406791904110192633, guid: f20e0a1210715a449867defaadac3673, type: 3}
+  canAttack: 0
+  isFireStarter: 0
+  isSelfFix: 0
+  isOverheat: 0
+--- !u!114 &3874002859084946134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014054566989662071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4787330c93ca68446ad342b3fe2ea703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  skillAdjustAmount:
+  - 10
+  - 15
+  - 25
 --- !u!1001 &215175940295913099
 PrefabInstance:
   m_ObjectHideFlags: 0
