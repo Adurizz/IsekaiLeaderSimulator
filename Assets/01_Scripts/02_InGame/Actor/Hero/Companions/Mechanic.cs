@@ -62,6 +62,7 @@ public class Mechanic : Companion
     [SerializeField] private bool canAttack;
     [SerializeField] private bool isFireStarter;
     [SerializeField] private bool isSelfFix;
+    private SelfFix selfFixScript;
     [SerializeField] private bool isOverheat;
 
     public bool IsFiring
@@ -79,6 +80,7 @@ public class Mechanic : Companion
         base.Awake();
         player = FindAnyObjectByType<Player>();
         attackPos = transform.rotation * attackPosOffset;
+        selfFixScript = GetComponent<SelfFix>();
     }
 
 #if UNITY_EDITOR
@@ -86,7 +88,7 @@ public class Mechanic : Companion
     {
         Gizmos.color = Color.red;
         transform.localRotation = transform.rotation;
-        Gizmos.DrawWireSphere(Utils.GetCenter(transform) + attackPos, attackRange);
+        // Gizmos.DrawWireSphere(Utils.GetCenter(transform) + attackPos, attackRange);
     }
 #endif
 
@@ -411,6 +413,7 @@ public class Mechanic : Companion
         {
             // TODO: 사망 관련 처리
             CurState = EMechanicState.Dead;
+            selfFixScript.DeactivateSelfFixEffect();
             OnDead();
             return true;
         }
