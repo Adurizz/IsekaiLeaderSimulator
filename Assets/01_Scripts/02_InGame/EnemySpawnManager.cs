@@ -54,8 +54,15 @@ public class EnemySpawnManager : MonoBehaviour
     private Queue<GameObject> enemyPoolQueue = new();
     private ExpeditionTimeChecker timeChecker;
 
-    #region ½ºÆù °ü·Ã µ¥ÀÌÅÍ
-    [Header("½ºÆù °ü·Ã µ¥ÀÌÅÍ")]
+    [SerializeField] private GameObject enemyArrow;
+    private Queue<GameObject> enemyArrowPool = new();
+    private const int initEnemyArrowNum = 500;
+    [SerializeField] private GameObject enemyEnergyBall;
+    private Queue<GameObject> enemyEnergyBallPool = new();
+    private const int initEnemyEnergyBallNum = 150;
+
+    #region ìŠ¤í° ê´€ë ¨ ë°ì´í„°
+    [Header("ìŠ¤í° ê´€ë ¨ ë°ì´í„°")]
     [SerializeField] private List<StageSpawnInfo> stageEnemyInfoList;
     private Dictionary<int, List<SpawnEnemyInfo>> stageSpawnEnemyDict = new();
     private Dictionary<int, List<SpawnAttribute>> stageSpawnAttributeDict = new();
@@ -72,7 +79,7 @@ public class EnemySpawnManager : MonoBehaviour
         timeChecker.informNewPhase.AddListener(AdjustPhase);
     }
 
-    #region ½ºÆù °ü·Ã µ¥ÀÌÅÍ ¼¼ÆÃ
+    #region ìŠ¤í° ê´€ë ¨ ë°ì´í„° ì„¸íŒ…
     public void InitStageSpawnInfoDict()
     {
         foreach (StageSpawnInfo info in stageEnemyInfoList)
@@ -93,7 +100,7 @@ public class EnemySpawnManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡ ½ºÆùµÉ Àûµé°ú ÃâÇö È®·ü ¼¼ÆÃ
+    /// ì´ë²ˆ ìŠ¤í…Œì´ì§€ì— ìŠ¤í°ë  ì ë“¤ê³¼ ì¶œí˜„ í™•ë¥  ì„¸íŒ…
     /// </summary>
     /// <param name="curStageNum"></param>
     public void SetStageSpawnEnemy(int curStageNum)
@@ -108,7 +115,7 @@ public class EnemySpawnManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÌ¹ø ½ºÅ×ÀÌÁö ½ºÆù Á¤º¸(°£°İ, ¼ö) ¼¼ÆÃ
+    /// ì´ë²ˆ ìŠ¤í…Œì´ì§€ ìŠ¤í° ì •ë³´(ê°„ê²©, ìˆ˜) ì„¸íŒ…
     /// </summary>
     /// <param name="curStageNum"></param>
     public void InitStageSpawnInfo(int curStageNum)
@@ -118,7 +125,7 @@ public class EnemySpawnManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡¼­ ÆäÀÌÁö º¯È­¿¡ µû¸¥ ½ºÆù Á¤º¸ º¯È­ ¹İ¿µ ·ÎÁ÷
+    /// ì´ë²ˆ ìŠ¤í…Œì´ì§€ì—ì„œ í˜ì´ì§€ ë³€í™”ì— ë”°ë¥¸ ìŠ¤í° ì •ë³´ ë³€í™” ë°˜ì˜ ë¡œì§
     /// </summary>
     /// <param name="phaseNum"></param>
     public void SetStageSpawnInfo(int phaseNum)
@@ -172,7 +179,72 @@ public class EnemySpawnManager : MonoBehaviour
             enemyPoolQueue.Enqueue(temp);
         }
     }
-    
+
+    public void CreateEnemyProjectilePool()
+    {
+        GameObject enemyPoolGO = new GameObject("EnemyArrowPool");
+        enemyPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
+
+        for (int i = 0; i < initEnemyArrowNum; ++i)
+        {
+            GameObject temp = Instantiate(enemyArrow, enemyPoolGO.transform);
+            temp.GetComponent<EnemyArrowController>().SetEnemySpawnManager(this);
+            temp.SetActive(false);
+            enemyArrowPool.Enqueue(temp);
+        }
+
+        GameObject enemyEnergyBallPoolGO = new GameObject("EnemyEnergyBallPool");
+        enemyEnergyBallPoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
+
+        for (int i = 0; i < initEnemyEnergyBallNum; ++i)
+        {
+            GameObject temp = Instantiate(enemyEnergyBall, enemyEnergyBallPoolGO.transform);
+            temp.GetComponent<EnemyEnergyBallController>().SetEnemySpawnManager(this);
+            temp.SetActive(false);
+            enemyEnergyBallPool.Enqueue(temp);
+        }
+    }
+
+    public GameObject GetEnemyArrow()
+    {
+        if (enemyArrowPool.Count > 0)
+            return enemyArrowPool.Dequeue();
+        else
+        {
+            GameObject newArrow = Instantiate(enemyArrow);
+            newArrow.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
+            newArrow.GetComponent<EnemyArrowController>().SetEnemySpawnManager(this);
+            newArrow.SetActive(false);
+            enemyArrowPool.Enqueue(newArrow);
+            return enemyArrowPool.Dequeue();
+        }
+    }
+
+    public void EnqueueArrow(GameObject arrow)
+    {
+        enemyArrowPool.Enqueue(arrow);
+    }
+
+    public GameObject GetEnergyBall()
+    {
+        if (enemyEnergyBallPool.Count > 0)
+            return enemyEnergyBallPool.Dequeue();
+        else
+        {
+            GameObject newEnergyBall = Instantiate(enemyEnergyBall);
+            newEnergyBall.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
+            newEnergyBall.GetComponent<EnemyArrowController>().SetEnemySpawnManager(this);
+            newEnergyBall.SetActive(false);
+            enemyEnergyBallPool.Enqueue(newEnergyBall);
+            return enemyEnergyBallPool.Dequeue();
+        }
+    }
+    public void EnqueueEnergyBall(GameObject energyBall)
+    {
+        enemyEnergyBallPool.Enqueue(energyBall);
+    }
+
+
     public IEnumerator SpawnEnemyWithInterval()
     {
         if (test)
@@ -220,16 +292,16 @@ public class EnemySpawnManager : MonoBehaviour
 
         for (int i = 0; i < maxTry; ++i)
         {
-            // 360µµ ·£´ı ¹æÇâ
+            // 360ë„ ëœë¤ ë°©í–¥
             float angle = UnityEngine.Random.Range(0f, 360f);
             Vector3 dir = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad));
             float spawnDistance = UnityEngine.Random.Range(80f, 90f);
 
-            // ÈÄº¸ À§Ä¡ °è»ê
+            // í›„ë³´ ìœ„ì¹˜ ê³„ì‚°
             spawnPos = playerPos + dir * spawnDistance + new Vector3(0, 1, 0);
-            spawnPos.y = 1f; // y°ª °íÁ¤
+            spawnPos.y = 1f; // yê°’ ê³ ì •
 
-            // x, z ¹üÀ§ Ã¼Å©
+            // x, z ë²”ìœ„ ì²´í¬
             if (spawnPos.x >= -limitX && spawnPos.x <= limitX &&
                 spawnPos.z >= -limitZ && spawnPos.z <= limitZ)
             {
@@ -237,7 +309,7 @@ public class EnemySpawnManager : MonoBehaviour
             }
         }
 
-        // 100¹ø ½ÃµµÇØµµ ¸ø Ã£À¸¸é ±âº» À§Ä¡ ¹İÈ¯
+        // 100ë²ˆ ì‹œë„í•´ë„ ëª» ì°¾ìœ¼ë©´ ê¸°ë³¸ ìœ„ì¹˜ ë°˜í™˜
         return new Vector3(0, 1, -10);
     }
 }

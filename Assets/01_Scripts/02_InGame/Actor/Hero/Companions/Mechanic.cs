@@ -36,11 +36,11 @@ public class Mechanic : Companion
     private float maxAttackTime = 2.5f;
     private bool attackInit;
     private float distanceFromPlayer = 4.5f;
-    [Header("InstantiateÇÒ Object °ü·Ã")]
+    [Header("Instantiateí•  Object ê´€ë ¨")]
     [SerializeField] private GameObject areaFirePrefab;
     Queue<GameObject> areaFirePool = new();
     private const int areaFirePoolNum = 20;
-    [Header("°ø°İ °ü·Ã")]
+    [Header("ê³µê²© ê´€ë ¨")]
     [SerializeField] private bool isFiring;
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private GameObject lightEffect;
@@ -48,7 +48,7 @@ public class Mechanic : Companion
     [SerializeField] private Vector3 attackPos;
     private float curDamageCool;
     private float maxDamageCool = 0.1f;
-    [Header("¹«±âµé")]
+    [Header("ë¬´ê¸°ë“¤")]
     [SerializeField] private GameObject rench;
     [SerializeField] private GameObject shotGun;
     private float coolForInstall;
@@ -58,6 +58,7 @@ public class Mechanic : Companion
     private float maxInstallTime = 3f;
     [SerializeField] private GameObject cannonPrefab;
     private int cannonPoolNum = 50;
+    [SerializeField] private List<ActorStat> cannonStats = new List<ActorStat>();
     Queue<GameObject> cannonPool = new();
     [SerializeField] private bool canAttack;
     [SerializeField] private bool isFireStarter;
@@ -121,7 +122,7 @@ public class Mechanic : Companion
 
     public void CreateAreaFirePool()
     {
-        Debug.Log("¸ŞÄ«´Ğ Ç® »ı¼º");
+        Debug.Log("ë©”ì¹´ë‹‰ í’€ ìƒì„±");
         GameObject areaFirePoolGO = new GameObject("MechanicPool");
         areaFirePoolGO.transform.SetParent(GameObject.Find(GlobalValueHolder.objectPoolName).transform);
 
@@ -191,6 +192,8 @@ public class Mechanic : Companion
         }
 
         GameObject cannon = cannonPool.Dequeue();
+        cannon.GetComponent<Cannon>().SetStat(cannonStats[skillLevels[(int)EMechanicSkill.Overheat]]);
+        cannon.GetComponent<Cannon>().InitStat();
         cannon.SetActive(true);
         cannon.transform.position = transform.position;
     }
@@ -211,7 +214,7 @@ public class Mechanic : Companion
             return;
         }
 
-        // ¾ğÁ¦³ª ÇÃ·¹ÀÌ¾î¸¦ µû¶ó´Ù´Ô
+        // ì–¸ì œë‚˜ í”Œë ˆì´ì–´ë¥¼ ë”°ë¼ë‹¤ë‹˜
         if (Vector3.Distance(player.transform.position, transform.position) > stoppingDistance)
         {
             if (IsStopped)
@@ -237,7 +240,7 @@ public class Mechanic : Companion
             return;
         */
         Vector3 direction = (attackTarget.transform.position - transform.position).normalized;
-        direction.y = 0; // ¹Ù´Ú¿¡¼­¸¸ È¸Àü
+        direction.y = 0; // ë°”ë‹¥ì—ì„œë§Œ íšŒì „
         if (direction == Vector3.zero)
             return;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -281,7 +284,7 @@ public class Mechanic : Companion
                     return;
                 }
 
-                // °ø°İ
+                // ê³µê²©
                 if (!isFiring)
                 {
                     curAttackCool += Time.deltaTime;
@@ -411,7 +414,7 @@ public class Mechanic : Companion
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
-            // TODO: »ç¸Á °ü·Ã Ã³¸®
+            // TODO: ì‚¬ë§ ê´€ë ¨ ì²˜ë¦¬
             CurState = EMechanicState.Dead;
             selfFixScript.DeactivateSelfFixEffect();
             OnDead();
@@ -426,7 +429,7 @@ public class Mechanic : Companion
         if (!canAttack)
             canAttack = true;
         RaiseShotgun();
-        Debug.Log("ÃÑµé¾î");
+        Debug.Log("ì´ë“¤ì–´");
     }
 
     public void RaiseWrench()
@@ -441,7 +444,7 @@ public class Mechanic : Companion
         shotGun.SetActive(true);
     }
 
-    #region ½ºÅ³ ¸¶½ºÅÍ Ã³¸®
+    #region ìŠ¤í‚¬ ë§ˆìŠ¤í„° ì²˜ë¦¬
     public void MakeFireStarter()
     {
         if (!isFireStarter)

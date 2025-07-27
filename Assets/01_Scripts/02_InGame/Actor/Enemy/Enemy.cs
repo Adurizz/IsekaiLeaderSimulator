@@ -18,12 +18,12 @@ public abstract class Enemy : Actor
                 distanceFromTarget = Mathf.Infinity;
         }
     }
-    protected EnemySpawnManager spawnManager;
+    [SerializeField] protected EnemySpawnManager spawnManager;
     protected ItemSpawnManager itemSpawnManager;
     protected NavMeshAgent navMeshAgent;
     protected Animator animator;
-    // Àû Å½Áö Ã³¸®
-    private LayerMask heroLayer;
+    // ì  íƒì§€ ì²˜ë¦¬
+    protected LayerMask heroLayer;
     [SerializeField] private float curDetectionCool = 0;
     private const float maxDetectionCool = 1f;
     private const float maxDetectionCoolWhileAttack = 0.1f;
@@ -31,7 +31,7 @@ public abstract class Enemy : Actor
     protected float curAttackCool;
     protected bool attackInit;
 
-    // Hit Ã³¸®
+    // Hit ì²˜ë¦¬
     protected float curDelay;
     protected const float hitDelay = 1f;
 
@@ -48,7 +48,7 @@ public abstract class Enemy : Actor
         }
     }
     /// <summary>
-    /// moveSpeed¸¦ ¿øº»°ªÀ¸·Î ÇÏ´Â curMoveSpeed -> ÀÚÀ¯·Ó°Ô º¯ÇüÇØ¼­ »ç¿ë, ¿øº» º¸Á¸ÇØ¼­ º¹±¸ÇÏ±â À§ÇÔ
+    /// moveSpeedë¥¼ ì›ë³¸ê°’ìœ¼ë¡œ í•˜ëŠ” curMoveSpeed -> ììœ ë¡­ê²Œ ë³€í˜•í•´ì„œ ì‚¬ìš©, ì›ë³¸ ë³´ì¡´í•´ì„œ ë³µêµ¬í•˜ê¸° ìœ„í•¨
     /// </summary>
     [SerializeField] protected float curMoveSpeed;
 
@@ -114,7 +114,7 @@ public abstract class Enemy : Actor
     }
 
     /// <summary>
-    /// °¡Àå °¡±î¿î Hero(Player Æ÷ÇÔ) Å½»ö
+    /// ê°€ì¥ ê°€ê¹Œìš´ Hero(Player í¬í•¨) íƒìƒ‰
     /// </summary>
     protected virtual void SetTarget()
     {
@@ -176,7 +176,7 @@ public abstract class Enemy : Actor
                 }
                 break;
             case EEnemyState.Chasing:
-                #region ¹üÀ§ ³»¿¡ µé¾î¿À¸é °ø°İÀ¸·Î ÀüÈ¯
+                #region ë²”ìœ„ ë‚´ì— ë“¤ì–´ì˜¤ë©´ ê³µê²©ìœ¼ë¡œ ì „í™˜
                 if (distanceFromTarget <= attackDistance)
                 {
                     curDetectionCool = 0;
@@ -188,7 +188,7 @@ public abstract class Enemy : Actor
                 #endregion
             case EEnemyState.Attack:
                 RotateTowardsTarget();
-                #region Ã¹ °ø°İ ÇÏ°í ÄğÅ¸ÀÓ ½ÃÀÛ
+                #region ì²« ê³µê²© í•˜ê³  ì¿¨íƒ€ì„ ì‹œì‘
                 if (attackInit)
                 {
                     Debug.Log("Init Attack");
@@ -200,8 +200,8 @@ public abstract class Enemy : Actor
                 }
                 #endregion
 
-                #region °ø°İÁß¿¡´Â ´õ ÂªÀº ºóµµ·Î Àû Å½»ö, ¹üÀ§ ¹ş¾î³ª¸é °ø°İ Äµ½½
-                // Àû Å½Áö
+                #region ê³µê²©ì¤‘ì—ëŠ” ë” ì§§ì€ ë¹ˆë„ë¡œ ì  íƒìƒ‰, ë²”ìœ„ ë²—ì–´ë‚˜ë©´ ê³µê²© ìº”ìŠ¬
+                // ì  íƒì§€
                 curDetectionCool += Time.deltaTime;
                 if (curDetectionCool >= maxDetectionCoolWhileAttack)
                 {
@@ -216,7 +216,7 @@ public abstract class Enemy : Actor
                     return;
                 }
                 #endregion
-                // °ø°İ
+                // ê³µê²©
                 curAttackCool += Time.deltaTime;
                 if (curAttackCool >= attackSpeed)
                 {
@@ -267,10 +267,10 @@ public abstract class Enemy : Actor
     {
         if (Target == null) return;
         Vector3 direction = (Target.transform.position - transform.position).normalized;
-        direction.y = 0; // ¹Ù´Ú¿¡¼­¸¸ È¸Àü
+        direction.y = 0; // ë°”ë‹¥ì—ì„œë§Œ íšŒì „
         if (direction == Vector3.zero) return;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        // ¼­¼­È÷ È¸ÀüÇÏ°í ½ÍÀ¸¸é Lerp/RotateTowards, Áï½Ã È¸ÀüÀÌ¸é ±×³É ´ëÀÔ
+        // ì„œì„œíˆ íšŒì „í•˜ê³  ì‹¶ìœ¼ë©´ Lerp/RotateTowards, ì¦‰ì‹œ íšŒì „ì´ë©´ ê·¸ëƒ¥ ëŒ€ì…
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
@@ -279,7 +279,7 @@ public abstract class Enemy : Actor
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
-            // TODO: »ç¸Á °ü·Ã Ã³¸®
+            // TODO: ì‚¬ë§ ê´€ë ¨ ì²˜ë¦¬
             OnDead();
             CurState = EEnemyState.Dead;
             return true;

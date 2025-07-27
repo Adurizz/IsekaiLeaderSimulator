@@ -25,18 +25,7 @@ public class ProjectileController : MonoBehaviour
             SetInitPosition();
     }
 
-    protected IEnumerator Start()
-    {
-        yield return new WaitUntil(() => ownerTransform != null);
-
-        SetInitPosition();
-        SetDamage();
-
-        if (!isTargeted)
-            SetMoveDirection();
-    }
-
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (isTargeted)
             MakeTargetedMove();
@@ -77,6 +66,12 @@ public class ProjectileController : MonoBehaviour
     public virtual void SetOwnerTransform(Transform newOwnerTransform)
     {
         ownerTransform = newOwnerTransform;
+
+        SetInitPosition();
+        SetDamage();
+
+        if (!isTargeted)
+            SetMoveDirection();
     }
 
     public void SetTargetTransform(Transform newTargetTransform)

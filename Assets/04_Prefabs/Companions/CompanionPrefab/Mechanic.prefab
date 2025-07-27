@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -1638088276777736828}
   - component: {fileID: 3874002859084946134}
   - component: {fileID: -8346906572981570897}
+  - component: {fileID: 4759813233062634714}
   m_Layer: 6
   m_Name: Mechanic
   m_TagString: Company
@@ -234,6 +235,11 @@ MonoBehaviour:
   rench: {fileID: 409640830032206711}
   shotGun: {fileID: 2935435045643121495}
   cannonPrefab: {fileID: 3406791904110192633, guid: f20e0a1210715a449867defaadac3673, type: 3}
+  cannonStats:
+  - {fileID: 11400000, guid: 81031427e8b1fbb41b2f5e42325b07af, type: 2}
+  - {fileID: 11400000, guid: 1bea17ce6b49ae543b11fe7d733162ea, type: 2}
+  - {fileID: 11400000, guid: 2bd5da6ba8faf9d46a1b6a9d85467c3e, type: 2}
+  - {fileID: 11400000, guid: 4c5c219687f0b0547ae15ba295823557, type: 2}
   canAttack: 0
   isFireStarter: 0
   isSelfFix: 0
@@ -278,6 +284,24 @@ MonoBehaviour:
   healAmount: 5
   selfFixEffect: {fileID: 1150027113516266571}
   selfFixRange: 6.7
+--- !u!114 &4759813233062634714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5014054566989662071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dae4969654c7ed42809755645f5271f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  skillID: 0
+  skillAdjustAmount:
+  - 0
+  - 0
+  - 0
 --- !u!1001 &215175940295913099
 PrefabInstance:
   m_ObjectHideFlags: 0

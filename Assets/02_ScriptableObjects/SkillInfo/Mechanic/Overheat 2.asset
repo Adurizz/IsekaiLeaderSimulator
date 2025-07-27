@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0868d03864f804ca5d44252656aa99, type: 3}
   m_Name: Overheat 2
   m_EditorClassIdentifier: 
-  ownerClass: 0
+  ownerClass: 5
   skillImg: {fileID: 0}
   skillID: 2
   skillLevel: 2

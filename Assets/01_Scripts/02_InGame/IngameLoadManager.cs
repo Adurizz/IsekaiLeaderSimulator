@@ -58,6 +58,7 @@ public class IngameLoadManager : MonoBehaviour
         enemySpawnManager.SetStageSpawnEnemy(stageInfo.GetCurStage());
         enemySpawnManager.InitStageSpawnInfo(stageInfo.GetCurStage());
         enemySpawnManager.CreateEnemyPool();
+        enemySpawnManager.CreateEnemyProjectilePool();
         StartCoroutine(enemySpawnManager.SpawnEnemyWithInterval());
     }
 }

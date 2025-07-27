@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa1e43a7e836764abafc678e617086c, type: 3}
   m_Name: SkeletonWizard
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  attack: 0
-  attackSpeed: 0
-  attackDistance: 0
-  attackRange: 0
-  moveSpeed: 0
+  maxHealth: 50
+  attack: 5
+  attackSpeed: 1
+  attackDistance: 20
+  attackRange: 6.5
+  moveSpeed: 2
   dropGold: 0
   dropUpgradeStone: 0

@@ -21,10 +21,11 @@ public class Cannon : Companion
         CreateCannonBulletPool();
     }
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         InitStat();
     }
+    */
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -33,6 +34,11 @@ public class Cannon : Companion
         Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 #endif
+
+    public void SetStat(ActorStat stat)
+    {
+        actorStat = stat;
+    }
 
     public override void InitStat()
     {
@@ -128,7 +134,7 @@ public class Cannon : Companion
         else
         {
             Vector3 direction = (attackTarget.transform.position - transform.position).normalized;
-            direction.y = 0; // πŸ¥⁄ø°º≠∏∏ »∏¿¸
+            direction.y = 0; // Î∞îÎã•ÏóêÏÑúÎßå ÌöåÏ†Ñ
             if (direction == Vector3.zero)
                 return;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -191,7 +197,7 @@ public class Cannon : Companion
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
-            // TODO: ªÁ∏¡ ∞¸∑√ √≥∏Æ
+            // TODO: ÏÇ¨Îßù Í¥ÄÎ†® Ï≤òÎ¶¨
             OnDead();
             return true;
         }
