@@ -32,8 +32,8 @@ public class IngameUIManager : Singleton<IngameUIManager>
         base.Awake();
         expeditionManager = FindAnyObjectByType<ExpeditionManager>();
         companionSpawnManager = FindAnyObjectByType<CompanionSpawnManager>();
-        SetGoldText(0);
-        SetStoneText(0);
+        SetGoldText(10000);
+        SetStoneText(10000);
     }
 
     public void ActivateCompanionHireUI()

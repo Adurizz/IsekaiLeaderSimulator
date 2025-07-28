@@ -20213,19 +20213,19 @@ MonoBehaviour:
   - stageNum: 1
     stageEnemies:
     - enemyPrefab: {fileID: 1953785076684098995, guid: 30405739462ba9d4385afc586722f271, type: 3}
-      probability: 40
+      probability: 50
     - enemyPrefab: {fileID: 6225991802835969733, guid: d041a7926a4ef16489110628cff9ec5e, type: 3}
       probability: 30
     - enemyPrefab: {fileID: 5160263639363893855, guid: 1c3572bb8ae8fd94bae01ee06bb2ebe8, type: 3}
-      probability: 20
+      probability: 15
     - enemyPrefab: {fileID: 1294179265548569663, guid: 10318046e2385954aa179ec2c458882e, type: 3}
-      probability: 10
+      probability: 5
     bossPrefab: {fileID: 1953785076684098995, guid: cf9b60b48f8679640996476ffd556add, type: 3}
     spawnAttributes:
     - spawnNumAtOnce: 10
-      spawnInterval: 1
-    - spawnNumAtOnce: 5
-      spawnInterval: 10
+      spawnInterval: 5
+    - spawnNumAtOnce: 3
+      spawnInterval: 5
     - spawnNumAtOnce: 5
       spawnInterval: 5
     - spawnNumAtOnce: 10

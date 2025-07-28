@@ -78,7 +78,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         timeChecker.informNewPhase.RemoveListener(AdjustPhase);
         timeChecker.informNewPhase.AddListener(AdjustPhase);
-        SpawnBoss();
+        // SpawnBoss();
     }
 
     #region 스폰 관련 데이터 세팅
