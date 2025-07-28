@@ -1,5 +1,6 @@
 using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -90,5 +91,12 @@ public class Player : Hero
     public override void OnDead()
     {
         isDead = true;
+        Invoke(nameof(ProcessDeadWithExpeditionManager), 3f);
+    }
+
+    private void ProcessDeadWithExpeditionManager()
+    {
+        ExpeditionManager expeditionManager = FindAnyObjectByType<ExpeditionManager>();
+        expeditionManager.OnPlayerDied();
     }
 }

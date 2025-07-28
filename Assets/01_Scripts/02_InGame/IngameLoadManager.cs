@@ -8,6 +8,7 @@ public class IngameLoadManager : MonoBehaviour
     [SerializeField] private StageManager stageManager;
     [SerializeField] private EnemySpawnManager enemySpawnManager;
     [SerializeField] private CampSpawnManager campSpawnManager;
+    [SerializeField] private EnvironmentPropManager environmentPropManager;
     [SerializeField] private GameObject player;
 
     private void Start()
@@ -24,6 +25,7 @@ public class IngameLoadManager : MonoBehaviour
         }
         
         BakeNavMeshSurface();
+        LoadEnvironmentProps();
         LoadPlayer();
         LoadEnemies();
     }
@@ -60,5 +62,10 @@ public class IngameLoadManager : MonoBehaviour
         enemySpawnManager.CreateEnemyPool();
         enemySpawnManager.CreateEnemyProjectilePool();
         StartCoroutine(enemySpawnManager.SpawnEnemyWithInterval());
+    }
+
+    private void LoadEnvironmentProps()
+    {
+        environmentPropManager.LoadPropObjects();
     }
 }

@@ -247,7 +247,7 @@ public class Wizard : Companion
             energyBallPool.Enqueue(temp);
         }
     }
-
+    
     private void ShotEnergyBall()
     {
         if (energyBallPool.Count <= 0)

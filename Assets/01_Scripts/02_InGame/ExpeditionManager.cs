@@ -7,6 +7,7 @@ public class ExpeditionManager : MonoBehaviour
     [SerializeField] private PlayerStat playerStat;
     [SerializeField] private StageInfo stageInfo;
     [SerializeField] private GameObject expeditionPausePanel;
+    [SerializeField] private GameObject expeditionResumeButton;
     private ExpeditionTimeChecker timeChecker;
     private const float goaltime = 10f;
     [SerializeField] private int earnedGold;
@@ -31,7 +32,22 @@ public class ExpeditionManager : MonoBehaviour
 
     private void RevealExpeditionPausePanel()
     {
-        string result = (curExpeditionResult == EExpeditionResult.Success) ? "성공" : "조기 귀환";
+        string result = "";
+        switch (curExpeditionResult)
+        {
+            case EExpeditionResult.Success:
+                result = "성공";
+                expeditionResumeButton.SetActive(true);
+                break;
+            case EExpeditionResult.EarlyReturn:
+                result = "조기 귀환";
+                expeditionResumeButton.SetActive(true);
+                break;
+            case EExpeditionResult.Failure:
+                expeditionResumeButton.SetActive(false);
+                result = "실패";
+                break;
+        }
         expeditionResultText.text = "탐사결과: " + result;
         earnedGoldText.text = "예상 수익: " + curReward;
         expeditionPausePanel.SetActive(true);
@@ -40,6 +56,13 @@ public class ExpeditionManager : MonoBehaviour
     public void StopExpedition()
     {
         Time.timeScale = 0f;
+    }
+
+    public void OnPlayerDied()
+    {
+        curExpeditionResult = EExpeditionResult.Failure;
+        curReward = 0;
+        RevealExpeditionPausePanel();
     }
 
     private void MeasureExpeditionResult()
