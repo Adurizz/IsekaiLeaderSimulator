@@ -13,7 +13,7 @@ public class BaseCamp : MonoBehaviour
 
     public void OnReachBaseCamp()
     {
-        expeditionManager.StopExpedition();
         expeditionManager.OnReachedBaseCamp();
+        expeditionManager.StopExpedition();
     }
 }

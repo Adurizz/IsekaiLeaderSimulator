@@ -11,6 +11,8 @@ public class ExpeditionManager : MonoBehaviour
     private ExpeditionTimeChecker timeChecker;
     private const float goaltime = 10f;
     [SerializeField] private int earnedGold;
+    [SerializeField] Jun_TweenRuntime revealJunTween;
+
     public int EarnedGold
     {
         get { return earnedGold; }
@@ -62,6 +64,7 @@ public class ExpeditionManager : MonoBehaviour
         expeditionResultText.text = result;
         earnedGoldText.text = curReward.ToString();
         expeditionPausePanel.SetActive(true);
+        revealJunTween.Play();
     }
 
     public void StopExpedition()
