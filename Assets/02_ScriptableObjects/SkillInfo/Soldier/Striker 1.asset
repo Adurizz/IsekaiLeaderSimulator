@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Striker 1
   m_EditorClassIdentifier: 
   ownerClass: 1
-  skillImg: {fileID: 0}
+  skillImg: {fileID: 21300000, guid: 2a0e3cf13cb6a4aa49f991bc5219237e, type: 3}
   skillID: 1
   skillLevel: 1
   skillName: "\uBD84\uC1C4\uC790 1"

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ranger 1
   m_EditorClassIdentifier: 
   ownerClass: 3
-  skillImg: {fileID: 0}
+  skillImg: {fileID: 21300000, guid: 373d0d500f9c849558a5f9ab351eced6, type: 3}
   skillID: 1
   skillLevel: 1
   skillName: "\uC21C\uCC30\uC790 1"

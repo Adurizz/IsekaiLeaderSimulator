@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireStarter 1
   m_EditorClassIdentifier: 
   ownerClass: 5
-  skillImg: {fileID: 0}
+  skillImg: {fileID: 21300000, guid: da5e971adda3e4de2961712e3899d825, type: 3}
   skillID: 0
   skillLevel: 1
   skillName: "\uBC29\uD654\uBC94 1"

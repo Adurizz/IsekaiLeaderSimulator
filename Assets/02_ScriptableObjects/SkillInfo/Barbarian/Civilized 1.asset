@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Civilized 1
   m_EditorClassIdentifier: 
   ownerClass: 2
-  skillImg: {fileID: 0}
+  skillImg: {fileID: 21300000, guid: 278e499f3a9fe4f859a41c7dae019b20, type: 3}
   skillID: 0
   skillLevel: 1
   skillName: "\uBB38\uBA85\uD654 1"

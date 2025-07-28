@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Deadeye 2
   m_EditorClassIdentifier: 
   ownerClass: 3
-  skillImg: {fileID: 0}
+  skillImg: {fileID: 21300000, guid: b520e282b744640ae932b30bcd9083be, type: 3}
   skillID: 0
   skillLevel: 2
   skillName: "\uBA85\uC0AC\uC218 2"

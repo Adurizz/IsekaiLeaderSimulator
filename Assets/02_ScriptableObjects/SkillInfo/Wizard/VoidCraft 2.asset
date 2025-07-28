@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VoidCraft 2
   m_EditorClassIdentifier: 
   ownerClass: 4
-  skillImg: {fileID: 0}
+  skillImg: {fileID: 21300000, guid: 5d718036693534f7284f0df48de69e99, type: 3}
   skillID: 0
   skillLevel: 2
   skillName: "\uACF5\uD5C8\uD559 2"
