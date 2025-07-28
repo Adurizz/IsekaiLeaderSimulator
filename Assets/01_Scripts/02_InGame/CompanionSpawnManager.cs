@@ -18,6 +18,7 @@ public class CompanionSpawnManager : MonoBehaviour
     private Vector3 spawnOffset = new(0, 0, -8);
     [SerializeField] private Player player;
     [SerializeField] private EHeroClass curSpawnTarget;
+    public EHeroClass CurSpawnTarget => curSpawnTarget;
     private PartyManager partyManager;
     private List<string> nameList = new();
     private Dictionary<string, bool> nameOccupiedDict = new();

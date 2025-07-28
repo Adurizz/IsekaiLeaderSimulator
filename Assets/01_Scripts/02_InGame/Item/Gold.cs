@@ -3,12 +3,12 @@ using UnityEngine;
 public class Gold : Item
 {
     [SerializeField] private int acquireGoldAmount;
-    private Player player;
+    private ExpeditionManager expeditionManager;
 
     protected override void Awake()
     {
         base.Awake();
-        player = FindAnyObjectByType<Player>();
+        expeditionManager = FindAnyObjectByType<ExpeditionManager>();
     }
 
     public void SetGoldAmount(int amount)
@@ -18,6 +18,6 @@ public class Gold : Item
 
     public override void OnAcquired()
     {
-        player.EarnGold(acquireGoldAmount);
+        expeditionManager.EarnGold(acquireGoldAmount);
     }
 }

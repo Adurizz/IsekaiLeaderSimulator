@@ -132,7 +132,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         spawnNumAtOnce = curStageSpawnAttribute[phaseNum].spawnNumAtOnce;
         spawnInterval = curStageSpawnAttribute[phaseNum].spawnInterval;
-        phaseText.text = "Phase: " + (Phase + 1);
+        phaseText.text = "페이즈 " + (Phase + 1);
     }
 
     private void AdjustPhase(int phaseNum)

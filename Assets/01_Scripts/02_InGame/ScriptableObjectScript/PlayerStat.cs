@@ -15,6 +15,15 @@ public class PlayerStat : ActorStat
     [Header("재화")]
     [SerializeField] private int gold;
     [SerializeField] private int upgradeStone;
+    public int UpgradeStone
+    {
+        get { return upgradeStone; }
+        set
+        {
+            upgradeStone = value;
+            IngameUIManager.Instance.SetStoneText(upgradeStone);
+        }
+    }
 
     /// <summary>
     /// 
@@ -57,12 +66,12 @@ public class PlayerStat : ActorStat
     #region 스톤 관련
     private void AdjustStoneAmount(int amount)
     {
-        upgradeStone += amount;
+        UpgradeStone += amount;
     }
 
     public bool ConsumeStone(int amount)
     {
-        if (upgradeStone >= amount)
+        if (UpgradeStone >= amount)
         {
             AdjustStoneAmount(-amount);
             return true;
@@ -74,6 +83,11 @@ public class PlayerStat : ActorStat
     public void EarnStone(int amount)
     {
         AdjustStoneAmount(amount);
+    }
+
+    public void ResetStone()
+    {
+        UpgradeStone = 0;
     }
     #endregion
 }

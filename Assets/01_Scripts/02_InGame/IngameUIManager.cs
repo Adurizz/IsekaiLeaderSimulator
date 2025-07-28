@@ -11,16 +11,60 @@ public class IngameUIManager : Singleton<IngameUIManager>
     [SerializeField] private List<GameObject> trainingOptions;
     [SerializeField] private SkillInfo[] curSelectedSkillInfos = new SkillInfo[3];
     private TrainingCamp trainingCamp;
-    
+    [SerializeField] private TextMeshProUGUI ownGoldText;
+    [SerializeField] private TextMeshProUGUI ownStoneText;
+    private CompanionSpawnManager companionSpawnManager;
+    [SerializeField] private TextMeshProUGUI spawnTargetClass;
+    [SerializeField] private TextMeshProUGUI spawnCostText;
+
+    public void SetGoldText(int value)
+    {
+        ownGoldText.text = value.ToString();
+    }
+
+    public void SetStoneText(int value)
+    {
+        ownStoneText.text = value.ToString();
+    }
 
     protected override void Awake()
     {
         base.Awake();
         expeditionManager = FindAnyObjectByType<ExpeditionManager>();
+        companionSpawnManager = FindAnyObjectByType<CompanionSpawnManager>();
+        SetGoldText(0);
+        SetStoneText(0);
     }
 
     public void ActivateCompanionHireUI()
     {
+        string targetClassText = "";
+        switch (companionSpawnManager.CurSpawnTarget)
+        {
+            case EHeroClass.Soldier:
+                targetClassText = "전사";
+                break;
+            case EHeroClass.Barbarian:
+                targetClassText = "야만전사";
+                break;
+            case EHeroClass.Archor:
+                targetClassText = "궁수";
+                break;
+            case EHeroClass.Wizard:
+                targetClassText = "마법사";
+                break;
+            case EHeroClass.Mechanic:
+                targetClassText = "메카닉";
+                break;
+            case EHeroClass.Druid:
+                targetClassText = "드루이드";
+                break;
+            case EHeroClass.Ninja:
+                targetClassText = "닌자";
+                break;
+        }
+        spawnTargetClass.text = "직업: " + targetClassText;
+        spawnCostText.text = "비용: " + GlobalValueHolder.companionHireCost + "G";
         companionHirePanel.SetActive(true);
         expeditionManager.StopExpedition();
     }

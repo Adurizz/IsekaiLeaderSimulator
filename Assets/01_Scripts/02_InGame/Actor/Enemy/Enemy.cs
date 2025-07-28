@@ -24,9 +24,9 @@ public abstract class Enemy : Actor
     protected Animator animator;
     // 적 탐지 처리
     protected LayerMask heroLayer;
-    [SerializeField] private float curDetectionCool = 0;
+    [SerializeField] protected float curDetectionCool = 0;
     private const float maxDetectionCool = 1f;
-    private const float maxDetectionCoolWhileAttack = 0.1f;
+    protected const float maxDetectionCoolWhileAttack = 0.1f;
     [SerializeField] protected EEnemyState curState;
     protected float curAttackCool;
     protected bool attackInit;
@@ -263,7 +263,7 @@ public abstract class Enemy : Actor
         target.GetComponent<Actor>().GetDamage(attack);
     }
 
-    private void RotateTowardsTarget()
+    protected void RotateTowardsTarget()
     {
         if (Target == null) return;
         Vector3 direction = (Target.transform.position - transform.position).normalized;

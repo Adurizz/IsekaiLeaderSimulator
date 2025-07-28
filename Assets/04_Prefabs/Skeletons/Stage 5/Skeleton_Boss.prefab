@@ -194,6 +194,7 @@ MonoBehaviour:
   curState: 0
   curMoveSpeed: 0
   attackRangeEffect: {fileID: 4203686253785277151}
+  isAttacking: 0
 --- !u!95 &-6005473883487449777
 Animator:
   serializedVersion: 7
@@ -353,6 +354,18 @@ PrefabInstance:
     - target: {fileID: 8663266678477098458, guid: c921f1e3e972c71478152fb813b783c4, type: 3}
       propertyPath: looping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663266678477098458, guid: c921f1e3e972c71478152fb813b783c4, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663266678477098458, guid: c921f1e3e972c71478152fb813b783c4, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663266678477098458, guid: c921f1e3e972c71478152fb813b783c4, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
