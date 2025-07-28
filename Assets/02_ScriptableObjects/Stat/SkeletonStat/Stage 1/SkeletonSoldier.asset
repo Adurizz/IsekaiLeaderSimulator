@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa1e43a7e836764abafc678e617086c, type: 3}
   m_Name: SkeletonSoldier
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  attack: 8
+  maxHealth: 50
+  attack: 5
   attackSpeed: 1
   attackDistance: 2.5
   attackRange: 0
   moveSpeed: 3
-  dropGold: 0
-  dropUpgradeStone: 0
+  dropGold: 1
+  dropUpgradeStone: 1

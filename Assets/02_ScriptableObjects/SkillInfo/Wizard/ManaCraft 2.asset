@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ManaCraft 2
   m_EditorClassIdentifier: 
   ownerClass: 4
+  classImg: {fileID: 21300000, guid: f66351bf01c9b4b32a28d453641fcd34, type: 3}
   skillImg: {fileID: 21300000, guid: 9db2952ea8a264b7d945fb95a4be75a3, type: 3}
   skillID: 1
   skillLevel: 2

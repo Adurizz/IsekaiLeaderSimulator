@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f0747d45141534aa9d1009136625c7, type: 3}
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  attack: 1
+  maxHealth: 50
+  attack: 10
   attackSpeed: 1
-  attackDistance: 20
+  attackDistance: 10
   attackRange: 0
-  moveSpeed: 8
+  moveSpeed: 4
   maxHealthUpgradeLevel: 0
   attackUpgradeLevel: 0
   attackSpeedUpgradeLevel: 0
@@ -25,5 +25,5 @@ MonoBehaviour:
   attackRangeUpgradeLevel: 0
   moveSpeedUpgradeLevel: 0
   rerollUpgradeLevel: 0
-  gold: 87505
-  upgradeStone: 18
+  gold: 98000
+  upgradeStone: 0

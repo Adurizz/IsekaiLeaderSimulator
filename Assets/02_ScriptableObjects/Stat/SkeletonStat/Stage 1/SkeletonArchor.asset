@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SkeletonArchor
   m_EditorClassIdentifier: 
   maxHealth: 50
-  attack: 5
+  attack: 10
   attackSpeed: 1
   attackDistance: 10
   attackRange: 0
   moveSpeed: 3
-  dropGold: 0
-  dropUpgradeStone: 0
+  dropGold: 15
+  dropUpgradeStone: 15

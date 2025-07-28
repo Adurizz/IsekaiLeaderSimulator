@@ -17,6 +17,6 @@ MonoBehaviour:
   attackSpeed: 0.9
   attackDistance: 2.5
   attackRange: 0
-  moveSpeed: 4
-  dropGold: 5
-  dropUpgradeStone: 6
+  moveSpeed: 5
+  dropGold: 10
+  dropUpgradeStone: 10

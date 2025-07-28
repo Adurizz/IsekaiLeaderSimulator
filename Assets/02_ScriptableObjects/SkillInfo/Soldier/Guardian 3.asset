@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Guardian 3
   m_EditorClassIdentifier: 
   ownerClass: 1
+  classImg: {fileID: 21300000, guid: c109182e5241e4c2e91876932b745aac, type: 3}
   skillImg: {fileID: 21300000, guid: 72bf467e89f854bf0b82317273b51fab, type: 3}
   skillID: 0
   skillLevel: 3

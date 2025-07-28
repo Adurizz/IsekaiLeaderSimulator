@@ -46,25 +46,25 @@ public class ExpeditionManager : MonoBehaviour
         switch (curExpeditionResult)
         {
             case EExpeditionResult.Success:
-                result = "¼º°ø";
+                result = "ì„±ê³µ";
                 expeditionResumeButton.SetActive(true);
                 expeditionResultText.color = Color.green; 
                 break;
             case EExpeditionResult.EarlyReturn:
-                result = "Á¶±â ±ÍÈ¯";
+                result = "ì¡°ê¸° ê·€í™˜";
                 expeditionResumeButton.SetActive(true);
                 expeditionResultText.color = Color.yellow;
                 break;
             case EExpeditionResult.Failure:
                 expeditionResumeButton.SetActive(false);
                 expeditionResultText.color = Color.red;
-                result = "½ÇÆĞ";
+                result = "ì‹¤íŒ¨";
                 break;
         }
         expeditionResultText.text = result;
         earnedGoldText.text = curReward.ToString();
         expeditionPausePanel.SetActive(true);
-        revealJunTween.Play();
+        // revealJunTween.Play();
     }
 
     public void StopExpedition()
@@ -99,10 +99,10 @@ public class ExpeditionManager : MonoBehaviour
         switch (result)
         {
             case EExpeditionResult.Success:
-                reward = earnedGold;
+                reward = EarnedGold;
                 break;
             case EExpeditionResult.EarlyReturn:
-                reward = earnedGold / 3;
+                reward = EarnedGold / 3;
                 break;
             case EExpeditionResult.Failure:
                 break;
@@ -115,11 +115,11 @@ public class ExpeditionManager : MonoBehaviour
 
     public void EarnGold(int amount)
     {
-        earnedGold += amount;
+        EarnedGold += amount;
     }
 
     /// <summary>
-    /// º£ÀÌ½º Ä·ÇÁ ÆÇ³Ú - °ÔÀÓ Àç°³ ¹öÆ°¿¡ ¹ÙÀÎµù
+    /// ë² ì´ìŠ¤ ìº í”„ íŒë„¬ - ê²Œì„ ì¬ê°œ ë²„íŠ¼ì— ë°”ì¸ë”©
     /// </summary>
     public void ResumeExpedition()
     {

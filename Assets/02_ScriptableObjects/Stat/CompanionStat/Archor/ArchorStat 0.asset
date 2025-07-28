@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e4ccdb17b80e6499adbbd8653ee0e1, type: 3}
   m_Name: ArchorStat 0
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 50
   attack: 5
   attackSpeed: 1
   attackDistance: 10

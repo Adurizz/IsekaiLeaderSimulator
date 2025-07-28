@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa1e43a7e836764abafc678e617086c, type: 3}
   m_Name: SkeletonBoss
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 10000
   attack: 10
   attackSpeed: 1
   attackDistance: 7
   attackRange: 13
   moveSpeed: 5
-  dropGold: 0
-  dropUpgradeStone: 0
+  dropGold: 1000
+  dropUpgradeStone: 1000

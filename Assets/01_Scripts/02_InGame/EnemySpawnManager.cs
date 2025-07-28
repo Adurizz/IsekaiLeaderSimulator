@@ -60,6 +60,7 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private GameObject enemyEnergyBall;
     private Queue<GameObject> enemyEnergyBallPool = new();
     private const int initEnemyEnergyBallNum = 150;
+    [SerializeField] private GameObject bossPrefab;
 
     #region 스폰 관련 데이터
     [Header("스폰 관련 데이터")]
@@ -77,6 +78,7 @@ public class EnemySpawnManager : MonoBehaviour
     {
         timeChecker.informNewPhase.RemoveListener(AdjustPhase);
         timeChecker.informNewPhase.AddListener(AdjustPhase);
+        SpawnBoss();
     }
 
     #region 스폰 관련 데이터 세팅
@@ -218,6 +220,12 @@ public class EnemySpawnManager : MonoBehaviour
             enemyArrowPool.Enqueue(newArrow);
             return enemyArrowPool.Dequeue();
         }
+    }
+
+    public void SpawnBoss()
+    {
+        GameObject temp = Instantiate(bossPrefab);
+        temp.transform.position = SetSpawnPosition();
     }
 
     public void EnqueueArrow(GameObject arrow)

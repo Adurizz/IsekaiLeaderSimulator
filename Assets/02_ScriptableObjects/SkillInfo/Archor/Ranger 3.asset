@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Ranger 3
   m_EditorClassIdentifier: 
   ownerClass: 3
+  classImg: {fileID: 21300000, guid: 6e85e55e95b82492d89dd9d83afb252c, type: 3}
   skillImg: {fileID: 21300000, guid: 373d0d500f9c849558a5f9ab351eced6, type: 3}
   skillID: 1
   skillLevel: 3

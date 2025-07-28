@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStat", menuName = "ActorStat/PlayerStat")]
 public class PlayerStat : ActorStat
 {
-    [Header("ÇÃ·¹ÀÌ¾î °íÀ¯ ½ºÅÈ")]
+    [Header("í”Œë ˆì´ì–´ ê³ ìœ  ìŠ¤íƒ¯")]
     [SerializeField] private int maxHealthUpgradeLevel;
     [SerializeField] private int attackUpgradeLevel;
     [SerializeField] private int attackSpeedUpgradeLevel;
@@ -12,7 +12,7 @@ public class PlayerStat : ActorStat
     [SerializeField] private int attackRangeUpgradeLevel;
     [SerializeField] private int moveSpeedUpgradeLevel;
     [SerializeField] private int rerollUpgradeLevel;
-    [Header("ÀçÈ­")]
+    [Header("ì¬í™”")]
     [SerializeField] private int gold;
     [SerializeField] private int upgradeStone;
     public int UpgradeStone
@@ -40,7 +40,33 @@ public class PlayerStat : ActorStat
         return temp;
     }
 
-    #region °ñµå °ü·Ã
+    public bool UpgradeStat(int trainType)
+    {
+        if (!ConsumeGold(GlobalValueHolder.upgradeCost))
+            return false;
+
+        switch (trainType)
+        {
+            case (int)ETrainType.Health:
+                ++maxHealthUpgradeLevel;
+                break;
+            case (int)ETrainType.Attack:
+                ++attackUpgradeLevel;
+                break;
+            case (int)ETrainType.AttackSpeed:
+                ++attackSpeedUpgradeLevel;
+                break;
+            case (int)ETrainType.AttackDistance:
+                ++attackDistanceUpgradeLevel;
+                break;
+            case (int)ETrainType.MoveSpeed:
+                ++moveSpeedUpgradeLevel;
+                break;
+        }
+        return true;
+    }
+
+    #region ê³¨ë“œ ê´€ë ¨
     private void AdjustGoldAmount(int amount)
     {
         gold += amount;
@@ -63,7 +89,7 @@ public class PlayerStat : ActorStat
     }
     #endregion
 
-    #region ½ºÅæ °ü·Ã
+    #region ìŠ¤í†¤ ê´€ë ¨
     private void AdjustStoneAmount(int amount)
     {
         UpgradeStone += amount;

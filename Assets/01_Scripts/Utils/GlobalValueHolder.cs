@@ -23,4 +23,5 @@ public static class GlobalValueHolder
     public readonly static int mapSize = maxMapIdx * 2 + 1;
     #endregion
     public readonly static int companionHireCost = 500;
+    public readonly static int upgradeCost = 100;
 }

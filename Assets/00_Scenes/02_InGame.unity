@@ -20197,7 +20197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98189bbb9a6c7c14eb048f723b9eec13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 1
+  test: 0
   player: {fileID: 101255905}
   phaseText: {fileID: 470735906}
   curStageEnemies: []
@@ -20208,23 +20208,30 @@ MonoBehaviour:
   spawnInterval: 0
   enemyArrow: {fileID: 3442728921602429738, guid: f32e5f0cfd5e03546a1d17e46f8fdf1e, type: 3}
   enemyEnergyBall: {fileID: 3442728921602429738, guid: e86cc55b762c87c4985f6fc378bf1b3a, type: 3}
+  bossPrefab: {fileID: 1953785076684098995, guid: cf9b60b48f8679640996476ffd556add, type: 3}
   stageEnemyInfoList:
   - stageNum: 1
     stageEnemies:
+    - enemyPrefab: {fileID: 1953785076684098995, guid: 30405739462ba9d4385afc586722f271, type: 3}
+      probability: 40
+    - enemyPrefab: {fileID: 6225991802835969733, guid: d041a7926a4ef16489110628cff9ec5e, type: 3}
+      probability: 30
     - enemyPrefab: {fileID: 5160263639363893855, guid: 1c3572bb8ae8fd94bae01ee06bb2ebe8, type: 3}
-      probability: 1
-    bossPrefab: {fileID: 1953785076684098995, guid: 2503318a32adfb342a36d38fc4b33570, type: 3}
+      probability: 20
+    - enemyPrefab: {fileID: 1294179265548569663, guid: 10318046e2385954aa179ec2c458882e, type: 3}
+      probability: 10
+    bossPrefab: {fileID: 1953785076684098995, guid: cf9b60b48f8679640996476ffd556add, type: 3}
     spawnAttributes:
-    - spawnNumAtOnce: 1
-      spawnInterval: 100
-    - spawnNumAtOnce: 2
-      spawnInterval: 3
-    - spawnNumAtOnce: 3
-      spawnInterval: 3
-    - spawnNumAtOnce: 4
-      spawnInterval: 3
+    - spawnNumAtOnce: 10
+      spawnInterval: 1
     - spawnNumAtOnce: 5
-      spawnInterval: 3
+      spawnInterval: 10
+    - spawnNumAtOnce: 5
+      spawnInterval: 5
+    - spawnNumAtOnce: 10
+      spawnInterval: 5
+    - spawnNumAtOnce: 10
+      spawnInterval: 1
   - stageNum: 2
     stageEnemies:
     - enemyPrefab: {fileID: 1953785076684098995, guid: 5a7cdad658bdca04fb8263382c62f7f6, type: 3}
@@ -35319,7 +35326,7 @@ RectTransform:
   m_GameObject: {fileID: 1594395919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1835607560}

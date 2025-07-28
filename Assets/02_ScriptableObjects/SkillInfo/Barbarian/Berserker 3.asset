@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Berserker 3
   m_EditorClassIdentifier: 
   ownerClass: 2
+  classImg: {fileID: 21300000, guid: a6336933d683b48b3a06d2e35361e152, type: 3}
   skillImg: {fileID: 21300000, guid: 23656f31e495a4d299d535e4fbff3bdf, type: 3}
   skillID: 1
   skillLevel: 3

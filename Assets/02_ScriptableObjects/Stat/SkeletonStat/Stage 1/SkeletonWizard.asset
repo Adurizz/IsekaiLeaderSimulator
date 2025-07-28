@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SkeletonWizard
   m_EditorClassIdentifier: 
   maxHealth: 50
-  attack: 5
+  attack: 25
   attackSpeed: 1
   attackDistance: 20
   attackRange: 6.5
   moveSpeed: 2
-  dropGold: 0
-  dropUpgradeStone: 0
+  dropGold: 50
+  dropUpgradeStone: 50

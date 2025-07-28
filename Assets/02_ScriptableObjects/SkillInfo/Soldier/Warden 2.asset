@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Warden 2
   m_EditorClassIdentifier: 
   ownerClass: 1
+  classImg: {fileID: 21300000, guid: c109182e5241e4c2e91876932b745aac, type: 3}
   skillImg: {fileID: 21300000, guid: e60cdf3dccc284d499f2ce6ede5baa9d, type: 3}
   skillID: 2
   skillLevel: 2
