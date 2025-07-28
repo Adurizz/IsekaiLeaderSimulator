@@ -17,6 +17,7 @@ public class EnemyArrowController : ProjectileController
         if (curLife >= lifeTime)
         {
             curLife = 0;
+            enemySpawnManager.EnqueueArrow(gameObject);
             gameObject.SetActive(false);
         }
     }
@@ -26,12 +27,8 @@ public class EnemyArrowController : ProjectileController
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Company"))
         {
             other.gameObject.GetComponent<Actor>().GetDamage(damage);
+            enemySpawnManager.EnqueueArrow(gameObject);
             gameObject.SetActive(false);
         }
-    }
-
-    private void OnDisable()
-    {
-        enemySpawnManager.EnqueueArrow(gameObject);
     }
 }

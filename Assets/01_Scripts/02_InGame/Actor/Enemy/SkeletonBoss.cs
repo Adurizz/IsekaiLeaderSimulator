@@ -5,12 +5,15 @@ public class SkeletonBoss : Enemy
 {
     [SerializeField] private ParticleSystem attackRangeEffect;
     [SerializeField] private bool isAttacking;
+    [SerializeField] TrailRenderer weaponTrailRenderer;
+
     public bool IsAttacking
     {
         get { return isAttacking; }
         set 
         { 
-            isAttacking = value; 
+            isAttacking = value;
+            weaponTrailRenderer.enabled = IsAttacking;
             animator.SetBool("isAttacking", isAttacking);
             if (isAttacking == true)
                 Invoke(nameof(DeactivateAttackState), 2.5f);

@@ -40,7 +40,7 @@ public class EnemyEnergyBallController : ProjectileController
         if (curLife >= lifeTime)
         {
             curLife = 0;
-            gameObject.SetActive(false);
+            OnDisableEnergyBall();
         }
     }
 
@@ -57,7 +57,7 @@ public class EnemyEnergyBallController : ProjectileController
 
     private void OnDisableEnergyBall()
     {
-        gameObject.SetActive(false);
         enemySpawnManager.EnqueueEnergyBall(gameObject);
+        gameObject.SetActive(false);
     }
 }

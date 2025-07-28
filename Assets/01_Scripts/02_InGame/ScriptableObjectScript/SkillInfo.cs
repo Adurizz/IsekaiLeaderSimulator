@@ -6,6 +6,7 @@ using UnityEngine;
 public class SkillInfo : ScriptableObject
 {
     public EHeroClass ownerClass;
+    public Sprite classImg;
     public Sprite skillImg;
     public int skillID;
     public int skillLevel;

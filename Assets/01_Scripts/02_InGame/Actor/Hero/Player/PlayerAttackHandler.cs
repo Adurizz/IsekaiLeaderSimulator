@@ -177,11 +177,11 @@ public class PlayerAttackHandler : MonoBehaviour
             return;
 
         GameObject arrow = arrowPoolQueue.Dequeue();
-        arrow.SetActive(true);
         // Debug.Log(transform.position);
         arrow.GetComponent<ProjectileController>().SetOwnerTransform(transform);
         arrow.GetComponent<ProjectileController>().SetTargetTransform(Target.transform);
         animator.SetTrigger("Shot");
+        arrow.SetActive(true);
     }
     #endregion
 }

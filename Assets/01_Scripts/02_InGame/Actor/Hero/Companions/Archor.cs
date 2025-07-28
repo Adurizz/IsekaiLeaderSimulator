@@ -241,7 +241,6 @@ public class Archor : Companion
             return;
 
         GameObject arrow = normalArrowPool.Dequeue();
-        arrow.SetActive(true);
         ArchorArrowController arrowController = arrow.GetComponent<ArchorArrowController>();
         arrowController.SetOwnerTransform(transform);
         arrowController.SetTargetTransform(attackTarget.transform);
@@ -261,6 +260,7 @@ public class Archor : Companion
         }
         else
             arrowController.IsThirdAttack= false;
+        arrow.SetActive(true);
     }
 
     public void EnqueueArrowOnDisable(GameObject arrow)
