@@ -14,10 +14,10 @@ public class ExpeditionTimeChecker : MonoBehaviour
 
     [SerializeField] private float passedTime = 0;
 
-    private const float secondPhaseTime = 100f;
-    private const float thirdPhaseTime = 200f;
-    private const float fourthPhaseTime = 300f;
-    private const float fifthPhaseTime = 400f;
+    private const float secondPhaseTime = 120f;
+    private const float thirdPhaseTime = 240f;
+    private const float fourthPhaseTime = 360f;
+    private const float fifthPhaseTime = 480f;
 
 
 
