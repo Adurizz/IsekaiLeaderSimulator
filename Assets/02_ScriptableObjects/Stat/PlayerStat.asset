@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PlayerStat
   m_EditorClassIdentifier: 
   maxHealth: 10000
-  attack: 1000
-  attackSpeed: 0.5
-  attackDistance: 25
+  attack: 50
+  attackSpeed: 1
+  attackDistance: 10
   attackRange: 0
-  moveSpeed: 8
+  moveSpeed: 4
   maxHealthUpgradeLevel: 0
   attackUpgradeLevel: 0
   attackSpeedUpgradeLevel: 0
@@ -25,5 +25,5 @@ MonoBehaviour:
   attackRangeUpgradeLevel: 0
   moveSpeedUpgradeLevel: 0
   rerollUpgradeLevel: 0
-  gold: 71100
-  upgradeStone: 468
+  gold: 0
+  upgradeStone: 0

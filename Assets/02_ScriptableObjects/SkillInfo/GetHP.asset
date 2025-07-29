@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GetHP
   m_EditorClassIdentifier: 
   ownerClass: 0
-  skillImg: {fileID: 0}
+  classImg: {fileID: 21300000, guid: d09d522604019415e9c870e7e2b37e50, type: 3}
+  skillImg: {fileID: 21300000, guid: 8fcda7d1278e84d56b0d7d99634e0489, type: 3}
   skillID: 0
   skillLevel: 0
   skillName: "\uCCB4\uB825 \uD68C\uBCF5"

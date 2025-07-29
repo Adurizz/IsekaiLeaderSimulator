@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "PlayerStat", menuName = "ActorStat/PlayerStat")]
 public class PlayerStat : ActorStat
@@ -67,9 +68,22 @@ public class PlayerStat : ActorStat
     }
 
     #region 골드 관련
+    public int GetCurHaveGoldAmount()
+    {
+        return gold;
+    }
+
     private void AdjustGoldAmount(int amount)
     {
         gold += amount;
+        if (SceneManager.GetActiveScene().buildIndex == GlobalValueHolder.lobbySceneIndex)
+        {
+
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == GlobalValueHolder.ingameSceneIndex)
+        {
+            IngameUIManager.Instance.SetCurHaveGoldText(gold);
+        }
     }
 
     public bool ConsumeGold(int amount)

@@ -20,12 +20,14 @@ public class CompanionSpawnManager : MonoBehaviour
     [SerializeField] private EHeroClass curSpawnTarget;
     public EHeroClass CurSpawnTarget => curSpawnTarget;
     private PartyManager partyManager;
+    private ExpeditionManager expeditionManager;
     private List<string> nameList = new();
     private Dictionary<string, bool> nameOccupiedDict = new();
 
     private void Awake()
     {
         partyManager = FindAnyObjectByType<PartyManager>();
+        expeditionManager = FindAnyObjectByType<ExpeditionManager>();
         InitNameDict();
     }
 
@@ -112,13 +114,24 @@ public class CompanionSpawnManager : MonoBehaviour
     /// </summary>
     public void TryToHireCompanion()
     {
-        if (player.ConsumeGold(GlobalValueHolder.companionHireCost))
+        if (expeditionManager.EarnedGold < GlobalValueHolder.companionHireCost)
         {
-            SpawnCompanion();
+            int remainGold = GlobalValueHolder.companionHireCost - expeditionManager.EarnedGold;
+            if (player.ConsumeGold(remainGold))
+            {
+                expeditionManager.EarnedGold = 0;
+                SpawnCompanion();
+            }
+            else
+            {
+                IngameUIManager.Instance.RevealNotEnoughGoldUI();
+            }
         }
         else
         {
-            Debug.Log("Not enough gold");
+            expeditionManager.EarnedGold -= GlobalValueHolder.companionHireCost;
+            SpawnCompanion();
         }
+        
     }
 }

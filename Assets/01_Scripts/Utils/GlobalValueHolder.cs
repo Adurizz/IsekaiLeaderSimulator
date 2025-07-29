@@ -24,4 +24,5 @@ public static class GlobalValueHolder
     #endregion
     public readonly static int companionHireCost = 500;
     public readonly static int upgradeCost = 100;
+    public readonly static int companyTrainCost = 50;
 }

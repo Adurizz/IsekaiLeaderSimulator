@@ -34,6 +34,7 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] private List<GameObject> curStageEnemies;
     [SerializeField] private List<int> curStageEnemySpawnProbability;
+    [SerializeField] private GameObject curStageBoss;
     [SerializeField] private int phase = 0;
     public int Phase
     {
@@ -50,7 +51,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private const float limitX = 250f;
     private const float limitZ = 250f;
-    private const int enemyPoolNum = 250;
+    private const int enemyPoolNum = 100;
     private Queue<GameObject> enemyPoolQueue = new();
     private ExpeditionTimeChecker timeChecker;
 
@@ -60,13 +61,13 @@ public class EnemySpawnManager : MonoBehaviour
     [SerializeField] private GameObject enemyEnergyBall;
     private Queue<GameObject> enemyEnergyBallPool = new();
     private const int initEnemyEnergyBallNum = 150;
-    [SerializeField] private GameObject bossPrefab;
 
     #region 스폰 관련 데이터
     [Header("스폰 관련 데이터")]
     [SerializeField] private List<StageSpawnInfo> stageEnemyInfoList;
     private Dictionary<int, List<SpawnEnemyInfo>> stageSpawnEnemyDict = new();
     private Dictionary<int, List<SpawnAttribute>> stageSpawnAttributeDict = new();
+    private Dictionary<int, GameObject> stageBossDict = new();
     #endregion
 
     private void Awake()
@@ -88,6 +89,7 @@ public class EnemySpawnManager : MonoBehaviour
         {
             stageSpawnEnemyDict[info.stageNum] = info.stageEnemies;
             stageSpawnAttributeDict[info.stageNum] = info.spawnAttributes;
+            stageBossDict[info.stageNum] = info.bossPrefab;
         }
     }
 
@@ -99,6 +101,11 @@ public class EnemySpawnManager : MonoBehaviour
     private List<SpawnAttribute> GetStageSpawnAttribute(int stageNum)
     {
         return stageSpawnAttributeDict[stageNum];
+    }
+
+    private GameObject GetBoss(int stageNum)
+    {
+        return stageBossDict[stageNum];
     }
 
     /// <summary>
@@ -114,6 +121,8 @@ public class EnemySpawnManager : MonoBehaviour
             curStageEnemies.Add(enemyInfo.enemyPrefab);
             curStageEnemySpawnProbability.Add(enemyInfo.probability);
         }
+
+        curStageBoss = GetBoss(curStageNum);
     }
 
     /// <summary>
@@ -135,6 +144,8 @@ public class EnemySpawnManager : MonoBehaviour
         spawnNumAtOnce = curStageSpawnAttribute[phaseNum].spawnNumAtOnce;
         spawnInterval = curStageSpawnAttribute[phaseNum].spawnInterval;
         phaseText.text = "페이즈 " + (Phase + 1);
+        if (phaseNum == 4)
+            SpawnBoss();
     }
 
     private void AdjustPhase(int phaseNum)
@@ -224,7 +235,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     public void SpawnBoss()
     {
-        GameObject temp = Instantiate(bossPrefab);
+        GameObject temp = Instantiate(curStageBoss);
         temp.transform.position = SetSpawnPosition();
     }
 

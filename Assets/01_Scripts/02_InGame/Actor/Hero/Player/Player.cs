@@ -55,9 +55,19 @@ public class Player : Hero
         return playerStat.ConsumeGold(amount);
     }
 
+    public int GetCurHaveGoldAmount()
+    {
+        return playerStat.GetCurHaveGoldAmount();
+    }
+
     public void EarnUpgradeStone(int amount)
     {
         playerStat.EarnStone(amount);
+    }
+
+    public void ResetStone()
+    {
+        playerStat.ResetStone();
     }
 
     public bool ConsumeUpgradeStone(int amount)

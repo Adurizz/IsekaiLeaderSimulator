@@ -14,6 +14,7 @@ public struct SkillInfoHolder
 
 public class TrainingCamp : MonoBehaviour
 {
+    private Player player;
     [SerializeField] private List<SkillInfoHolder> skillInfoHolders;
     private PartyManager partyManager;
     private Dictionary<EHeroClass, List<List<SkillInfo>>> skillInfoDictData;
@@ -228,6 +229,16 @@ public class TrainingCamp : MonoBehaviour
             return;
         }
 
-        curSelectedCompanions[index].LevelUp(curSelectedSkillIndexes[index]);
+        if (player == null)
+            player = FindAnyObjectByType<Player>();
+
+        if (player.ConsumeUpgradeStone(GlobalValueHolder.companyTrainCost))
+        {
+            curSelectedCompanions[index].LevelUp(curSelectedSkillIndexes[index]);
+        }
+        else
+        {
+            IngameUIManager.Instance.RevealNotEnoughStoneUI();
+        }
     }
 }

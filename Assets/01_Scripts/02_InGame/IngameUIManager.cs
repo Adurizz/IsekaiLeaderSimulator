@@ -5,26 +5,39 @@ using UnityEngine.UI;
 
 public class IngameUIManager : Singleton<IngameUIManager>
 {
+    [SerializeField] private Player player;
     [SerializeField] private GameObject companionHirePanel;
     [SerializeField] private GameObject trainingCampPanel;
     private ExpeditionManager expeditionManager;
     [SerializeField] private List<GameObject> trainingOptions;
     [SerializeField] private SkillInfo[] curSelectedSkillInfos = new SkillInfo[3];
     private TrainingCamp trainingCamp;
-    [SerializeField] private TextMeshProUGUI ownGoldText;
+    [SerializeField] private TextMeshProUGUI haveGoldText;
+    [SerializeField] private TextMeshProUGUI earnedGoldText;
     [SerializeField] private TextMeshProUGUI ownStoneText;
+    [SerializeField] private TextMeshProUGUI ownStoneTextInTrainingCamp;
     private CompanionSpawnManager companionSpawnManager;
     [SerializeField] private TextMeshProUGUI spawnTargetClass;
     [SerializeField] private TextMeshProUGUI spawnCostText;
+    [SerializeField] private Jun_TweenRuntime notEnoughStoneImg;
+    [SerializeField] private Jun_TweenRuntime notEnoughStoneText;
+    [SerializeField] private Jun_TweenRuntime notEnoughGoldImg;
+    [SerializeField] private Jun_TweenRuntime notEnoughGoldText;
 
-    public void SetGoldText(int value)
+    public void SetCurHaveGoldText(int value)
     {
-        ownGoldText.text = value.ToString();
+        haveGoldText.text = value.ToString();
+    }
+
+    public void SetCurEarnedGoldText(int value)
+    {
+        earnedGoldText.text = value.ToString();
     }
 
     public void SetStoneText(int value)
     {
         ownStoneText.text = value.ToString();
+        ownStoneTextInTrainingCamp.text = value.ToString();
     }
 
     protected override void Awake()
@@ -32,8 +45,10 @@ public class IngameUIManager : Singleton<IngameUIManager>
         base.Awake();
         expeditionManager = FindAnyObjectByType<ExpeditionManager>();
         companionSpawnManager = FindAnyObjectByType<CompanionSpawnManager>();
-        SetGoldText(10000);
-        SetStoneText(10000);
+        // player = FindAnyObjectByType<Player>();
+        SetCurHaveGoldText(player.GetCurHaveGoldAmount());
+        SetCurEarnedGoldText(0);
+        SetStoneText(0);
     }
 
     public void ActivateCompanionHireUI()
@@ -95,7 +110,32 @@ public class IngameUIManager : Singleton<IngameUIManager>
     {
         if (trainingCamp == null)
             trainingCamp = FindAnyObjectByType<TrainingCamp>();
-
         trainingCamp.UpgradeTarget(index);
+    }
+
+    public void RevealNotEnoughStoneUI()
+    {
+        notEnoughStoneImg.gameObject.SetActive(true);
+        notEnoughStoneImg.Play();
+        notEnoughStoneText.Play();
+        Invoke(nameof(UnableNotEnoughStoneUI), 1.2f);
+    }
+
+    private void UnableNotEnoughStoneUI()
+    {
+        notEnoughStoneImg.gameObject.SetActive(false);
+    }
+
+    public void RevealNotEnoughGoldUI()
+    {
+        notEnoughGoldImg.gameObject.SetActive(true);
+        notEnoughGoldImg.Play();
+        notEnoughGoldText.Play();
+        Invoke(nameof(UnableNotEnoughGoldUI), 1.2f);
+    }
+
+    private void UnableNotEnoughGoldUI()
+    {
+        notEnoughGoldImg.gameObject.SetActive(false);
     }
 }

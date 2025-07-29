@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class ExpeditionManager : MonoBehaviour
 {
-    [SerializeField] private PlayerStat playerStat;
+    private Player player;
     [SerializeField] private StageInfo stageInfo;
     [SerializeField] private GameObject expeditionPausePanel;
     [SerializeField] private GameObject expeditionResumeButton;
@@ -19,7 +19,7 @@ public class ExpeditionManager : MonoBehaviour
         set 
         { 
             earnedGold = value; 
-            IngameUIManager.Instance.SetGoldText(earnedGold);
+            IngameUIManager.Instance.SetCurEarnedGoldText(earnedGold);
         }
     }
     [SerializeField] private EExpeditionResult curExpeditionResult;
@@ -32,6 +32,7 @@ public class ExpeditionManager : MonoBehaviour
     {
         timeChecker = FindAnyObjectByType<ExpeditionTimeChecker>();
         partyManager = FindAnyObjectByType<PartyManager>();
+        player = FindAnyObjectByType<Player>();
     }
 
     public void OnReachedBaseCamp()
@@ -133,8 +134,8 @@ public class ExpeditionManager : MonoBehaviour
             stageInfo.AddMaxOpenedStageNum();
         }
 
-        playerStat.EarnGold(curReward);
-        playerStat.ResetStone();
+        player.EarnGold(curReward);
+        player.ResetStone();
         
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(GlobalValueHolder.lobbySceneIndex);

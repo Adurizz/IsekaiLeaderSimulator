@@ -259,7 +259,7 @@ public abstract class Enemy : Actor
 
     public virtual void MeleeAttackHit()
     {
-        Debug.Log("Hit: " + Target.name);
+        // Debug.Log("Hit: " + Target.name);
         target.GetComponent<Actor>().GetDamage(attack);
     }
 
@@ -276,6 +276,9 @@ public abstract class Enemy : Actor
 
     public override bool GetDamage(float damage, bool isKnockBack, Vector3 knockoutDir)
     {
+        if (IsDead)
+            return false;
+
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         if (curHealth <= 0f)
         {
