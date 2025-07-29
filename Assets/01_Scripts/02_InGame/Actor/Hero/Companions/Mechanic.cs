@@ -252,7 +252,7 @@ public class Mechanic : Companion
 
     private void FSM()
     {
-        if (CurState != EMechanicState.InstallCannon && attackTarget == null && CurState != EMechanicState.Idle)
+        if (CurState != EMechanicState.InstallCannon && attackTarget == null && CurState != EMechanicState.Dead && CurState != EMechanicState.Idle)
             CurState = EMechanicState.Idle;
 
         switch (CurState)

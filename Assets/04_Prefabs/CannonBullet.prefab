@@ -156,6 +156,7 @@ MonoBehaviour:
   damage: 0
   isTargeted: 1
   targetTransform: {fileID: 0}
+  boomEffect: {fileID: 1142775704437062228, guid: 434842643f1a6d24890a3aeef1fae778, type: 3}
 --- !u!1 &5740751283052788460
 GameObject:
   m_ObjectHideFlags: 0

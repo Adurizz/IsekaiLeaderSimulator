@@ -3,6 +3,7 @@ using UnityEngine;
 public class CannonBulletController : ProjectileController
 {
     private Cannon ownerCannon;
+    [SerializeField] private GameObject boomEffect;
 
     public override void SetOwnerTransform(Transform newOwnerTransform)
     {
@@ -16,6 +17,7 @@ public class CannonBulletController : ProjectileController
         {
             other.gameObject.GetComponent<Actor>().GetDamage(damage);
             ownerCannon.EnqueueCannonBulletOnDisable(gameObject);
+            Instantiate(boomEffect, transform.position, boomEffect.transform.rotation);
             gameObject.SetActive(false);
         }
     }
