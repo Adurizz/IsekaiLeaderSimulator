@@ -1,8 +1,10 @@
 using NUnit.Framework.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerMoveHandler), typeof(PlayerAttackHandler))]
 public class Player : Hero
@@ -13,8 +15,11 @@ public class Player : Hero
     private PlayerMoveHandler moveHandler;
     private PlayerAttackHandler attackHandler;
     private Animator animator;
-
+    [SerializeField] private Image playerGotDamagedImg;
     [HideInInspector] public UnityEvent onStatInitiated = new();
+    private bool damagedEffectCorStarted;
+    private int damagedEffectCorUpdateTimes = 100;
+    private float damagedEffectCorUpdatePeriod = 2f;
 
     private void Awake()
     {
@@ -79,6 +84,11 @@ public class Player : Hero
     {
         Debug.Log("Player Attacked");
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
+        getDamageEffect.Play();
+        if (damagedEffectCorStarted)
+            playerGotDamagedImg.color = Color.white;
+        else
+            StartCoroutine(GotDamagedImageEffectCor());
         if (curHealth <= 0f)
         {
             // TODO: 사망 관련 처리
@@ -108,5 +118,19 @@ public class Player : Hero
     {
         ExpeditionManager expeditionManager = FindAnyObjectByType<ExpeditionManager>();
         expeditionManager.OnPlayerDied();
+    }
+
+    private IEnumerator GotDamagedImageEffectCor()
+    {
+        damagedEffectCorStarted = true;
+        playerGotDamagedImg.color = Color.white;
+
+        while (playerGotDamagedImg.color.a > 0)
+        {
+            float tempAlpha = playerGotDamagedImg.color.a - (float)1 / damagedEffectCorUpdateTimes;
+            playerGotDamagedImg.color = new Color(1, 1, 1, tempAlpha);
+            yield return new WaitForSeconds(damagedEffectCorUpdatePeriod / damagedEffectCorUpdateTimes);
+        }
+        damagedEffectCorStarted = false;
     }
 }

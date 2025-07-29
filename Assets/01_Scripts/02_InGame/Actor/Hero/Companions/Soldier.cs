@@ -246,6 +246,7 @@ public class Soldier : Companion
         }
 
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
+        getDamageEffect.Play();
         if (curHealth <= 0f)
         {
             // TODO: 사망 관련 처리

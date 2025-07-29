@@ -32,7 +32,6 @@ public class ExpeditionManager : MonoBehaviour
     {
         timeChecker = FindAnyObjectByType<ExpeditionTimeChecker>();
         partyManager = FindAnyObjectByType<PartyManager>();
-        player = FindAnyObjectByType<Player>();
     }
 
     public void OnReachedBaseCamp()
@@ -133,6 +132,9 @@ public class ExpeditionManager : MonoBehaviour
         { 
             stageInfo.AddMaxOpenedStageNum();
         }
+
+        if (player == null)
+            player = FindAnyObjectByType<Player>();
 
         player.EarnGold(curReward);
         player.ResetStone();

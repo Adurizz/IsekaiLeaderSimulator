@@ -15,6 +15,7 @@ public class ArchorArrowController : ProjectileController
         set { isThirdAttack = value; }
     }
     private Archor ownerArchor;
+    [SerializeField] private GameObject thirdArrowHitEffect;
 
     protected override void Awake()
     {
@@ -32,7 +33,11 @@ public class ArchorArrowController : ProjectileController
         if (other.gameObject.CompareTag("Enemy"))
         {
             float newDamage = damage;
-            if (isThirdAttack) newDamage *= 3;
+            if (isThirdAttack)
+            {
+                newDamage *= 3;
+                GameObject thirdHitEffect = Instantiate(thirdArrowHitEffect, other.transform.position, thirdArrowHitEffect.transform.rotation);
+            }
 
             if (isKnockBack)
             {

@@ -25,5 +25,5 @@ MonoBehaviour:
   attackRangeUpgradeLevel: 0
   moveSpeedUpgradeLevel: 0
   rerollUpgradeLevel: 0
-  gold: 19500
-  upgradeStone: 0
+  gold: 15500
+  upgradeStone: 4700

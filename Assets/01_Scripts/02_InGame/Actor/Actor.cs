@@ -17,6 +17,7 @@ public abstract class Actor : MonoBehaviour
     [SerializeField] protected float attackRange;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected bool isDead;
+    [SerializeField] protected ParticleSystem getDamageEffect;
     public bool IsDead { get { return isDead; } }
 
     public virtual void InitStat()

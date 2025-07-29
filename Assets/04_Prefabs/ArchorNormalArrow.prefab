@@ -159,6 +159,7 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   isKnockBack: 0
   isThirdAttack: 0
+  thirdArrowHitEffect: {fileID: 295045192656343775, guid: fea2c802bfb2dc348a02dbaa90c1d7ef, type: 3}
 --- !u!96 &-5594528341286764469
 TrailRenderer:
   serializedVersion: 3
