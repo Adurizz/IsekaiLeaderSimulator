@@ -36,6 +36,8 @@ public class Barbarian : Companion
     private BloodWarrior bloodWarriorScript;
     [SerializeField] private bool isBloodWarrior;
     [SerializeField] private ParticleSystem bloodWarriorEffect;
+    [SerializeField] private ParticleSystem berserkerEffect;
+    [SerializeField] private ParticleSystem civilizedEffect;
 
     protected override void Awake()
     {
@@ -228,7 +230,10 @@ public class Barbarian : Companion
             //attackTarget = null;
             //FindNearestEnemy();
             if (isBerserker)
+            {
                 UpgradeAttack(berserkerScript.AttackReinforceAmount);
+                berserkerEffect.Play();
+            }
         }
         if (isBloodWarrior)
         {
@@ -255,6 +260,7 @@ public class Barbarian : Companion
     {
         if (!isCivilized)
             isCivilized = true;
+        civilizedEffect.Play();
     }
 
     public void MakeBerserker()

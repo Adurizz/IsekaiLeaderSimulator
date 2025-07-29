@@ -35,6 +35,7 @@ public class Soldier : Companion
     private GuardianSkill guardianSkill;
     [SerializeField] private bool isAttackKnockBack;
     [SerializeField] private bool canDodge;
+    [SerializeField] private ParticleSystem dodgeEffect;
 
     protected override void Awake()
     {
@@ -241,6 +242,7 @@ public class Soldier : Companion
             if (rand < 3)
             {
                 Debug.Log("회피 성공!");
+                dodgeEffect.Play();
                 return false;
             }
         }
