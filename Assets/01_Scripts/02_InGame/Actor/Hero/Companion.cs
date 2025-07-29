@@ -32,8 +32,9 @@ public abstract class Companion : Hero
     protected LayerMask enemyLayer;
     protected const int skillNum = 3;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         companionStatManager = FindAnyObjectByType<CompanionStatManager>();
         partyManager = FindAnyObjectByType<PartyManager>();
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -89,6 +90,7 @@ public abstract class Companion : Hero
         isDead = true;
         IsStopped = true;
         partyManager.UnregisterPartyMember(this);
+        DestroyHPBar();
         Invoke(nameof(VanishBody), 3f);
     }
 

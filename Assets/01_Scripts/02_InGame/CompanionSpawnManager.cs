@@ -97,6 +97,7 @@ public class CompanionSpawnManager : MonoBehaviour
         GameObject spawnedCompanion = Instantiate(GetHeroPrefab(curSpawnTarget));
         spawnedCompanion.transform.localPosition = player.transform.localPosition + spawnOffset;
         spawnedCompanion.GetComponent<Companion>().SetName(GetUnoccupiedRandomName());
+        spawnedCompanion.GetComponent<Hero>().SetNameText(spawnedCompanion.GetComponent<Hero>().ActorName);
 
         partyManager.RegisterPartyMember(spawnedCompanion.GetComponent<Companion>());
     }

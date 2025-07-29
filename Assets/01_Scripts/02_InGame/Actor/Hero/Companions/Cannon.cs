@@ -65,8 +65,9 @@ public class Cannon : Companion
         return;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         FindNearestEnemyWithCoolTime();
         RotateTowardsTarget();
         PrepareAttack();
@@ -196,6 +197,7 @@ public class Cannon : Companion
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         getDamageEffect.Play();
+        UpdateHPBar();
         if (curHealth <= 0f)
         {
             // TODO: 사망 관련 처리
@@ -211,6 +213,7 @@ public class Cannon : Companion
         isDead = true;
         ownerMechanic.EnqueueCannonOnDisable(gameObject);
         cannonDestroyEffect.Play();
+        DestroyHPBar();
         Invoke(nameof(VanishBody), 3f);
     }
 

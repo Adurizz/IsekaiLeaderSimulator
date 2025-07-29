@@ -138,6 +138,8 @@ MonoBehaviour:
   getDamageEffect: {fileID: 6134490980279248189}
   heroClass: 5
   gotHealedEffect: {fileID: 1207937748465297876}
+  hpBarPrefab: {fileID: 6455081363663812961, guid: 4c73ee968d83f2442b45257d947af445, type: 3}
+  hpBarGO: {fileID: 0}
   level: 0
   skillLevels: 000000000000000000000000
   levelUpEvent:

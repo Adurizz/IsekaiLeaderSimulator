@@ -21,8 +21,9 @@ public class Player : Hero
     private int damagedEffectCorUpdateTimes = 100;
     private float damagedEffectCorUpdatePeriod = 2f;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         moveHandler = GetComponent<PlayerMoveHandler>();
         attackHandler = GetComponent<PlayerAttackHandler>();
         animator = GetComponentInChildren<Animator>();
@@ -85,6 +86,7 @@ public class Player : Hero
         Debug.Log("Player Attacked");
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         getDamageEffect.Play();
+        UpdateHPBar();
         if (damagedEffectCorStarted)
             playerGotDamagedImg.color = Color.white;
         else
@@ -111,6 +113,7 @@ public class Player : Hero
     public override void OnDead()
     {
         isDead = true;
+        DestroyHPBar();
         Invoke(nameof(ProcessDeadWithExpeditionManager), 3f);
     }
 

@@ -60,8 +60,9 @@ public class Soldier : Companion
         protectTarget = newTarget;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         FindNearestEnemyWithCoolTime();
         FSM();
     }
@@ -249,6 +250,7 @@ public class Soldier : Companion
 
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         getDamageEffect.Play();
+        UpdateHPBar();
         if (curHealth <= 0f)
         {
             // TODO: 사망 관련 처리

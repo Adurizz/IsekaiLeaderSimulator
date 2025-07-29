@@ -260,6 +260,8 @@ public abstract class Enemy : Actor
     public virtual void MeleeAttackHit()
     {
         // Debug.Log("Hit: " + Target.name);
+        if (target == null)
+            return;
         target.GetComponent<Actor>().GetDamage(attack);
     }
 

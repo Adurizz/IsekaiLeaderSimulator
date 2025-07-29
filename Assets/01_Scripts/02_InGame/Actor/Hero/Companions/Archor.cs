@@ -62,8 +62,9 @@ public class Archor : Companion
         fireCount = 0;
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         FindNearestEnemyWithCoolTime();
         FSM();
     }
@@ -272,6 +273,7 @@ public class Archor : Companion
     {
         curHealth = Mathf.Clamp(curHealth - damage, 0, maxHealth);
         getDamageEffect.Play();
+        UpdateHPBar();
         if (curHealth <= 0f)
         {
             // TODO: 사망 관련 처리
