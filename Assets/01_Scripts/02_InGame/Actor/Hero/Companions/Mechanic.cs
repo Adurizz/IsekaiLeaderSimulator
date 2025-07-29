@@ -158,6 +158,7 @@ public class Mechanic : Companion
         {
             GameObject temp = Instantiate(cannonPrefab, cannonPoolGO.transform);
             temp.GetComponent<Cannon>().InformOwner(this);
+            temp.GetComponent<Cannon>().DeactivateHPBar();
             temp.SetActive(false);
             cannonPool.Enqueue(temp);
         }
@@ -195,6 +196,7 @@ public class Mechanic : Companion
         GameObject cannon = cannonPool.Dequeue();
         cannon.GetComponent<Cannon>().SetStat(cannonStats[skillLevels[(int)EMechanicSkill.Overheat]]);
         cannon.GetComponent<Cannon>().InitStat();
+        cannon.GetComponent<Cannon>().EnableHPBar();
         cannon.SetActive(true);
         cannon.transform.position = transform.position;
     }

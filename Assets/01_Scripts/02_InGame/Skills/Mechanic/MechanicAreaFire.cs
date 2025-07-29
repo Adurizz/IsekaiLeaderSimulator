@@ -19,6 +19,7 @@ public class MechanicAreaFire : MonoBehaviour
     private void Update()
     {
         ApplyDamageWithInterval();
+        CheckLifetime();
     }
 
 #if UNITY_EDITOR
@@ -39,6 +40,17 @@ public class MechanicAreaFire : MonoBehaviour
         }
     }
 
+    private void CheckLifetime()
+    {
+        curLife += Time.deltaTime;
+        if (curLife > maxLifeTime)
+        {
+            ownerMechanic.EnqueueAreaFireOnDisable(gameObject);
+            gameObject.SetActive(false);
+            curLife = 0;
+        }
+    }
+
     public void ApplyAreaDamage(Vector3 position, float range, float damageMultiplier = 1f)
     {
         Collider[] colliders = Physics.OverlapSphere(position, range, enemyLayer);
@@ -50,10 +62,5 @@ public class MechanicAreaFire : MonoBehaviour
 
             col.gameObject.GetComponent<Actor>().GetDamage(ownerMechanic.Attack * damageMultiplier);
         }
-    }
-
-    public void OnDisable()
-    {
-        ownerMechanic.EnqueueAreaFireOnDisable(gameObject);
     }
 }

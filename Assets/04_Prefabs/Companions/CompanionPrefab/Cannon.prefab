@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorStat: {fileID: 11400000, guid: 81031427e8b1fbb41b2f5e42325b07af, type: 2}
-  actorName: actor
+  actorName: Cannon
   maxHealth: 0
   curHealth: 0
   attack: 0

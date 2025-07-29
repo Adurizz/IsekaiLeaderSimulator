@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CannonStat 2
   m_EditorClassIdentifier: 
   maxHealth: 200
-  attack: 4
+  attack: 25
   attackSpeed: 0.8
   attackDistance: 14
   attackRange: 0

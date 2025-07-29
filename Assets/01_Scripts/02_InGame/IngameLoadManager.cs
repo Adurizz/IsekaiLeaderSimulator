@@ -21,9 +21,8 @@ public class IngameLoadManager : MonoBehaviour
         if (!Test)
         {
             LoadMap();
-            LoadCamps();
         }
-        
+        LoadCamps();
         BakeNavMeshSurface();
         LoadEnvironmentProps();
         LoadPlayer();

@@ -294,7 +294,7 @@ MonoBehaviour:
   - 10
   - 20
   - 30
-  bloodDrainRate: 0.1
+  bloodDrainRate: 0.5
 --- !u!1001 &1181754345611875552
 PrefabInstance:
   m_ObjectHideFlags: 0

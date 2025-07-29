@@ -17,7 +17,7 @@ MonoBehaviour:
   attackSpeed: 1
   attackDistance: 10
   attackRange: 0
-  moveSpeed: 4
+  moveSpeed: 6
   maxHealthUpgradeLevel: 0
   attackUpgradeLevel: 0
   attackSpeedUpgradeLevel: 0
@@ -25,5 +25,5 @@ MonoBehaviour:
   attackRangeUpgradeLevel: 0
   moveSpeedUpgradeLevel: 0
   rerollUpgradeLevel: 0
-  gold: 8500
-  upgradeStone: 3271
+  gold: 94500
+  upgradeStone: 100000

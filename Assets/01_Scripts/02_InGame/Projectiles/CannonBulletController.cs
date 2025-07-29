@@ -15,9 +15,9 @@ public class CannonBulletController : ProjectileController
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            Instantiate(boomEffect, transform.position, boomEffect.transform.rotation);
             other.gameObject.GetComponent<Actor>().GetDamage(damage);
             ownerCannon.EnqueueCannonBulletOnDisable(gameObject);
-            Instantiate(boomEffect, transform.position, boomEffect.transform.rotation);
             gameObject.SetActive(false);
         }
     }

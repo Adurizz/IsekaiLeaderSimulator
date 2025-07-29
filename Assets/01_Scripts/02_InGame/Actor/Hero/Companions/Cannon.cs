@@ -1,6 +1,8 @@
 using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cannon : Companion
 {
@@ -18,6 +20,19 @@ public class Cannon : Companion
 
     protected override void Awake()
     {
+        hpBarGO = Instantiate(hpBarPrefab);
+        target = transform;
+        canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        hpBarGO.transform.SetParent(canvas);
+        hpBarGO.transform.SetSiblingIndex(0);
+
+        hpBarRectTransform = hpBarGO.GetComponent<RectTransform>();
+        hpBarRectTransform.localPosition = Vector3.zero;
+        hpBarRectTransform.localRotation = Quaternion.Euler(0, 0, 0);
+        hpBarRectTransform.localScale = Vector3.one;
+        hpSlider = hpBarRectTransform.GetComponent<Slider>();
+        mainCam = Camera.main;
+        nameText = hpBarGO.GetComponentInChildren<TextMeshProUGUI>();
         CreateCannonBulletPool();
     }
 
@@ -104,6 +119,16 @@ public class Cannon : Companion
             PerformAttack();
             curAttackCool = 0;
         }
+    }
+
+    public void EnableHPBar()
+    {
+        hpBarGO.SetActive(false);
+    }
+
+    public void DeactivateHPBar()
+    {
+        hpBarGO.SetActive(false);
     }
 
     protected override void PerformAttack()

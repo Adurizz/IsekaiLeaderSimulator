@@ -11,15 +11,15 @@ public abstract class Hero : Actor
     public ParticleSystem GotHealedEffect { get { return gotHealedEffect; } }
 
     #region HP¹Ù
-    private Transform target;
-    private RectTransform canvas;
-    private RectTransform hpBarRectTransform;
-    private Camera mainCam;
+    protected Transform target;
+    protected RectTransform canvas;
+    protected RectTransform hpBarRectTransform;
+    protected Camera mainCam;
 
-    [SerializeField] private GameObject hpBarPrefab;
-    [SerializeField] private GameObject hpBarGO;
-    private Slider hpSlider;
-    private TextMeshProUGUI nameText;
+    [SerializeField] protected GameObject hpBarPrefab;
+    [SerializeField] protected GameObject hpBarGO;
+    protected Slider hpSlider;
+    protected TextMeshProUGUI nameText;
 
     protected virtual void Awake()
     {
@@ -27,6 +27,7 @@ public abstract class Hero : Actor
         target = transform;
         canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
         hpBarGO.transform.SetParent(canvas);
+        hpBarGO.transform.SetSiblingIndex(0);
 
         hpBarRectTransform = hpBarGO.GetComponent<RectTransform>();
         hpBarRectTransform.localPosition = Vector3.zero;

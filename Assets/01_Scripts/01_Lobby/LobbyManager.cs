@@ -123,4 +123,9 @@ public class LobbyManager : MonoBehaviour
         regionSelectionUIRefreshCor = null;
         Debug.Log("Coroutine End");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
